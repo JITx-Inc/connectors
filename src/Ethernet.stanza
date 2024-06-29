@@ -31,9 +31,9 @@ val JD0-0001NL-COLS = 5
 val JD0-0001NL-EXTRA = [4]
 val JD0-0001NL-GRID-PADS = JD0-0001NL-GRID-ROWS * JD0-0001NL-COLS
 
-val JD0-0001NL-LEAD = tol(3.50, 0.25)
-val JD0-0001NL-GRID-LEAD-WIDTH = tol(0.9, 0.08)
-val JD0-0001NL-ROW-LEAD-WIDTH = tol(1.2, 0.008)
+val JD0-0001NL-LEAD = 3.50 +/- 0.25
+val JD0-0001NL-GRID-LEAD-WIDTH = 0.9 +/- 0.08
+val JD0-0001NL-ROW-LEAD-WIDTH = 1.2 +/- 0.008
 
 val JD0-0001NL-ROW-LEAD-DIAM = 1.2
 val JD0-0001NL-ROW-LEAD-TOL = 0.008
@@ -303,13 +303,6 @@ public defn build-cutouts (
           generate-hole-row-seg(Point(start-x, start-y), true)
         (f) : false
 
-public defmethod build-courtyard (
-  pkg:Ethernet,
-  vp:VirtualLP,
-) -> False:
-  build-courtyard-origin(vp)
-  ;val excess = courtyard-excess(pkg)
-
 public defmethod courtyard-excess (pkg:Ethernet) -> Double :
   PANEL-CUTOUT-WIDTH - JD0-0001NL-WIDTH
 
@@ -322,9 +315,9 @@ public defmethod build-silkscreen (
 
 defn default-package-body () :
   PackageBody(
-    width = tol(JD0-0001NL-WIDTH, JD0-0001NL-TOL)
-    length = tol(JD0-0001NL-LENGTH, JD0-0001NL-TOL)
-    height = tol(JD0-0001NL-HEIGHT, JD0-0001NL-TOL)
+    width = JD0-0001NL-WIDTH +/- JD0-0001NL-TOL
+    length = JD0-0001NL-LENGTH +/- JD0-0001NL-TOL
+    height = JD0-0001NL-HEIGHT +/- JD0-0001NL-TOL
     pose = loc(2.24, 0.0)
   )
 
@@ -562,20 +555,24 @@ public pcb-component JD0-0001NL :
   reference-prefix = "J"
   pin-properties :
     [pin:Ref | pads:Ref ... | side:Dir]
-    [p[1] | p[1] | Left]
-    [p[2]| p[2] | Left]
-    [p[3] | p[3] | Left]
-    [p[4] | p[4] | Left]
-    [p[5] | p[5] | Left]
-    [p[6] | p[6] | Left]
-    [p[7] | p[7] | Left]
-    [p[8] | p[8] | Left]
-    [p[9] | p[9] | Right]
-    [p[10] | p[10] | Right]
-    [p[11] | p[11] | Right]
-    [p[12] | p[12] | Right]
-    [p[13] | p[13] | Right]
-    [p[14] | p[14] | Right]
+    [CT      | p[1]  | Left]
+    [DP[0].N | p[2]  | Left]
+    [DP[0].P | p[3]  | Left]
+    [DP[1].N | p[4]  | Left]
+    [DP[1].P | p[5]  | Left]
+    [DP[2].N | p[6]  | Left]
+    [DP[2].P | p[7]  | Left]
+    [DP[3].N | p[8]  | Left]
+    [DP[3].P | p[9]  | Right]
+    [DP[4].N | p[10] | Right]
+    [LED_G+ | p[11] | Right]
+    [LED_G- | p[12] | Right]
+    [LED_Y+ | p[13] | Right]
+    [LED_Y- | p[14] | Right]
+    [SHEILD[0] | p[15] | Right]
+    [SHEILD[1] | p[16] | Right]
+    [MOUNT[0]  | p[17] | Right]
+    [MOUNT[1]  | p[18] | Right]
 
   val pkg = Ethernet()
   val lp = create-landpattern(pkg)
