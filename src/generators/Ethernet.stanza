@@ -4,25 +4,24 @@ defpackage connectors/Ethernet :
   import collections
   import jitx
   import jitx/commands
-  import jsl/symbols/box-symbol
-  import jsl/symbols/SymbolDefn
   import jitx/shapes
 
+  import jsl/design/settings
   import jsl/ensure
+  import jsl/errors
+  import jsl/geometry/basics
+  import jsl/geometry/box
+  import jsl/geometry/LineRectangle
   import jsl/landpatterns/packages
   import jsl/landpatterns/VirtualLP
   import jsl/landpatterns/pad-planner
   import jsl/landpatterns/numbering
   import jsl/landpatterns/silkscreen
-  import jsl/errors
   import jsl/landpatterns/leads
-  import jsl/geometry/LineRectangle
-  import jsl/geometry/box
   import jsl/landpatterns/quad
   import jsl/landpatterns/pads
   import jsl/landpatterns/courtyard
-  import jsl/design/settings
-  import jsl/geometry/basics
+
 
 val PANEL-CUTOUT-WIDTH = 16.65
 
@@ -546,38 +545,3 @@ defn default-keep-outs () :
     transform(loc(Point(13.67 - secondary-ko-width, 0.0)), Rectangle(SW, secondary-ko-width, 2.0))
   ]
 
-public pcb-component JD0-0001NL :
-  name = "553-2359-ND"
-  description = "CONN JACK 1PORT 1000 BASE-T PCB"
-  manufacturer = "Pulse Electronics"
-  mpn = "JD0-0001NL"
-  datasheet = "https://productfinder.pulseelectronics.com/api/open/part-attachments/datasheet/JD0-0001NL"
-  reference-prefix = "J"
-  pin-properties :
-    [pin:Ref | pads:Ref ... | side:Dir]
-    [CT      | p[1]  | Left]
-    [DP[0].N | p[2]  | Left]
-    [DP[0].P | p[3]  | Left]
-    [DP[1].N | p[4]  | Left]
-    [DP[1].P | p[5]  | Left]
-    [DP[2].N | p[6]  | Left]
-    [DP[2].P | p[7]  | Left]
-    [DP[3].N | p[8]  | Left]
-    [DP[3].P | p[9]  | Right]
-    [DP[4].N | p[10] | Right]
-    [LED_G+ | p[11] | Right]
-    [LED_G- | p[12] | Right]
-    [LED_Y+ | p[13] | Right]
-    [LED_Y- | p[14] | Right]
-    [SHEILD[0] | p[15] | Right]
-    [SHEILD[1] | p[16] | Right]
-    [MOUNT[0]  | p[17] | Right]
-    [MOUNT[1]  | p[18] | Right]
-
-  val pkg = Ethernet()
-  val lp = create-landpattern(pkg)
-
-  assign-landpattern(lp)
-
-  val box = BoxSymbol(self)
-  assign-symbol(create-symbol $ box)
