@@ -1,0 +1,43 @@
+#use-added-syntax(jitx)
+defpackage connectors/utils :
+  import core
+  import collections
+  import jitx
+
+  import jsl/design/Classable
+  import jsl/ensure
+  import jsl/errors
+  import jsl/landpatterns/numbering
+  import jsl/landpatterns/VirtualLP
+
+public defstruct Column-Major-Numbering-WithOffset <: Numbering :
+  num-pads:Int with: (ensure => ensure-positive!)
+  num-columns:Int with: (ensure => ensure-positive!)
+  offset:Int with: (ensure => ensure-positive!)
+with:
+  constructor => #Column-Major-Numbering-WithOffset
+
+public defn Column-Major-Numbering-WithOffset (
+  --
+  num-pads:Int,
+  num-columns:Int
+  offset:Int = 0
+) -> Column-Major-Numbering-WithOffset :
+  ensure-divisible!(num-pads, num-columns, "Column-Major-Numbering-WithOffset")
+  #Column-Major-Numbering-WithOffset(num-pads, num-columns, offset)
+
+public defmethod to-pad-id (x:Column-Major-Numbering-WithOffset, row:Int, column:Int) -> Int|Ref :
+  val cols = num-columns(x)
+  val rows = num-pads(x) / cols
+
+  if (row < 0 or column < 0):
+    throw $ ValueError("Expecting Non-negative Indices: r=%_ c=%_" % [row,column])
+
+  if not (row < rows):
+    throw $ ValueError("Invalid Row Offset: %_ < %_" % [row, rows])
+
+  if not (column < cols):
+    throw $ ValueError("Invalid Column Offset: %_ < %_" % [column, cols])
+
+  (column * rows) + row + 1
+

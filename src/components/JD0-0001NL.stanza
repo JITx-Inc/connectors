@@ -1,15 +1,16 @@
 #use-added-syntax(jitx)
-defpackage connectors/JD0-0001NL :
+defpackage connectors/components/JD0-0001NL :
   import core
   import jitx
   import jitx/commands
 
+  import jsl/bundles/general
   import jsl/landpatterns/packages
   import jsl/protocols/ethernet/MDI/MDI-1000Base-T
   import jsl/symbols/box-symbol
   import jsl/symbols/SymbolDefn
 
-  import connectors/Ethernet
+  import connectors/generators/Ethernet
 
 public pcb-component JD0-0001NL :
   name = "553-2359-ND"
@@ -18,7 +19,7 @@ public pcb-component JD0-0001NL :
   mpn = "JD0-0001NL"
   datasheet = "https://productfinder.pulseelectronics.com/api/open/part-attachments/datasheet/JD0-0001NL"
   reference-prefix = "J"
-  port DP : pin[2]
+  port DP : diff-pair[4]
 
   pin-properties :
     [pin:Ref | pads:Ref ... | side:Dir]
@@ -31,7 +32,7 @@ public pcb-component JD0-0001NL :
     [DP[2].P | p[7]  | Left]
     [DP[3].N | p[8]  | Left]
     [DP[3].P | p[9]  | Right]
-    [DP[4].N | p[10] | Right]
+    [p[10]   | p[10] | Right]
     [LED_G+ | p[11] | Right]
     [LED_G- | p[12] | Right]
     [LED_Y+ | p[13] | Right]

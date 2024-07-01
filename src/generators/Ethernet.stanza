@@ -1,5 +1,5 @@
 #use-added-syntax(jitx)
-defpackage connectors/Ethernet :
+defpackage connectors/generators/Ethernet :
   import core
   import collections
   import jitx
@@ -22,7 +22,7 @@ defpackage connectors/Ethernet :
   import jsl/landpatterns/pads
   import jsl/landpatterns/courtyard
 
-  import connecotrs/utils
+  import connectors/utils
 
 val PANEL-CUTOUT-WIDTH = 16.65
 
@@ -42,7 +42,7 @@ val JD0-0001NL-LENGTH = 21.35
 val JD0-0001NL-WIDTH = 15.90
 val JD0-0001NL-HEIGHT = 13.63
 val JD0-0001NL-TOL = 0.25
-val JD0-0001NL-GRID-SPACING = Dims(2.54, 0.0)
+val JD0-0001NL-GRID-SPACING = Dims(1.27, 0.0)
 
 val JD0-0001NL-MED-HOLE-DIAM = 1.60
 val JD0-0001NL-LRG-HOLE-DIAM = 3.25
@@ -51,12 +51,6 @@ defn default-lead-types () :
   TH-Lead(
     length = JD0-0001NL-LEAD
     width = JD0-0001NL-GRID-LEAD-WIDTH
-  )
-
-defn default-numbering () :
-  Column-Major-Numbering
-  Col-Major-Extra-Rows-Numbering(
-   JD0-0001NL-GRID-PADS, JD0-0001NL-GRID-ROWS, JD0-0001NL-EXTRA
   )
 
 defn default-pad-planner () :
@@ -83,10 +77,9 @@ defn min-pad-size (min-hole-size:Double, density:DensityLevel = DensityLevelC) :
 ; Information for creating a grid of pads, as commonly found on connectors
 public defstruct PadGridProfile :
   center:Pose
-  num-grid-leads:Int
+  num-grid-pads:Int
   num-grid-rows:Int
   spacing:Dims
-  row-offsets:Tuple<Point> ; length(row-offsets) == num-grid-rows
   lead-type:Lead
 with :
   constructor => #PadGridProfile
@@ -94,39 +87,33 @@ with :
 public defn PadGridProfile (
   --
   center:Pose
-  num-grid-leads:Int
+  num-grid-pads:Int
   num-grid-rows:Int
   spacing:Dims
-  row-offsets:Tuple<Point>
-  lead-types:Lead
+  lead-type:Lead
 ) :
   #PadGridProfile(
     center,
-    num-grid-leads, num-grid-rows,
+    num-grid-pads, num-grid-rows,
     spacing,
-    row-offsets,
-    lead-types
+    lead-type
   )
 
 defn default-grid-profile () :
   PadGridProfile(
     center = loc(0.0, 8.89)
-    num-grid-leads = JD0-0001NL-GRID-PADS
+    num-grid-pads = JD0-0001NL-GRID-PADS
     num-grid-rows = JD0-0001NL-GRID-ROWS
     spacing = JD0-0001NL-GRID-SPACING
-    row-offsets = [
-      Point(0.0, 0.0)
-      Point(1.27, 6.35 - 8.89)
-    ]
-    lead-types = default-lead-types()
+    lead-type = default-lead-types()
   )
 
 ; Baseline information for creating a row of pads/cutouts
+
 public defstruct RowInfo :
   center: Pose
   num-cols: Int
   spacing: Dims
-  mirror-dims: Dims|False
 with :
   constructor => #RowInfo
   printer => true
@@ -136,55 +123,50 @@ public defn RowInfo (
   center:Pose
   num-cols:Int
   spacing:Dims
-  mirror-dims:Dims|False
 ) :
-  #RowInfo(center, num-cols, spacing, mirror-dims)
+  #RowInfo(center, num-cols, spacing)
 
 public defstruct PadRowInfo :
   row-info: RowInfo
-  lead-types: Tuple<Lead>|Lead
+  lead-type: Lead
   hole-width: Dims|False
     with: (default => false)
-  pad-width: Dims
 
-public defstruct HoleRowInfo :
+public defstruct CutoutRowInfo :
   row-info: RowInfo
-  hole-shapes: Tuple<Shape>|Shape
+  co-shape: Shape
 with :
   printer => true
 
-defn default-extra-hole-rows () :
+defn default-cutout-rows () :
  [
   ; Holes for connector shield
-  HoleRowInfo(
+  CutoutRowInfo(
     RowInfo(
       center = loc(-2.14, 3.05),
       num-cols = 2,
       spacing = Dims(0.0, 0.0)
-      mirror-dims = Dims(2.14 + 13.57, 0.0)
     ),
     Circle(Point(0.0, 0.0), JD0-0001NL-MED-HOLE-DIAM / 2.0)
   )
   ; Larger holes for component stabilization
-  HoleRowInfo(
+  CutoutRowInfo(
     RowInfo(
       center = loc(0.0, 0.0),
       num-cols = 2,
       spacing = Dims(11.43, 0.0)
-      mirror-dims = false
     )
     Circle(Point(0.0, 0.0), JD0-0001NL-LRG-HOLE-DIAM / 2.0)
   )
 ]
 
-defn default-extra-pad-rows () :
+defn default-lead-rows () :
   [
     PadRowInfo(
       RowInfo(
         center = loc(-0.93, -4.06),
         num-cols = 2,
         spacing = Dims(1.62 + 0.93, 0.0)
-        mirror-dims = Dims(9.82 - 1.62, 0.0)
       )
       TH-Lead(
         length = JD0-0001NL-LEAD
@@ -210,7 +192,7 @@ public defstruct Ethernet <: Package :
 
   Info for an arbitrary row of holes
   <DOC>
-  extra-hole-rows:Tuple<HoleRowInfo>
+  extra-cutout-rows:Tuple<CutoutRowInfo>
 
   doc: \<DOC>
 
@@ -227,14 +209,6 @@ public defstruct Ethernet <: Package :
   pad-planner:PadPlanner with: (as-method => true)
 
   doc: \<DOC>
-  Lead Numbering Scheme
-
-  This provides a numbering scheme for the leads.
-  By default, it uses {@link Column-Major-Numbering}.
-  <DOC>
-  lead-numbering:Numbering with: (as-method => true)
-
-  doc: \<DOC>
   Keep-out shapes
 
   This provides the shape specifications for the keepout regions
@@ -248,17 +222,16 @@ with:
 public defn Ethernet (
   --
   lead-grid-profile:PadGridProfile = default-grid-profile()
-  extra-lead-rows:Tuple<PadRowInfo> = default-extra-pad-rows()
-  extra-hole-rows:Tuple<HoleRowInfo> = default-extra-hole-rows()
+  extra-lead-rows:Tuple<PadRowInfo> = default-lead-rows()
+  extra-cutout-rows:Tuple<CutoutRowInfo> = default-cutout-rows()
   package-body:PackageBody = default-package-body()
   pad-planner:PadPlanner = default-pad-planner()
-  lead-numbering:Numbering = default-numbering()
   keep-outs:Tuple<Shape> = default-keep-outs()
 ):
   #Ethernet(
     lead-grid-profile,
-    extra-lead-rows, extra-hole-rows,
-    package-body, pad-planner, lead-numbering,
+    extra-lead-rows, extra-cutout-rows,
+    package-body, pad-planner,
     keep-outs
   )
 
@@ -279,30 +252,11 @@ public defn build-cutouts (
   pose:Pose = ?
 ) -> False:
   inside pcb-landpattern:
-    for (hole-row in extra-hole-rows(pkg), i in 0 to false) do :
-      val ri = row-info(hole-row)
-      val s = spacing(ri)
-
-      defn generate-hole-row-seg (start:Point, mirror?:True|False) :
-        for j in 0 to num-cols(ri) do :
-          val pos-x = x(start) + x(s) * to-double(j)
-          val pos-y = y(start) + y(s) * to-double(j)
-          val pos = loc(pos-x, pos-y) * center(ri)
-          layer(Cutout()) = transform(pos,
-            match(hole-shapes(hole-row)) :
-              (s:Shape) : s
-              (t:Tuple<Shape>) :
-                if mirror? : t[num-cols(ri) - 1 - j]
-                else : t[j]
-          )
-
-      generate-hole-row-seg(Point(0.0,0.0), false)
-      match(mirror-dims(ri)) :
-        (d:Dims) :
-          val start-x = x(s) * to-double(num-cols(ri) - 1) + x(d)
-          val start-y = y(s) * to-double(num-cols(ri) - 1) + y(d)
-          generate-hole-row-seg(Point(start-x, start-y), true)
-        (f) : false
+    for (cutout-row in extra-cutout-rows(pkg), i in 0 to false) do :
+      val ri = row-info(cutout-row)
+      val [dx,dy] = [x(spacing(ri)), y(spacing(ri))]
+      for pos in grid-locs(1, num-cols(ri), dx, dy) do :
+        add-cutout(vp, pos, co-shape(cutout-row))
 
 public defmethod courtyard-excess (pkg:Ethernet) -> Double :
   PANEL-CUTOUT-WIDTH - JD0-0001NL-WIDTH
@@ -439,97 +393,108 @@ public defn build-vpads (
 ):
   val grid-prof = lead-grid-profile(pkg)
 
-  ; We call them rows for convenience in the definition
-  ;  but for our grid construction - the rows are actually columns
-  val rows = num-grid-rows(grid-prof)
-  val cols = num-grid-leads(grid-prof) / rows
+  ; Parent node is the two physical mounts, everything is relative to these
+  val grid-vp = create-child(vp, offset = center(grid-prof))
+  ;build-pads(pkg, sec)
+  ; ; We call them rows for convenience in the definition
+  ; ;  but for our grid construction - the rows are actually columns
+  ; val rows = num-grid-rows(grid-prof)
+  ; val cols = num-grid-pads(grid-prof) / rows
+  for (pad-row in extra-lead-rows(pkg), i in 0 to false) do :
+    ; val child-vp = create-child(vp, offset = center(pad-row))
+    ; val ri = row-info(pad-row)
+    ; val pads = for (j in 0 to num-cols(ri)) seq :
+    ;   val cls = ["extra-row", to-string("row-%_" % [i]), to-string()"col-%_" % [j]]
+    ;   VirtualPad(pad-id, pad-gen(pad-size), pos, class = cls)
 
-  ; Generate the grid
-  val planner = pad-planner(pkg)
-  defn gen-grid-pads () -> Seq<VirtualPad> :
-    val min-hole-width = min-hole-size(typ $ width(lead-type(grid-prof)))
-    val min-pad-width = min-pad-size(min-hole-width)
+    ; append-all(child-vp, pads)
+    false
+  ; ; Generate the grid
+  ; val planner = pad-planner(pkg)
+  ; defn gen-grid-pads () -> Seq<VirtualPad> :
+  ;   val min-hole-width = min-hole-size(typ $ width(lead-type(grid-prof)))
+  ;   val min-pad-width = min-pad-size(min-hole-width)
 
-    val hole-size = Dims(min-hole-width, min-hole-width)
-    val pad-size = Dims(min-pad-width, min-pad-width)
-    val s = spacing(grid-prof)
-    for (r in 0 to rows) seq-cat :
-      for (c in 0 to cols) seq?:
-        val pt = row-offsets(grid-prof)[r] + Point(x(s) * to-double(c), y(s) * to-double(r))
-        val pos = Pose(pt, 0.0, false) * center(grid-prof)
-        val pad-id = to-pad-id(lead-numbering(pkg), r, c)
-        val pad-gen? = match(lead-type(grid-prof)):
-          (th:TH-Lead):
-            val g = th-pad-generator(planner, r, c)
-            match(g):
-              (_:False): false
-              (func): {func(hole-size, _0)}
-        match(pad-gen?):
-          (_:False): None()
-          (pad-gen):
-            val cls = [
-              "pad",
-              to-string("col-%_" % [c]),
-              to-string("row-%_" % [r])
-            ]
-            One $ VirtualPad(pad-id, pad-gen(pad-size), pos, class = cls)
+  ;   val hole-size = Dims(min-hole-width, min-hole-width)
+  ;   val pad-size = Dims(min-pad-width, min-pad-width)
+  ;   val s = spacing(grid-prof)
+  ;   for (r in 0 to rows) seq-cat :
+  ;     for (c in 0 to cols) seq?:
+  ;       val pt = row-offsets(grid-prof)[r] + Point(x(s) * to-double(c), y(s) * to-double(r))
+  ;       val pos = Pose(pt, 0.0, false) * center(grid-prof)
+  ;       val pad-id = to-pad-id(lead-numbering(pkg), r, c)
+  ;       val pad-gen? = match(lead-type(grid-prof)):
+  ;         (th:TH-Lead):
+  ;           val g = th-pad-generator(planner, r, c)
+  ;           match(g):
+  ;             (_:False): false
+  ;             (func): {func(hole-size, _0)}
+  ;       match(pad-gen?):
+  ;         (_:False): None()
+  ;         (pad-gen):
+  ;           val cls = [
+  ;             "pad",
+  ;             to-string("col-%_" % [c]),
+  ;             to-string("row-%_" % [r])
+  ;           ]
+  ;           One $ VirtualPad(pad-id, pad-gen(pad-size), pos, class = cls)
 
-  ; Generate rows
-  defn gen-extra-pad-rows () -> Seq<VirtualPad> :
-    for (lead-row in extra-lead-rows(pkg),
-      r in 0 to false) seq-cat :
-      val ri = row-info(lead-row)
-      val s = spacing(ri)
+  ; ; Generate rows
+  ; defn gen-extra-pad-rows () -> Seq<VirtualPad> :
+  ;   for (lead-row in extra-lead-rows(pkg),
+  ;     r in 0 to false) seq-cat :
+  ;     val ri = row-info(lead-row)
+  ;     val s = spacing(ri)
 
-      defn gen-pad-row-seg (start:Point, col-offset:Int, length:Int) -> Seq<VirtualPad> :
-        for i in 0 to length seq? :
-          val pt = Point(x(start) + x(s) * to-double(i), y(start) + y(s) * to-double(i))
-          val pos = Pose(pt, 0.0, false) * center(ri)
-          val col = col-offset + i
-          val pad-id = to-pad-id(lead-numbering(pkg), rows + r, col)
-          val lead-type = match(lead-types(lead-row)) :
-            (t:Tuple<Lead>) : t[rows * r + col]
-            (l:Lead) : l
-          val min-hole-width =
-            match(hole-width(lead-row)) :
-              (d:Dims) :
-                x(d)
-              (f:False) :
-                min-hole-size(typ $ width(lead-type))
-          val min-pad-width = min-pad-size(min-hole-width)
-          val hole-size = Dims(min-hole-width, min-hole-width)
-          val pad-size = Dims(min-pad-width, min-pad-width)
+  ;     defn gen-pad-row-seg (start:Point, col-offset:Int, length:Int) -> Seq<VirtualPad> :
+  ;       for i in 0 to length seq? :
+  ;         val pt = Point(x(start) + x(s) * to-double(i), y(start) + y(s) * to-double(i))
+  ;         val pos = Pose(pt, 0.0, false) * center(ri)
+  ;         val col = col-offset + i
+  ;         val pad-id = to-pad-id(lead-numbering(pkg), rows + r, col)
+  ;         val lead-type = match(lead-types(lead-row)) :
+  ;           (t:Tuple<Lead>) : t[rows * r + col]
+  ;           (l:Lead) : l
+  ;         val min-hole-width =
+  ;           match(hole-width(lead-row)) :
+  ;             (d:Dims) :
+  ;               x(d)
+  ;             (f:False) :
+  ;               min-hole-size(typ $ width(lead-type))
+  ;         val min-pad-width = min-pad-size(min-hole-width)
+  ;         val hole-size = Dims(min-hole-width, min-hole-width)
+  ;         val pad-size = Dims(min-pad-width, min-pad-width)
 
-          val pad-gen? = match(lead-type):
-            (th:TH-Lead):
-              val g = th-pad-generator(planner, rows + r, col)
-              match(g):
-                (_:False): false
-                (func): {func(hole-size, _0)}
-          match(pad-gen?):
-            (_:False): None()
-            (pad-gen):
-              val cls = [
-                "pad",
-                to-string("col-%_" % [col]),
-                to-string("extra-row-%_" % [rows + r])
-              ]
-              println("DEBUG %_ at pos %_" % [pad-id, pos])
+  ;         val pad-gen? = match(lead-type):
+  ;           (th:TH-Lead):
+  ;             val g = th-pad-generator(planner, rows + r, col)
+  ;             match(g):
+  ;               (_:False): false
+  ;               (func): {func(hole-size, _0)}
+  ;         match(pad-gen?):
+  ;           (_:False): None()
+  ;           (pad-gen):
+  ;             val cls = [
+  ;               "pad",
+  ;               to-string("col-%_" % [col]),
+  ;               to-string("extra-row-%_" % [rows + r])
+  ;             ]
+  ;             println("DEBUG %_ at pos %_" % [pad-id, pos])
 
-              One $ VirtualPad(pad-id, pad-gen(pad-size), pos, class = cls)
+  ;             One $ VirtualPad(pad-id, pad-gen(pad-size), pos, class = cls)
 
-      val pads = gen-pad-row-seg(Point(0.0,0.0), 0, num-cols(ri))
-      val mirror-pads = match(mirror-dims(ri)) :
-        (d:Dims) :
-          val scale = to-double $ (num-cols(ri) - 1)
-          val start = Point(x(d) + scale * x(s), y(d) + scale * y(s))
-          gen-pad-row-seg(start, num-cols(ri), num-cols(ri))
-        (f:False) :
-          []
-      cat(pads, mirror-pads)
+  ;     val pads = gen-pad-row-seg(Point(0.0,0.0), 0, num-cols(ri))
+  ;     val mirror-pads = match(mirror-dims(ri)) :
+  ;       (d:Dims) :
+  ;         val scale = to-double $ (num-cols(ri) - 1)
+  ;         val start = Point(x(d) + scale * x(s), y(d) + scale * y(s))
+  ;         gen-pad-row-seg(start, num-cols(ri), num-cols(ri))
+  ;       (f:False) :
+  ;         []
+  ;     cat(pads, mirror-pads)
 
-  append-all(vp, gen-grid-pads())
-  append-all(vp, gen-extra-pad-rows())
+  ; append-all(vp, gen-grid-pads())
+  ; append-all(vp, gen-extra-pad-rows())
 
 public defmethod build-keep-out (
   pkg:Ethernet,

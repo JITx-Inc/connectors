@@ -6,10 +6,10 @@ defpackage connectors/main:
   import jitx/commands
 
   import jsl/examples/landpatterns/board
-
+  import connectors/components/JD0-0001NL
 
 pcb-module test-design:
-  inst j : connectors/Ethernet/JD0-0001NL
+  inst j : JD0-0001NL
 val board-shape = RoundedRectangle(50.0, 50.0, 0.15)
 
 ; Set the top level module (the module to be compile into a schematic and PCB)
