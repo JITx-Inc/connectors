@@ -22,6 +22,7 @@ defpackage connectors/Ethernet :
   import jsl/landpatterns/pads
   import jsl/landpatterns/courtyard
 
+  import connecotrs/utils
 
 val PANEL-CUTOUT-WIDTH = 16.65
 
@@ -53,6 +54,7 @@ defn default-lead-types () :
   )
 
 defn default-numbering () :
+  Column-Major-Numbering
   Col-Major-Extra-Rows-Numbering(
    JD0-0001NL-GRID-PADS, JD0-0001NL-GRID-ROWS, JD0-0001NL-EXTRA
   )
