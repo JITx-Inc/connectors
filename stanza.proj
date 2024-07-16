@@ -3,9 +3,7 @@ include? ".slm/stanza.proj"  ; Dependencies
 
 pkg-cache: ".slm/pkg-cache"
 
-packages connectors/generators/* defined-in "src/generators/"
-packages connectors/components/* defined-in "src/components/"
-package connectors/utils defined-in "src/utils.stanza"
+packages connectors/* defined-in "src/"
 
 build main:
   inputs: connectors/main

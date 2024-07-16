@@ -53,8 +53,8 @@ public pcb-component JD0-0001NL :
   val box = BoxSymbol(self)
   assign-symbol(create-symbol(box))
 
-  make-1000Base-T-supports(
-    to-tuple $ for i in 0 to 4 seq : DP[i]
+  make-1000Base-T-supports(dps =
+   to-tuple $ for i in 0 to 4 seq : DP[i]
   )
 
 val JD0-0001NL-LENGTH = 21.35

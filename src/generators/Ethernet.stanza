@@ -179,14 +179,6 @@ public defn Ethernet-outline (
 
   add-artwork(vp, Silkscreen("outline", side), outline-geom, class = "outline")
 
-public defn get-silkscreen-outline! (vp:VirtualLP) -> Shape :
-  val outlines = to-tuple $ seq{as-VirtualArtwork, _} $ find-by-class(vp, "outline")
-  if length(outlines) != 1:
-    throw $ ValueError("Expected only one element in class 'outline': %," % [outlines])
-
-  val outline = outlines[0]
-  shape(outline)
-
 ; Consolidate into utility function?
 public defn Ethernet-pin-1-marker (
   pkg:Ethernet,
@@ -238,7 +230,7 @@ public defmethod build-pads (
   vp:VirtualLP,
   ) -> False :
   build-vpads(pkg, vp)
-  build-cutouts(pkg, vp)
+  build-cut-out(pkg, vp)
 
 public defn build-vpads (
   pkg:Ethernet,
@@ -260,7 +252,7 @@ public defn build-vpads (
   ; build extra rows
   for (pad-row in lead-rows(pkg), i in 0 to false) do :
     val row-vp = create-child(vp, offset = center(pad-row))
-    build-pad-row(row-vp, pad-row, num-grid-pads(grid-prof) + i * num-cols(pad-row))
+    build-pad-row(row-vp, pad-row, num-grid-pads(grid-prof), i * num-cols(pad-row))
 
 defn build-staggered-grid (
   vp:VirtualLP
@@ -280,9 +272,14 @@ defn build-staggered-grid (
       for c in 0 to num-cols seq? :
         if active?(planner, r, c) :
           val adj-c = c / 2
-          generate-th-pad(to-pad-id(id-gen, r, adj-c), pth-pad{x(_0), y(_1)},
+          val pad-id = to-pad-id(id-gen, r, adj-c)
+          val ret = th-pad-generator(planner, r, adj-c)
+          println("DEBUG %_ %_" % [pad-id ret])
+          generate-th-pad(pad-id,
+            ret,
             min-hole-width, poses[r * num-cols + c],
             ["pad", to-string("row-%_ col-%_" % [r, adj-c])])
+
         else :
           None()
   append-all(vp, pads)
@@ -290,13 +287,14 @@ defn build-staggered-grid (
 defn build-pad-row (
   vp:VirtualLP
   row-info:LeadRowInfo
-  id-offset:Int = 0
+  row-offset:Int = 0
+  col-offset:Int = 0
 ):
   val num-cols = num-cols(row-info)
-  val id-gen = Column-Major-Numbering-WithOffset(
-      num-pads = num-cols,
-      num-columns = num-cols,
-      offset = id-offset
+  val id-gen = Column-Major-Numbering(
+      num-cols, num-cols,
+      row-offset = row-offset,
+      col-offset = col-offset,
   )
   val spacing = grid-spacing(row-info)
   val grid = grid-locs(1, num-cols, x(spacing), y(spacing))
@@ -316,24 +314,14 @@ defn build-pad-row (
       (f): None()
   append-all(vp, pads)
 
-public defmethod build-cutouts (
+public defmethod build-cut-out (
   pkg:Ethernet,
   vp:VirtualLP
-    --
-  pose:Pose = DEF_LP_POSE
 ) -> False :
   for co-row in cutout-rows(pkg) do :
     val grid-vp = create-child(vp, offset = center(co-row))
-    build-cutouts(grid-vp, poses(co-row), co-shape(co-row))
-
-public defn build-cutouts (
-  vp:VirtualLP
-  poses:Collection<Pose>
-  shape:Shape
-) -> False:
-  inside pcb-landpattern:
-    for pos in poses do :
-      add-cutout(vp, pos, shape)
+    for p in poses(co-row) do :
+      add-cutout(grid-vp, transform(p, co-shape(co-row)))
 
 public defmethod build-keep-out (
   pkg:Ethernet,
@@ -342,4 +330,3 @@ public defmethod build-keep-out (
   inside pcb-landpattern :
     for s in keep-outs(pkg) do :
       layer(ForbidCopper(LayerIndex(0))) = s
-
