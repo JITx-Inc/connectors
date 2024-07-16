@@ -5,6 +5,7 @@ defpackage connectors/components/JD0-0001NL :
   import jitx/commands
 
   import jsl/bundles/general
+  import jsl/landpatterns/leads
   import jsl/landpatterns/packages
   import jsl/protocols/ethernet/MDI/MDI-1000Base-T
   import jsl/symbols/box-symbol
@@ -37,12 +38,14 @@ public pcb-component JD0-0001NL :
     [LED_G- | p[12] | Right]
     [LED_Y+ | p[13] | Right]
     [LED_Y- | p[14] | Right]
-    [SHEILD[0] | p[15] | Right]
-    [SHEILD[1] | p[16] | Right]
-    [MOUNT[0]  | p[17] | Right]
-    [MOUNT[1]  | p[18] | Right]
 
-  val pkg = Ethernet()
+  val pkg = Ethernet(
+    lead-grid-profile = JD0-0001NL-grid-profile()
+    lead-rows = JD0-0001NL-lead-rows()
+    cutout-rows = JD0-0001NL-cutout-rows()
+    package-body = JD0-0001NL-package-body()
+    keepouts = JD0-0001NL-keep-outs()
+  )
   val lp = create-landpattern(pkg)
 
   assign-landpattern(lp)
@@ -50,4 +53,100 @@ public pcb-component JD0-0001NL :
   val box = BoxSymbol(self)
   assign-symbol(create-symbol(box))
 
-  make-1000Base-T-supports(DP[0])
+  make-1000Base-T-supports(
+    to-tuple $ for i in 0 to 4 seq : DP[i]
+  )
+
+val JD0-0001NL-LENGTH = 21.35
+val JD0-0001NL-WIDTH = 15.90
+val JD0-0001NL-HEIGHT = 13.63
+val JD0-0001NL-TOL = 0.25
+val JD0-0001NL-MED-HOLE-DIAM = 1.60
+val JD0-0001NL-LRG-HOLE-DIAM = 3.25
+val JD0-0001NL-GRID-HOLE-WIDTH = 0.9 +/- 0.08
+val JD0-0001NL-ROW-LEAD-WIDTH = 1.2 +/- 0.008
+val JD0-0001NL-LEAD-LENGTH = 3.50 +/- 0.25
+
+defn JD0-0001NL-grid-lead-type () :
+  TH-Lead(
+    length = JD0-0001NL-LEAD-LENGTH
+    width = JD0-0001NL-GRID-HOLE-WIDTH
+  )
+
+defn JD0-0001NL-row-lead-type () :
+  TH-Lead(
+    length = JD0-0001NL-LEAD-LENGTH
+    width = JD0-0001NL-ROW-LEAD-WIDTH
+  )
+
+val JD0-0001NL-RE-CENTER = loc(0.0, 0.0)
+
+defn JD0-0001NL-grid-profile () :
+  val hole-dims = Dims(
+    typ(JD0-0001NL-GRID-HOLE-WIDTH), typ(JD0-0001NL-GRID-HOLE-WIDTH))
+  PadGridProfile(
+    center = loc(0.0, 8.89) * JD0-0001NL-RE-CENTER
+    num-grid-pads = 10 ; 5 cols
+    num-grid-rows = 2
+    spacing = Dims(1.27, 8.9 - 6.35)
+    lead-type = JD0-0001NL-grid-lead-type()
+    hole-width = hole-dims
+  )
+
+defn JD0-0001NL-lead-rows () :
+  val x-grid-spacing = 0.93 + 1.62
+  val x-grid-offset = 2.14 - 0.93 + (x-grid-spacing / 2.0)
+  [
+    ; LED G
+    LeadRowInfo(
+      center = loc(x-grid-offset + (JD0-0001NL-WIDTH / -2.0), -4.06) * JD0-0001NL-RE-CENTER,
+      num-cols = 2,
+      grid-spacing = Dims(0.93 + 1.62, 0.0)
+      lead-type = JD0-0001NL-row-lead-type()
+      hole-width = Dims(1.2, 1.2)
+    )
+    ; LED Y
+    LeadRowInfo(
+      center = loc((JD0-0001NL-WIDTH / 2.0) - x-grid-offset, -4.06) * JD0-0001NL-RE-CENTER,      num-cols = 2,
+      grid-spacing = Dims(1.62 + 0.93, 0.0)
+      lead-type = JD0-0001NL-row-lead-type()
+      hole-width = Dims(1.2, 1.2)
+    )
+  ]
+
+defn JD0-0001NL-package-body () :
+  PackageBody(
+    width = JD0-0001NL-WIDTH +/- JD0-0001NL-TOL
+    length = JD0-0001NL-LENGTH +/- JD0-0001NL-TOL
+    height = JD0-0001NL-HEIGHT +/- JD0-0001NL-TOL
+
+    ; center the component in accordance with datasheet
+    pose = JD0-0001NL-RE-CENTER
+  )
+
+defn JD0-0001NL-keep-outs () :
+  val small-ko-box-width = 2.24 - 0.93
+  val small-ko-box-length = 2.0
+  val large-ko-box-width = 12.72 + 1.29
+  val large-ko-box-length = 10.75 - 8.05
+  [
+    transform(loc(JD0-0001NL-WIDTH / -2.0, 0.0) * JD0-0001NL-RE-CENTER, Rectangle(SW, small-ko-box-width, small-ko-box-length))
+    transform(loc(JD0-0001NL-WIDTH / 2.0, 0.0) * JD0-0001NL-RE-CENTER, Rectangle(SE, small-ko-box-width, small-ko-box-length))
+    transform(loc(large-ko-box-width / -2.0, -10.75) * JD0-0001NL-RE-CENTER, Rectangle(SW, large-ko-box-width, large-ko-box-length))
+  ]
+
+defn JD0-0001NL-cutout-rows () :
+ [
+  ; Holes for connector shield
+  CutoutRowInfo(
+    center = loc(0.0, 3.05) * JD0-0001NL-RE-CENTER,
+    poses = grid-locs(1, 2, 2.14 + 13.57, 0.0)
+    co-shape = Circle(Point(0.0, 0.0), JD0-0001NL-MED-HOLE-DIAM / 2.0)
+  )
+  ; Larger holes for component stabilization
+  CutoutRowInfo(
+    center = JD0-0001NL-RE-CENTER,
+    poses = grid-locs(1, 2, 11.43, 0.0)
+    co-shape = Circle(Point(0.0, 0.0), JD0-0001NL-LRG-HOLE-DIAM / 2.0)
+  )
+]
