@@ -272,14 +272,9 @@ defn build-staggered-grid (
       for c in 0 to num-cols seq? :
         if active?(planner, r, c) :
           val adj-c = c / 2
-          val pad-id = to-pad-id(id-gen, r, adj-c)
-          val ret = th-pad-generator(planner, r, adj-c)
-          println("DEBUG %_ %_" % [pad-id ret])
-          generate-th-pad(pad-id,
-            ret,
+          generate-th-pad(to-pad-id(id-gen, r, adj-c), pth-pad{x(_0), y(_1)},
             min-hole-width, poses[r * num-cols + c],
             ["pad", to-string("row-%_ col-%_" % [r, adj-c])])
-
         else :
           None()
   append-all(vp, pads)
