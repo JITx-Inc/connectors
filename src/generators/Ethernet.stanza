@@ -236,6 +236,7 @@ public defn build-vpads (
   pkg:Ethernet,
   vp:VirtualLP
 ):
+  set-pose(vp, pose(package-body(pkg)))
   val grid-prof = lead-grid-profile(pkg)
 
   val grid-vp = create-child(vp, offset = center(grid-prof))
@@ -322,6 +323,7 @@ public defmethod build-keep-out (
   pkg:Ethernet,
   vp:VirtualLP,
 ) -> False:
+  ; TODO: This can be redone once JSL supports ForbidCopper layer in VirtualLP
   inside pcb-landpattern :
     for s in keep-outs(pkg) do :
-      layer(ForbidCopper(LayerIndex(0))) = s
+      layer(ForbidCopper(LayerIndex(0))) = pose(vp) * s

@@ -79,13 +79,11 @@ defn JD0-0001NL-row-lead-type () :
     width = JD0-0001NL-ROW-LEAD-WIDTH
   )
 
-val JD0-0001NL-RE-CENTER = loc(0.0, 0.0)
-
 defn JD0-0001NL-grid-profile () :
   val hole-dims = Dims(
     typ(JD0-0001NL-GRID-HOLE-WIDTH), typ(JD0-0001NL-GRID-HOLE-WIDTH))
   PadGridProfile(
-    center = loc(0.0, 8.89) * JD0-0001NL-RE-CENTER
+    center = loc(0.0, 8.89)
     num-grid-pads = 10 ; 5 cols
     num-grid-rows = 2
     spacing = Dims(1.27, 8.9 - 6.35)
@@ -99,7 +97,7 @@ defn JD0-0001NL-lead-rows () :
   [
     ; LED G
     LeadRowInfo(
-      center = loc(x-grid-offset + (JD0-0001NL-WIDTH / -2.0), -4.06) * JD0-0001NL-RE-CENTER,
+      center = loc(x-grid-offset + (JD0-0001NL-WIDTH / -2.0), -4.06),
       num-cols = 2,
       grid-spacing = Dims(0.93 + 1.62, 0.0)
       lead-type = JD0-0001NL-row-lead-type()
@@ -107,7 +105,8 @@ defn JD0-0001NL-lead-rows () :
     )
     ; LED Y
     LeadRowInfo(
-      center = loc((JD0-0001NL-WIDTH / 2.0) - x-grid-offset, -4.06) * JD0-0001NL-RE-CENTER,      num-cols = 2,
+      center = loc((JD0-0001NL-WIDTH / 2.0) - x-grid-offset, -4.06),
+      num-cols = 2,
       grid-spacing = Dims(1.62 + 0.93, 0.0)
       lead-type = JD0-0001NL-row-lead-type()
       hole-width = Dims(1.2, 1.2)
@@ -121,7 +120,7 @@ defn JD0-0001NL-package-body () :
     height = JD0-0001NL-HEIGHT +/- JD0-0001NL-TOL
 
     ; center the component in accordance with datasheet
-    pose = JD0-0001NL-RE-CENTER
+    pose = loc(-2.0, -10.0)
   )
 
 defn JD0-0001NL-keep-outs () :
@@ -130,22 +129,22 @@ defn JD0-0001NL-keep-outs () :
   val large-ko-box-width = 12.72 + 1.29
   val large-ko-box-length = 10.75 - 8.05
   [
-    transform(loc(JD0-0001NL-WIDTH / -2.0, 0.0) * JD0-0001NL-RE-CENTER, Rectangle(SW, small-ko-box-width, small-ko-box-length))
-    transform(loc(JD0-0001NL-WIDTH / 2.0, 0.0) * JD0-0001NL-RE-CENTER, Rectangle(SE, small-ko-box-width, small-ko-box-length))
-    transform(loc(large-ko-box-width / -2.0, -10.75) * JD0-0001NL-RE-CENTER, Rectangle(SW, large-ko-box-width, large-ko-box-length))
+    transform(loc(JD0-0001NL-WIDTH / -2.0, 0.0), Rectangle(SW, small-ko-box-width, small-ko-box-length))
+    transform(loc(JD0-0001NL-WIDTH / 2.0, 0.0), Rectangle(SE, small-ko-box-width, small-ko-box-length))
+    transform(loc(large-ko-box-width / -2.0, -10.75), Rectangle(SW, large-ko-box-width, large-ko-box-length))
   ]
 
 defn JD0-0001NL-cutout-rows () :
  [
   ; Holes for connector shield
   CutoutRowInfo(
-    center = loc(0.0, 3.05) * JD0-0001NL-RE-CENTER,
+    center = loc(0.0, 3.05),
     poses = grid-locs(1, 2, 2.14 + 13.57, 0.0)
     co-shape = Circle(Point(0.0, 0.0), JD0-0001NL-MED-HOLE-DIAM / 2.0)
   )
   ; Larger holes for component stabilization
   CutoutRowInfo(
-    center = JD0-0001NL-RE-CENTER,
+    center = loc(0.0, 0.0),
     poses = grid-locs(1, 2, 11.43, 0.0)
     co-shape = Circle(Point(0.0, 0.0), JD0-0001NL-LRG-HOLE-DIAM / 2.0)
   )
