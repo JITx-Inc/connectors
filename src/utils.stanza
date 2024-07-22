@@ -32,18 +32,14 @@ public defn min-pad-size (min-hole-size:Double, density:DensityLevel = DensityLe
   else :
     min-hole-size + annular-ring-diam + 0.40
 
-public defn generate-th-pad (
+public defn generate-pad (
   pad-id:Int|Ref
-  pad-gen?: ((Dims, Dims) -> Pad)|False
+  pad-gen:(Dims, Dims) -> Pad
   min-hole-width:Double
   pos:Pose
   cls:Seqable<String> = []
-) -> Maybe<VirtualPad> :
-  match(pad-gen?) :
-    (f:False):
-      None()
-    (pad-gen):
-      val min-pad-width = min-pad-size(min-hole-width)
-      val pad-size = Dims(min-pad-width, min-pad-width)
-      val hole-size = Dims(min-hole-width, min-hole-width)
-      One(VirtualPad(pad-id, pad-gen(hole-size, pad-size), pos, class = cls))
+) -> VirtualPad :
+  val min-pad-width = min-pad-size(min-hole-width)
+  val pad-size = Dims(min-pad-width, min-pad-width)
+  val hole-size = Dims(min-hole-width, min-hole-width)
+  VirtualPad(pad-id, pad-gen(hole-size, pad-size), pos, class = cls)
