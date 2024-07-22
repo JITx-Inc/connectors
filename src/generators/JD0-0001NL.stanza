@@ -65,14 +65,27 @@ public defn Ethernet-outline (
   mask-clearance:Double = default-mask-clearance(),
   side:Side = Top
 ) -> False :
+  val edge-vp = create-child(vp, offset = loc(-2.24, 0.0))
   val pkg-body = package-body(pkg)
   val pkg-outline = bounds $ envelope(pkg-body, density-level = density-level(pkg))
   val pkg-outline* = fatten(line-width / 2.0, pkg-outline)
-  val outline-geom = LineRectangle(pkg-outline*, line-width = line-width)
+  val outline-geom = LineRectangle(pkg-outline*, line-width = line-width, anchor = W)
 
-  add-artwork(vp, Silkscreen("outline", side), outline-geom, class = "outline")
+  add-artwork(edge-vp, Silkscreen("outline", side), outline-geom, class = "outline")
 
-defmethod build-keep-out (
+public defmethod build-all (
+  pkg:JD0-0001NL,
+  virt:VirtualLP
+  ) -> False :
+  val origin = create-child(virt, offset = calc-JD0-0001NL-center())
+  build-pads(pkg, origin)
+  build-courtyard(pkg, origin)
+  build-silkscreen(pkg, origin)
+  build-keep-out(pkg, origin)
+  build-cut-out(pkg, origin)
+  build-conformal-mask(pkg, origin)
+
+public defmethod build-keep-out (
   pkg:JD0-0001NL,
   vp:VirtualLP,
 ) -> False :
@@ -81,21 +94,20 @@ defmethod build-keep-out (
   val large-ko-box-width = 12.72 + 1.29
   val large-ko-box-length = 10.75 - 8.05
   val shapes = [
-    loc(JD0-0001NL-WIDTH / -2.0, 0.0) * Rectangle(SW, small-ko-box-width, small-ko-box-length)
-    loc(JD0-0001NL-WIDTH / 2.0, 0.0) * Rectangle(SE, small-ko-box-width, small-ko-box-length)
-    loc(0.0, -8.05) * Rectangle(N, large-ko-box-width, large-ko-box-length)
+    loc(13.67, 2.0) * Rectangle(NE, small-ko-box-width, small-ko-box-length)
+    loc(-0.93, 2.0) * Rectangle(NE, small-ko-box-width, small-ko-box-length)
+    loc(-1.29, -8.05) * Rectangle(NW, large-ko-box-width, large-ko-box-length)
   ]
-  add-keepouts(vp, shapes)
+  add-keepout(vp, shapes)
 
-defmethod build-pads (
+public defmethod build-pads (
   pkg:JD0-0001NL,
   vp:VirtualLP,
   ) -> False :
-  val pkg-origin = create-child(vp, offset = calc-JD0-0001NL-center())
-  build-staggered-grid(pkg, pkg-origin)
-  build-led-grid(pkg, pkg-origin)
-  build-mounts(pkg, pkg-origin)
-  build-shield(pkg, pkg-origin)
+  build-staggered-grid(pkg, vp)
+  build-led-grid(pkg, vp)
+  build-mounts(pkg, vp)
+  build-shield(pkg, vp)
 
 defn pth-pad-gen (min-hole-width:Double) :
   val min-pad-width = min-pad-size(min-hole-width)
