@@ -7,6 +7,7 @@ defpackage connectors/generators/JD0-0001NL :
 
   import jsl/geometry/LineRectangle
   import jsl/geometry/box
+  import jsl/landpatterns/courtyard
   import jsl/landpatterns/leads
   import jsl/landpatterns/numbering
   import jsl/landpatterns/packages
@@ -28,9 +29,6 @@ with:
 
 public defmethod name (pkg:JD0-0001NL) -> String :
   "JD0-0001NL Ethernet Connector"
-
-public defmethod courtyard-excess (pkg:JD0-0001NL) -> Double :
-  0.0
 
 val JD0-0001NL-LENGTH = 21.35
 val JD0-0001NL-WIDTH = 15.90
@@ -79,11 +77,32 @@ public defmethod build-all (
   ) -> False :
   val origin = create-child(virt, offset = calc-JD0-0001NL-center())
   build-pads(pkg, origin)
-  build-courtyard(pkg, origin)
+
+  ; courtyard uses the root node
+  build-courtyard(pkg, virt)
   build-silkscreen(pkg, origin)
   build-keep-out(pkg, origin)
   build-cut-out(pkg, origin)
   build-conformal-mask(pkg, origin)
+
+; This is a workaround as the default build-courtyard doesn't play nicely
+; with the pads within the scene-graph constructed here
+public defmethod build-courtyard (
+  pkg:JD0-0001NL,
+  vp:VirtualLP,
+  ) -> False:
+  build-courtyard-origin(vp)
+  val excess = courtyard-excess(pkg)
+  val pkg-outline = bounds(envelope(package-body(pkg), density-level = density-level(pkg)))
+  val outline* = fatten(excess, pkg-outline)
+  val outline = LineRectangle(outline*, line-width = DEF_COURTYARD_WIDTH)
+  add-artwork(vp, Courtyard(Top), outline, class = "courtyard")
+
+public defmethod courtyard-excess (
+  pkg:JD0-0001NL
+) -> Double :
+  ; return radius of shield mount pad so courtyard can cover it
+  1.6 / 2.0
 
 public defmethod build-keep-out (
   pkg:JD0-0001NL,
