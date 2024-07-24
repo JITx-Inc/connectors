@@ -39,10 +39,10 @@ public pcb-component JD0-0001NL :
     [LED_G- | p[12] | Right]
     [LED_Y+ | p[13] | Right]
     [LED_Y- | p[14] | Right]
-    [SHIELD_1 | p[15] | Right]
-    [SHIELD_2 | p[16] | Right]
-    [MOUNT_1 | p[17] | Right]
-    [MOUNT_2 | p[18] | Right]
+    [SHIELD[1] | p[15] | Right]
+    [SHIELD[2] | p[16] | Right]
+    [MOUNT[1] | p[17] | Right]
+    [MOUNT[2] | p[18] | Right]
 
   val pkg = JD0-0001NL-Pkg()
   val lp = create-landpattern(pkg)
