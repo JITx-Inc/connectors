@@ -1,0 +1,55 @@
+#use-added-syntax(jitx)
+defpackage connectors/components/JD0-0001NL :
+  import core
+  import jitx
+  import jitx/commands
+
+  import jsl/bundles/general
+  import jsl/landpatterns/leads
+  import jsl/landpatterns/packages
+  import jsl/landpatterns/VirtualLP
+  import jsl/protocols/ethernet/MDI/MDI-1000Base-T
+  import jsl/symbols/box-symbol
+  import jsl/symbols/SymbolDefn
+
+  import connectors/generators/JD0-0001NL with :
+    prefix(JD0-0001NL) => gen-
+
+public pcb-component JD0-0001NL :
+  name = "553-2359-ND"
+  description = "CONN JACK 1PORT 1000 BASE-T PCB"
+  manufacturer = "Pulse Electronics"
+  mpn = "JD0-0001NL"
+  datasheet = "https://productfinder.pulseelectronics.com/api/open/part-attachments/datasheet/JD0-0001NL"
+  reference-prefix = "J"
+  port DP : diff-pair[4]
+
+  pin-properties :
+    [pin:Ref | pads:Ref ... | side:Dir]
+    [CT      | p[1]  | Left]
+    [DP[0].N | p[2]  | Left]
+    [DP[0].P | p[3]  | Left]
+    [DP[1].N | p[4]  | Left]
+    [DP[1].P | p[5]  | Left]
+    [DP[2].N | p[6]  | Left]
+    [DP[2].P | p[7]  | Left]
+    [DP[3].N | p[8]  | Left]
+    [DP[3].P | p[9]  | Right]
+    [p[10]   | p[10] | Right]
+    [LED_G+ | p[11] | Right]
+    [LED_G- | p[12] | Right]
+    [LED_Y+ | p[13] | Right]
+    [LED_Y- | p[14] | Right]
+    [SHIELD_1 | p[15] | Right]
+    [SHIELD_2 | p[16] | Right]
+    [MOUNT_1 | p[17] | Right]
+    [MOUNT_2 | p[18] | Right]
+
+  val pkg = gen-JD0-0001NL()
+  val lp = create-landpattern(pkg)
+  assign-landpattern(lp)
+
+  val box = BoxSymbol(self)
+  assign-symbol(create-symbol(box))
+
+  make-1000Base-T-supports(to-tuple $ for i in 0 to 4 seq : DP[i])
