@@ -85,19 +85,6 @@ public defmethod build-all (
   build-cut-out(pkg, origin)
   build-conformal-mask(pkg, origin)
 
-; This is a workaround as the default build-courtyard doesn't play nicely
-; with the pads within the scene-graph constructed here
-public defmethod build-courtyard (
-  pkg:JD0-0001NL,
-  vp:VirtualLP,
-  ) -> False:
-  build-courtyard-origin(vp)
-  val excess = courtyard-excess(pkg)
-  val pkg-outline = bounds(envelope(package-body(pkg), density-level = density-level(pkg)))
-  val outline* = fatten(excess, pkg-outline)
-  val outline = LineRectangle(outline*, line-width = DEF_COURTYARD_WIDTH)
-  add-artwork(vp, Courtyard(Top), outline, class = "courtyard")
-
 public defmethod courtyard-excess (
   pkg:JD0-0001NL
 ) -> Double :
