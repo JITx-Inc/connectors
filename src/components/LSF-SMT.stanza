@@ -1,0 +1,110 @@
+#use-added-syntax(jitx)
+defpackage connectors/components/LSF-SMT :
+  import core
+  import jitx
+  import jitx/commands
+
+  import jsl/geometry/LineRectangle
+  import jsl/geometry/box
+  import jsl/landpatterns/headers
+  import jsl/landpatterns/dual-row
+  import jsl/landpatterns/courtyard
+  import jsl/landpatterns/leads
+  import jsl/landpatterns/numbering
+  import jsl/landpatterns/packages
+  import jsl/landpatterns/pads
+  import jsl/landpatterns/silkscreen
+  import jsl/landpatterns/VirtualLP
+  import jsl/symbols/box-symbol
+  import jsl/symbols/SymbolDefn
+  import connectors/utils
+
+val poles-to-mpn =
+  [
+    1 => 1446220000
+    2 => 1825640000
+    3 => 1825650000
+    4 => 1825660000
+    5 => 1825670000
+    6 => 1825680000
+    7 => 1825690000
+    8 => 1825700000
+    9 => 1825710000
+    10 => 1825720000
+    11 => 1825730000
+    12 => 1825740000
+    13 => 1870350000
+    14 => 1870360000
+    15 => 1870370000
+    16 => 1870510000
+    17 => 1870520000
+    18 => 1870540000
+    19 => 1870560000
+    20 => 1870570000
+    21 => 1870600000
+    22 => 1870610000
+    23 => 1870620000
+    24 => 1870630000
+  ]
+
+public pcb-component LSF-SMT (-- num-poles: Int) :
+  if num-poles > length(poles-to-mpn) or num-poles <= 0 :
+    throw $ Exception("Terminal block pole count must be within [1, %_]" % [length(poles-to-mpn)])
+
+  name = to-string("Terminal Block %_ Poles" % [num-poles])
+  description = to-string("TERM BLK %_P TOP ENTRY 3.5MM PCB" % [num-poles])
+  manufacturer = "Weidmüller"
+  mpn = to-string(poles-to-mpn[num-poles])
+  datasheet = "https://catalog.weidmueller.com/procat/Group.jsp;jsessionid=2D3E17129178EB5048158C0C39D6D6A1?groupId=(%22group21472460020482%22)&page=Group"
+  reference-prefix = "L"
+
+  pin-properties :
+    [pin:Ref | pads:Ref ... | side:Dir]
+    for i in 0 to num-poles do :
+      [p[1 + 2 * i] | p[1 + 2 * i] | Left]
+      [p[2 + 2 * i] | p[2 + 2 * i] | Right]
+
+  val pkg = Header(
+    num-leads = num-poles * 2,
+    lead-type = TH-Lead(length = typ(2.0), width = typ(0.9)),
+    pad-diam = 1.6,
+    rows = num-poles,
+    lead-numbering = Column-Major-Numbering(num-poles * 2, num-poles)
+    pitch = 3.50
+    package-body = LSF-SMT-package-body(num-poles)
+  )
+  val lp = create-landpattern(pkg)
+  assign-landpattern(lp)
+
+  val box = BoxSymbol(self)
+  assign-symbol(create-symbol(box))
+
+doc: \<DOC>
+<DOC>
+public defstruct LSF-SMT-PKG <: Package :
+  package-body:PackageBody
+    with: (as-method => true)
+  num-poles:Int
+with:
+  printer => true
+  constructor => #LSF-SMT-PKG
+
+public defn LSF-SMT-PKG(
+  --
+  num-poles:Int
+) :
+  #LSF-SMT-PKG(
+    LSF-SMT-package-body(num-poles)
+    num-poles
+  )
+
+public defmethod name (pkg:LSF-SMT-PKG) -> String :
+  "Weidmüller Terminal Block"
+
+defn LSF-SMT-package-body (num-poles:Int) :
+  val num-poles-dbl = to-double(num-poles)
+  PackageBody(
+    width = (num-poles-dbl - 1.0) * 3.5 + num-poles-dbl * 1.2 +/- 0.1
+    length = 7.8 +/- 0.0
+    height = 14.0 +/- 0.0
+  )
