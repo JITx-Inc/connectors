@@ -19,6 +19,8 @@ defpackage connectors/components/LSF-SMT :
   import jsl/symbols/SymbolDefn
   import connectors/utils
 
+; Pulled from https://catalog.weidmueller.com/procat/Group.jsp;jsessionid=2D3E17129178EB5048158C0C39D6D6A1?groupId=(%22group21472460020482%22)&page=Group
+; TU used when available, otherwise RL
 val poles-to-mpn =
   [
     1 => 1446220000
@@ -64,15 +66,21 @@ public pcb-component LSF-SMT (-- num-poles: Int) :
       [p[1 + 2 * i] | p[1 + 2 * i] | Left]
       [p[2 + 2 * i] | p[2 + 2 * i] | Right]
 
+  ; Note: unclear if column major numbering in headers is currently supported.
+  ; The datasheet doesn't specify an order to the pads, and different sites
+  ; order the pads differently.
+  ; Although Column-Major-Numbering is passed in here, it ends up being row-major
+  ; due to the implementation.
   val pkg = Header(
     num-leads = num-poles * 2,
-    lead-type = TH-Lead(length = typ(2.0), width = typ(0.9)),
+    lead-type = TH-Lead(length = typ(3.5), width = typ(1.1)),
     pad-diam = 1.6,
     rows = num-poles,
     lead-numbering = Column-Major-Numbering(num-poles * 2, num-poles)
     pitch = 3.50
     package-body = LSF-SMT-package-body(num-poles)
   )
+
   val lp = create-landpattern(pkg)
   assign-landpattern(lp)
 
@@ -104,7 +112,7 @@ public defmethod name (pkg:LSF-SMT-PKG) -> String :
 defn LSF-SMT-package-body (num-poles:Int) :
   val num-poles-dbl = to-double(num-poles)
   PackageBody(
-    width = (num-poles-dbl - 1.0) * 3.5 + num-poles-dbl * 1.2 +/- 0.1
+    width = ((num-poles-dbl - 1.0) * 3.5 + num-poles-dbl * 1.2) +/- 0.1
     length = 7.8 +/- 0.0
     height = 14.0 +/- 0.0
   )
