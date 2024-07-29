@@ -66,11 +66,10 @@ public pcb-component LSF-SMT (-- num-poles: Int) :
       [p[1 + 2 * i] | p[1 + 2 * i] | Left]
       [p[2 + 2 * i] | p[2 + 2 * i] | Right]
 
-  ; Note: unclear if column major numbering in headers is currently supported.
+  ; Note: since headers are column-oriented, this is a bit hacky to get row-major
+  ; ordering for the terminal blocks.
   ; The datasheet doesn't specify an order to the pads, and different sites
   ; order the pads differently.
-  ; Although Column-Major-Numbering is passed in here, it ends up being row-major
-  ; due to the implementation.
   val pkg = Header(
     num-leads = num-poles * 2,
     lead-type = TH-Lead(length = typ(3.5), width = typ(1.1)),
