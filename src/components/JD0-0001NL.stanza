@@ -7,13 +7,82 @@ defpackage connectors/components/JD0-0001NL :
   import jsl/bundles
   import jsl/landpatterns
   import jsl/symbols
-  import jsl/geometry/LineRectangle
-  import jsl/geometry/box
-
+  import jsl/si
+  import jsl/geometry/basics
+  
   import jsl/protocols/ethernet/MDI/MDI-1000Base-T
+  import jsl/protocols/ethernet/MDI/MDI-100Base-TX
 
-  import connectors/utils
 
+doc: \<DOC>
+JD0-0001NL Connector Module
+
+This is the preferred usage point for this connector component.
+
+The user is expected to use a `require` statement to extract
+the 1000Base-T or 100Base-T interface for their application.
+
+@member CT Device-Side Center Tap - Non-Isolated
+@member ISO-CT Cable-Side Center Tap - Isolated
+@member LED-G Green Status LED
+@member LED-Y Yellow Status LED
+@member SHIELD Chassis Shield Connection for the Connector.
+
+@member J Public component instantiation. This allows the user
+to interrogate specifics of the `pcb-component` definition
+from outside the module.
+<DOC>
+public pcb-module connector :
+
+  ; Device-Side Center Tap
+  port CT : pin
+  ; Isolated Cable-Side Center Tap
+  port ISO-CT : pin
+
+  ; Status LEDs
+  port LED-G : polarized-dev
+  port LED-Y : polarized-dev
+
+  port SHIELD : pin
+
+  public inst J : JD0-0001NL
+
+  net (CT, J.CT)
+  net (ISO-CT, J.ISO-CT)
+
+  make-1000Base-T-supports(
+    ; Order matters in this list.
+    [J.DA+, J.DA-]
+    [J.DB+, J.DB-]
+    [J.DC+, J.DC-]
+    [J.DD+, J.DD-]
+  )
+
+  supports MDI-100Base-TX:
+    MDI-100Base-TX.TX.P => J.DA+
+    MDI-100Base-TX.TX.N => J.DA-
+    MDI-100Base-TX.RX.P => J.DB+
+    MDI-100Base-TX.RX.N => J.DB-
+
+  net (LED-G.a, J.LED-G-A) ; Anode
+  net (LED-G.c, J.LED-G-C) ; Cathode
+
+  net (LED-Y.a, J.LED-Y-A) ; Anode
+  net (LED-Y.c, J.LED-Y-C) ; Cathode
+
+  for i in 1 through length(J.SHIELD) do:
+    net (SHIELD, J.SHIELD[i])
+
+doc: \<DOC>
+RJ45 Connector supporting 1000Base-T Ethernet
+
+This is the base physical connector. It encodes
+part information including the symbol and landpattern.
+
+We suggest leveraging the `connector` module instead
+of this connector directly unless you need to add some
+custom handling.
+<DOC>
 public pcb-component JD0-0001NL :
   name = "553-2359-ND"
   description = "CONN JACK 1PORT 1000 BASE-T PCB"
@@ -21,118 +90,107 @@ public pcb-component JD0-0001NL :
   mpn = "JD0-0001NL"
   datasheet = "https://productfinder.pulseelectronics.com/api/open/part-attachments/datasheet/JD0-0001NL"
   reference-prefix = "J"
-  port DP : diff-pair[4]
 
   pin-properties :
-    [pin:Ref | pads:Ref ... | side:Dir]
-    [CT      | p[1]  | Left]
-    [DP[0].N | p[2]  | Left]
-    [DP[0].P | p[3]  | Left]
-    [DP[1].N | p[4]  | Left]
-    [DP[1].P | p[5]  | Left]
-    [DP[2].N | p[6]  | Left]
-    [DP[2].P | p[7]  | Left]
-    [DP[3].N | p[8]  | Left]
-    [DP[3].P | p[9]  | Right]
-    [p[10]   | p[10] | Right]
-    [LED_G+ | p[11] | Right]
-    [LED_G- | p[12] | Right]
-    [LED_Y+ | p[13] | Right]
-    [LED_Y- | p[14] | Right]
-    [SHIELD[1] | p[15] | Right]
-    [SHIELD[2] | p[16] | Right]
-    [MOUNT[1] | p[17] | Right]
-    [MOUNT[2] | p[18] | Right]
+    [pin:Ref | pads:Ref ... | side:Dir | row:Int]
+    [CT | p[1]  | Left | 1]
+    [DA+ | p[2]  | Left | 0]
+    [DA- | p[3]  | Left | 0]
+    [DB+ | p[4]  | Left | 0]
+    [DB- | p[5]  | Left | 0]
+    [DC+ | p[6]  | Left | 0]
+    [DC- | p[7]  | Left | 0]
+    [DD+ | p[8]  | Left | 0]
+    [DD- | p[9]  | Left | 0]
+    [ISO-CT | p[10] | Right | 1]
+    [LED-G-A | p[11] | Right | 0]
+    [LED-G-C | p[12] | Right | 0]
+    [LED-Y-A | p[13] | Right | 0]
+    [LED-Y-C | p[14] | Right | 0]
+    [SHIELD[1] | p[15] | Right | 1]
+    [SHIELD[2] | p[16] | Right | 1]
+    [MOUNT[1] | p[17] | Right | 1]
+    [MOUNT[2] | p[18] | Right | 1]
 
   val pkg = JD0-0001NL-Pkg()
   val lp = create-landpattern(pkg)
   assign-landpattern(lp)
 
   val box = BoxSymbol(self)
+  set-grid(box, [2, 2])
+
+  set-alignment(N, self.CT)
+
+  set-group("LED-G", [self.LED-G-A, self.LED-G-C])
+  set-group("LED-Y", [self.LED-Y-A, self.LED-Y-C])
+
+  set-alignment(N, find-pins-by-regex(box, "LED-.*"))
+  set-head-margin(box, 1.0, "LED-Y")
+
+  set-head-margin(1.0, self.SHIELD[1])
   assign-symbol(create-symbol(box))
 
-  make-1000Base-T-supports(to-tuple $ for i in 0 to 4 seq : DP[i])
-
-
-
-doc: \<DOC>
-<DOC>
-public defstruct JD0-0001NL-Pkg <: Package :
-  package-body:PackageBody
-    with: (as-method => true, default => JD0-0001NL-package-body())
-with:
-  printer => true
-
-public defmethod name (pkg:JD0-0001NL-Pkg) -> String :
-  "JD0-0001NL Ethernet Connector"
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Package Generator Definition
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 val JD0-0001NL-LENGTH = 21.35
 val JD0-0001NL-WIDTH = 15.90
 val JD0-0001NL-HEIGHT = 13.63
 val JD0-0001NL-TOL = 0.25
 
-defn JD0-0001NL-package-body () :
-  PackageBody(
-    width = JD0-0001NL-WIDTH +/- JD0-0001NL-TOL
-    length = JD0-0001NL-LENGTH +/- JD0-0001NL-TOL
-    height = JD0-0001NL-HEIGHT +/- JD0-0001NL-TOL
-  )
+doc: \<DOC>
+JD0-0001NL Ethernet Connector Land Pattern Generator
+<DOC>
+public defstruct JD0-0001NL-Pkg <: Package :
+  package-body:PackageBody with: 
+    as-method => true
+    default => PackageBody(
+      width = JD0-0001NL-WIDTH +/- JD0-0001NL-TOL
+      length = JD0-0001NL-LENGTH +/- JD0-0001NL-TOL
+      height = JD0-0001NL-HEIGHT +/- JD0-0001NL-TOL
+    )
+with:
+  printer => true
 
-defn calc-JD0-0001NL-center () :
+public defmethod name (pkg:JD0-0001NL-Pkg) -> String :
+  "JD0-0001NL Ethernet Connector"
+
+doc: \<DOC>
+Compute the Center of Mass Location
+
+The mechanical drawing for this part shows the 
+origin as one of the mechanical mounting holes and 
+all measurements are made from that datum. For the
+landpattern, we would like the origin to be the 
+center of mass. This function computes that location.
+@return Center of Mass location in mm
+<DOC>
+defn compute-JD0-0001NL-center () -> Pose:
   val half-x = JD0-0001NL-WIDTH / 2.0
   val half-y = JD0-0001NL-LENGTH / 2.0
   val center-x = 2.24 - half-x
   val center-y = 10.75 - half-y
   loc(center-x, center-y)
 
-public defmethod build-silkscreen (
-  pkg:JD0-0001NL-Pkg
-  vp:VirtualLP
-  ) -> False:
-  Ethernet-outline(pkg, vp)
-
-public defn Ethernet-outline (
-  pkg:JD0-0001NL-Pkg
-  vp:VirtualLP
-  --
-  line-width:Double = default-silk-width(),
-  mask-clearance:Double = default-mask-clearance(),
-  side:Side = Top
-) -> False :
-  val edge-vp = create-child(vp, offset = loc(-2.24, 0.0))
-  val pkg-body = package-body(pkg)
-  val pkg-outline = bounds $ envelope(pkg-body, density-level = density-level(pkg))
-  val pkg-outline* = fatten(line-width / 2.0, pkg-outline)
-  val outline-geom = LineRectangle(pkg-outline*, line-width = line-width, anchor = W)
-
-  add-artwork(edge-vp, Silkscreen("outline", side), outline-geom, class = "outline")
-
 public defmethod build-all (
   pkg:JD0-0001NL-Pkg,
-  virt:VirtualLP
+  root:VirtualLP
   ) -> False :
-  val origin = create-child(virt, offset = calc-JD0-0001NL-center())
-  build-pads(pkg, origin)
+  ; Create a child node with its center shift from the center of mass of the 
+  ;  connector's 3D body to the location specified as the quasi-origin of the 
+  ;  mechanical drawing of the datasheet on page 4.
+  ;  This origin is centered in the left mechanical mounting hole
+  val origin = create-child(root, offset = compute-JD0-0001NL-center(), name = "origin" )
+  package-build-all-order(pkg, root)
 
-  ; courtyard uses the root node
-  build-courtyard(pkg, virt)
-  build-silkscreen(pkg, origin)
-  build-keep-out(pkg, origin)
-  build-cut-out(pkg, origin)
-  build-conformal-mask(pkg, origin)
-
-; This is a workaround as the default build-courtyard doesn't play nicely
-; with the pads within the scene-graph constructed here
-public defmethod build-courtyard (
-  pkg:JD0-0001NL-Pkg,
-  vp:VirtualLP,
+public defmethod build-silkscreen (
+  pkg:JD0-0001NL-Pkg
+  root:VirtualLP
   ) -> False:
-  build-courtyard-origin(vp)
-  val excess = courtyard-excess(pkg)
-  val pkg-outline = bounds(envelope(package-body(pkg), density-level = density-level(pkg)))
-  val outline* = fatten(excess, pkg-outline)
-  val outline = LineRectangle(outline*, line-width = DEF_COURTYARD_WIDTH)
-  add-artwork(vp, Courtyard(Top), outline, class = "courtyard")
+  create-silkscreen-outline(root, package-body(pkg), density-level = density-level(pkg))
+  build-outline-pin-1-triangle(root)
+
 
 public defmethod courtyard-excess (
   pkg:JD0-0001NL-Pkg
@@ -142,8 +200,9 @@ public defmethod courtyard-excess (
 
 public defmethod build-keep-out (
   pkg:JD0-0001NL-Pkg,
-  vp:VirtualLP,
+  root:VirtualLP,
 ) -> False :
+  val vp = get-child!(root, "origin")
   val small-ko-box-width = 2.24 - 0.93
   val small-ko-box-length = 2.0
   val large-ko-box-width = 12.72 + 1.29
@@ -157,84 +216,121 @@ public defmethod build-keep-out (
 
 public defmethod build-pads (
   pkg:JD0-0001NL-Pkg,
-  vp:VirtualLP,
+  root:VirtualLP,
   ) -> False :
+
+  val vp = get-child!(root, "origin")
+
   build-staggered-grid(pkg, vp)
   build-led-grid(pkg, vp)
   build-mounts(pkg, vp)
   build-shield(pkg, vp)
 
-defn pth-pad-gen (min-hole-width:Double) :
-  val min-pad-width = min-pad-size(min-hole-width)
-  pth-pad(min-hole-width, min-pad-width)
-
-defn npth-pad-gen (min-hole-width:Double) :
-  npth-pad(Circle(min-hole-width / 2.0))
-
-defn create-pads (
-  num-rows:Int
-  num-cols:Int
-  pitch:Point
-  min-hole-width:Double
-  phase-offset:Pose = loc(0.0, 0.0)
-  id-offset:Int = 0
-  pad-gen: (Double -> Pad) = pth-pad-gen
-) :
-  val pad-def = pad-gen(min-hole-width)
-
-  val row-offset = id-offset / num-rows
-  val col-offset = id-offset % num-rows
-  val num-pads = num-rows * num-cols
-
-  val id-gen = Column-Major-Numbering(num-pads, num-cols,
-    row-offset = row-offset, col-offset = col-offset)
-  val poses = to-seq $ grid-locs(
-      NW, num-rows, num-cols, x(pitch), y(pitch), NW, true)
-
-  for r in 0 to num-rows seq-cat :
-    val row-offset = loc(0.0, 0.0) when r % 2 == 0 else phase-offset
-    for c in 0 to num-cols seq :
-      VirtualPad(to-pad-id(id-gen, r, c)
-        pad-def, row-offset * next(poses),
-        class = ["pad", to-string("row-%_ col-%_" % [r, c])])
-
 defn build-staggered-grid (
   pkg:JD0-0001NL-Pkg
   vp:VirtualLP
-):
+  ):
   val origin = create-child(vp, offset = loc(0.0, 8.89))
-  val pads = create-pads(2, 5, Point(2.54, 8.9 - 6.35), 0.9, loc(1.27, 0.0))
-  append-all(origin, pads)
+
+  val num-cols = 5 
+  val th-lead = TH-Lead(
+    width = typ(0.6), 
+    length = typ(3.5)
+    override = pth-pad(0.9, compute-pad-diam(0.9, density-level(pkg)))
+  )
+  val pad-seq = pad-grid-th(
+    lead-type = th-lead
+    planner = StaggerPthPlanner(phase = Odd-Phase)
+    lead-grid = GridPlanner(
+      ; Stagger Planner Creates 2x the number of columns
+      ;   as pads - hence the pitch is half the actual
+      ;   physical pitch between pins.
+      pitch = Dims(1.27, 8.9 - 6.35)
+      columns = 2 * num-cols
+      rows = 2,
+      anchor = NW
+    )
+    ; Skip every other other column because of the stagger
+    ;  grid.
+    num-scheme = Column-Major-Numbering(10, num-cols, col-skip = 2)
+    )
+  append-all(origin, pad-seq)
 
 defn build-led-grid (
   pkg:JD0-0001NL-Pkg
   vp:VirtualLP
 ):
-  val led-offset = 10
-  val led-pitch = Point(0.93 + 1.62, 0.0)
+
+  val led-pitch = 0.93 + 1.62
+  val led-lead = TH-Lead(
+    width = typ(1.1)
+    length = typ(3.5),
+    override = pth-pad(1.2, compute-pad-diam(1.2, density-level(pkg)))
+  )
   val grn-led = create-child(vp, offset = loc(-0.93, -4.06))
-  append-all(grn-led,
-    create-pads(1, 2, led-pitch, 1.2, loc(0.0, 0.0), led-offset))
+  val grn-pad-seq = pad-grid-th(
+    lead-type = led-lead,
+    planner = PthPadPlanner(),
+    lead-grid = GridPlanner(
+      pitch = led-pitch
+      columns = 2
+      rows = 1
+      anchor = W
+    )
+    num-scheme = Row-Major-Numbering(2, 1, col-offset = 10)
+  )
+  append-all(grn-led, grn-pad-seq)
 
   val ylw-led = create-child(vp, offset = loc(9.82, -4.06))
-  append-all(ylw-led,
-    create-pads(1, 2, led-pitch, 1.2, loc(0.0, 0.0), led-offset + 2))
+  val ylw-pad-seq = pad-grid-th(
+    lead-type = led-lead
+    planner = PthPadPlanner(),
+    lead-grid = GridPlanner(
+      pitch = led-pitch
+      columns = 2
+      rows = 1
+      anchor = W
+    )
+    num-scheme = Row-Major-Numbering(2, 1, col-offset = 12)
+  )
+  append-all(ylw-led, ylw-pad-seq)
 
 defn build-shield (
   pkg:JD0-0001NL-Pkg
   vp:VirtualLP
 ):
-  val pitch = Point(2.14 + 13.57, 0.0)
-  val id-offset = 14
-  val origin = create-child(vp, offset = loc(-2.14, 3.05))
-  append-all(origin,
-    create-pads(1, 2, pitch, 1.6, loc(0.0, 0.0), id-offset, npth-pad-gen))
+  val shield-pitch = 2.14 + 13.57
+  val shield-origin = create-child(vp, offset = loc(-2.14, 3.05))
+  val shield-lead = TH-Lead(
+    width = typ(1.5), length = typ(3.5),
+    override = pth-pad(1.60, compute-pad-diam(1.6, density-level(pkg)))
+    )
+  val shield-pad-seq = pad-grid-th(
+    lead-type = shield-lead
+    planner = PthPadPlanner(),
+    lead-grid = GridPlanner(
+      pitch = shield-pitch
+      columns = 2
+      rows = 1
+      anchor = W
+    )
+    num-scheme = Row-Major-Numbering(2, 1, col-offset = 14)
+  )
+  append-all(shield-origin, shield-pad-seq)
+
 
 defn build-mounts (
   pkg:JD0-0001NL-Pkg
   vp:VirtualLP
 ):
-  val pitch = Point(11.43, 0.0)
-  val id-offset = 16
-  append-all(vp
-    create-pads(1, 2, pitch, 3.25, loc(0.0, 0.0), id-offset, npth-pad-gen))
+  ; This is a simpler method of defining the non-plated
+  ;  through-holes.
+  val pad-def = npth-pad(Circle(to-radius(3.25)))
+  append(
+    vp,
+    VirtualPad(17, pad-def, loc(0.0, 0.0), class = "mounting")
+  )
+  append(
+    vp,
+    VirtualPad(18, pad-def, loc(11.43, 0.0), class = "mounting")
+  )
