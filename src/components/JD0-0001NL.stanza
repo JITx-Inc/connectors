@@ -40,8 +40,8 @@ public pcb-module connector :
   port ISO-CT : pin
 
   ; Status LEDs
-  port LED-G : polarized-dev
-  port LED-Y : polarized-dev
+  port LED-G : polarized-ca
+  port LED-Y : polarized-ca
 
   port SHIELD : pin
 
