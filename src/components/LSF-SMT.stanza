@@ -4,49 +4,37 @@ defpackage connectors/components/LSF-SMT :
   import jitx
   import jitx/commands
 
-  import jsl/geometry/LineRectangle
-  import jsl/geometry/box
-  import jsl/landpatterns/headers
-  import jsl/landpatterns/dual-row
-  import jsl/landpatterns/courtyard
-  import jsl/landpatterns/leads
-  import jsl/landpatterns/numbering
-  import jsl/landpatterns/packages
-  import jsl/landpatterns/pads
-  import jsl/landpatterns/silkscreen
-  import jsl/landpatterns/VirtualLP
-  import jsl/symbols/box-symbol
-  import jsl/symbols/SymbolDefn
-  import connectors/utils
+  import jsl/landpatterns
+  import jsl/symbols
 
 ; Pulled from https://catalog.weidmueller.com/procat/Group.jsp;jsessionid=2D3E17129178EB5048158C0C39D6D6A1?groupId=(%22group21472460020482%22)&page=Group
 ; TU used when available, otherwise RL
 val poles-to-mpn =
   [
-    1 => 1446220000
-    2 => 1825640000
-    3 => 1825650000
-    4 => 1825660000
-    5 => 1825670000
-    6 => 1825680000
-    7 => 1825690000
-    8 => 1825700000
-    9 => 1825710000
-    10 => 1825720000
-    11 => 1825730000
-    12 => 1825740000
-    13 => 1870350000
-    14 => 1870360000
-    15 => 1870370000
-    16 => 1870510000
-    17 => 1870520000
-    18 => 1870540000
-    19 => 1870560000
-    20 => 1870570000
-    21 => 1870600000
-    22 => 1870610000
-    23 => 1870620000
-    24 => 1870630000
+    1 => "1446220000"
+    2 => "1825640000"
+    3 => "1825650000"
+    4 => "1825660000"
+    5 => "1825670000"
+    6 => "1825680000"
+    7 => "1825690000"
+    8 => "1825700000"
+    9 => "1825710000"
+    10 => "1825720000"
+    11 => "1825730000"
+    12 => "1825740000"
+    13 => "1870350000"
+    14 => "1870360000"
+    15 => "1870370000"
+    16 => "1870510000"
+    17 => "1870520000"
+    18 => "1870540000"
+    19 => "1870560000"
+    20 => "1870570000"
+    21 => "1870600000"
+    22 => "1870610000"
+    23 => "1870620000"
+    24 => "1870630000"
   ]
 
 public pcb-component LSF-SMT (-- num-poles: Int) :
@@ -58,13 +46,12 @@ public pcb-component LSF-SMT (-- num-poles: Int) :
   manufacturer = "Weidmüller"
   mpn = to-string(poles-to-mpn[num-poles])
   datasheet = "https://catalog.weidmueller.com/procat/Group.jsp;jsessionid=2D3E17129178EB5048158C0C39D6D6A1?groupId=(%22group21472460020482%22)&page=Group"
-  reference-prefix = "L"
+  reference-prefix = "J"
 
   pin-properties :
     [pin:Ref | pads:Ref ... | side:Dir]
-    for i in 0 to num-poles do :
-      [p[1 + 2 * i] | p[1 + 2 * i] | Left]
-      [p[2 + 2 * i] | p[2 + 2 * i] | Right]
+    for i in 1 through num-poles do :
+      [p[i] | p[2 * i - 1], p[2 * i] | Left]
 
   ; Note: since headers are column-oriented, this is a bit hacky to get row-major
   ; ordering for the terminal blocks.
