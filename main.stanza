@@ -7,11 +7,10 @@ defpackage connectors/main:
 
   import jsl/examples/landpatterns/board
   import connectors/components/JD0-0001NL
-  import connectors/components/LSF-SMT
 
 pcb-module test-design:
   inst j : JD0-0001NL
-  inst k : LSF-SMT(num-poles = 12)
+  inst k : connectors/components/LSF-SMT/component(num-poles = 12)
 val board-shape = RoundedRectangle(50.0, 50.0, 0.15)
 
 ; Set the top level module (the module to be compile into a schematic and PCB)
