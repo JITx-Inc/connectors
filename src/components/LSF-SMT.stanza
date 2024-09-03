@@ -4,8 +4,11 @@ defpackage connectors/components/LSF-SMT :
   import jitx
   import jitx/commands
 
+  import jsl/errors
+  import jsl/ensure
   import jsl/landpatterns
   import jsl/symbols
+  import jsl/design/settings
 
 ; Pulled from https://catalog.weidmueller.com/procat/Group.jsp;jsessionid=2D3E17129178EB5048158C0C39D6D6A1?groupId=(%22group21472460020482%22)&page=Group
 ; TU used when available, otherwise RL
@@ -37,9 +40,10 @@ val poles-to-mpn =
     24 => "1870630000"
   ]
 
-public pcb-component LSF-SMT (-- num-poles: Int) :
-  if num-poles > length(poles-to-mpn) or num-poles <= 0 :
-    throw $ Exception("Terminal block pole count must be within [1, %_]" % [length(poles-to-mpn)])
+public pcb-component component (-- num-poles: Int) :
+  val poles = to-tuple $ map(key, poles-to-mpn)
+  if not contains?(poles, num-poles):
+    throw $ ValueError("Terminal block with pole count '%_' not supported - must be within [1, %_]" % [num-poles, length(poles-to-mpn)])
 
   name = to-string("Terminal Block %_ Poles" % [num-poles])
   description = to-string("TERM BLK %_P TOP ENTRY 3.5MM PCB" % [num-poles])
@@ -53,52 +57,105 @@ public pcb-component LSF-SMT (-- num-poles: Int) :
     for i in 1 through num-poles do :
       [p[i] | p[2 * i - 1], p[2 * i] | Left]
 
+
   ; Note: since headers are column-oriented, this is a bit hacky to get row-major
   ; ordering for the terminal blocks.
   ; The datasheet doesn't specify an order to the pads, and different sites
   ; order the pads differently.
-  val pkg = Header(
-    num-leads = num-poles * 2,
-    lead-type = TH-Lead(length = typ(3.5), width = typ(1.1)),
-    pad-diam = 1.6,
-    rows = num-poles,
-    lead-numbering = Column-Major-Numbering(num-poles * 2, num-poles)
-    pitch = 3.50
-    package-body = LSF-SMT-package-body(num-poles)
-  )
-
+  ; val pkg = Header(
+  ;   num-leads = num-poles * 2,
+  ;   lead-type = TH-Lead(length = typ(3.5), width = typ(1.1)),
+  ;   pad-diam = 1.6,
+  ;   rows = num-poles,
+  ;   lead-numbering = Column-Major-Numbering(num-poles * 2, num-poles)
+  ;   pitch = 3.50
+  ;   package-body = LSF-SMT-package-body(num-poles)
+  ; )
+  val pkg = LFS-SMT-pkg(num-poles = num-poles)
   val lp = create-landpattern(pkg)
   assign-landpattern(lp)
 
   val box = BoxSymbol(self)
-  assign-symbol(create-symbol(box))
+  assign-symbol $ create-symbol(box)
 
-doc: \<DOC>
-<DOC>
-public defstruct LSF-SMT-PKG <: Package :
-  package-body:PackageBody
-    with: (as-method => true)
-  num-poles:Int
-with:
-  printer => true
-  constructor => #LSF-SMT-PKG
-
-public defn LSF-SMT-PKG(
-  --
-  num-poles:Int
-) :
-  #LSF-SMT-PKG(
-    LSF-SMT-package-body(num-poles)
-    num-poles
-  )
-
-public defmethod name (pkg:LSF-SMT-PKG) -> String :
-  "Weidmüller Terminal Block"
 
 defn LSF-SMT-package-body (num-poles:Int) :
   val num-poles-dbl = to-double(num-poles)
   PackageBody(
-    width = ((num-poles-dbl - 1.0) * 3.5 + num-poles-dbl * 1.2) +/- 0.1
-    length = 7.8 +/- 0.0
+    length = ((num-poles-dbl - 1.0) * 3.5 + num-poles-dbl * 1.2) +/- 0.1
+    width = 7.8 +/- 0.0
     height = 14.0 +/- 0.0
   )
+
+val LFS-SMT-Pitch = 3.5
+
+public defstruct LFS-SMT-pkg <: Package :
+  num-poles : Int with:
+    ensure => ensure-positive!
+  num-leads : Int with:
+    as-method => true
+  package-body:PackageBody with:
+    as-method => true
+  pad-planner:PadPlanner with:
+    as-method => true
+  lead-numbering:Numbering with:
+    as-method => true
+  density-level:DensityLevel with:
+    as-method => true
+    default => DENSITY-LEVEL
+with:
+  printer => true
+  constructor => #LFS-SMT-pkg
+
+
+
+public defn LFS-SMT-pkg (
+  --
+  num-poles:Int,
+  pad-planner:PadPlanner = PthPadPlanner()
+  lead-numbering:Numbering = Row-Major-Numbering(num-poles * 2, num-poles)
+  density-level:DensityLevel = DENSITY-LEVEL
+  ) -> LFS-SMT-pkg:
+
+  val cnt = to-double(num-poles)
+  val pkg-body = PackageBody(
+    length = (((cnt - 1.0) * LFS-SMT-Pitch) + 4.2) +/- 0.1
+    width = 8.5 +/- 0.0
+    height = 14.0 +/- 0.0
+  )
+  #LFS-SMT-pkg(num-poles, num-poles * 2, pkg-body, pad-planner, lead-numbering, density-level)
+
+public defmethod name (pkg:LFS-SMT-pkg) -> String :
+  to-string("Terminal Block - %_ poles " % [num-poles(pkg)])
+
+public defmethod courtyard-excess (
+  pkg:LFS-SMT-pkg
+) -> Double :
+  0.25
+
+public defmethod build-pads (
+  pkg:LFS-SMT-pkg,
+  vp:VirtualLP
+  ):
+  val poles = num-poles(pkg)
+  val pad-seq = pad-grid-th(
+    lead-type = TH-Lead(length = typ(3.5), width = typ(1.1)),
+    planner = PthPadPlanner(),
+    lead-grid = GridPlanner(
+      pitch = Dims(5.5, LFS-SMT-Pitch)
+      columns = 2
+      rows = poles
+      anchor = C
+    ),
+    num-scheme = Row-Major-Numbering(poles * 2, poles)
+  )
+
+  append-all(vp, pad-seq)
+
+public defmethod build-silkscreen (
+  pkg:LFS-SMT-pkg,
+  vp:VirtualLP
+  ):
+  create-silkscreen-outline(vp, package-body(pkg), density-level = density-level(pkg))
+  build-outline-pin-1-triangle(vp)
+
