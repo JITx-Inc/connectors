@@ -140,7 +140,7 @@ public defmethod build-pads (
   val poles = num-poles(pkg)
   val pad-seq = pad-grid-th(
     lead-type = TH-Lead(length = typ(3.5), width = typ(1.1)),
-    planner = PthPadPlanner(),
+    planner = Pin1-PthPadPlanner(rect-shaper),
     lead-grid = GridPlanner(
       pitch = Dims(5.5, LFS-SMT-Pitch)
       columns = 2
