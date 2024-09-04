@@ -11,6 +11,7 @@ defpackage connectors/main:
 pcb-module test-design:
   inst j : JD0-0001NL
   inst k : connectors/components/LSF-SMT/component(num-poles = 12)
+  inst USB-C : connectors/components/USB/USBTypeC/device
 val board-shape = RoundedRectangle(50.0, 50.0, 0.15)
 
 ; Set the top level module (the module to be compile into a schematic and PCB)
