@@ -1,6 +1,7 @@
 #use-added-syntax(jitx)
 defpackage connectors/components/LSF-SMT :
   import core
+  import collections
   import jitx
   import jitx/commands
 
@@ -12,8 +13,7 @@ defpackage connectors/components/LSF-SMT :
 
 ; Pulled from https://catalog.weidmueller.com/procat/Group.jsp;jsessionid=2D3E17129178EB5048158C0C39D6D6A1?groupId=(%22group21472460020482%22)&page=Group
 ; TU used when available, otherwise RL
-val poles-to-mpn =
-  [
+val poles-to-mpn = to-hashtable<Int, String> $ [
     1 => "1446220000"
     2 => "1825640000"
     3 => "1825650000"
@@ -41,7 +41,7 @@ val poles-to-mpn =
   ]
 
 public pcb-component component (-- num-poles: Int) :
-  val poles = to-tuple $ map(key, poles-to-mpn)
+  val poles = keys(poles-to-mpn)
   if not contains?(poles, num-poles):
     throw $ ValueError("Terminal block with pole count '%_' not supported - must be within [1, %_]" % [num-poles, length(poles-to-mpn)])
 
