@@ -9,7 +9,7 @@ defpackage connectors/components/JD0-0001NL :
   import jsl/symbols
   import jsl/si
   import jsl/geometry/basics
-  
+
   import jsl/protocols/ethernet/MDI/MDI-1000Base-T
   import jsl/protocols/ethernet/MDI/MDI-100Base-TX
 
@@ -35,15 +35,15 @@ from outside the module.
 public pcb-module connector :
 
   ; Device-Side Center Tap
-  port CT : pin
+  port CT
   ; Isolated Cable-Side Center Tap
-  port ISO-CT : pin
+  port ISO-CT
 
   ; Status LEDs
   port LED-G : polarized-ca
   port LED-Y : polarized-ca
 
-  port SHIELD : pin
+  port SHIELD
 
   public inst J : JD0-0001NL
 
@@ -143,7 +143,7 @@ doc: \<DOC>
 JD0-0001NL Ethernet Connector Land Pattern Generator
 <DOC>
 public defstruct JD0-0001NL-Pkg <: Package :
-  package-body:PackageBody with: 
+  package-body:PackageBody with:
     as-method => true
     default => PackageBody(
       width = JD0-0001NL-WIDTH +/- JD0-0001NL-TOL
@@ -159,10 +159,10 @@ public defmethod name (pkg:JD0-0001NL-Pkg) -> String :
 doc: \<DOC>
 Compute the Center of Mass Location
 
-The mechanical drawing for this part shows the 
-origin as one of the mechanical mounting holes and 
+The mechanical drawing for this part shows the
+origin as one of the mechanical mounting holes and
 all measurements are made from that datum. For the
-landpattern, we would like the origin to be the 
+landpattern, we would like the origin to be the
 center of mass. This function computes that location.
 @return Center of Mass location in mm
 <DOC>
@@ -177,8 +177,8 @@ public defmethod build-all (
   pkg:JD0-0001NL-Pkg,
   root:VirtualLP
   ) -> False :
-  ; Create a child node with its center shift from the center of mass of the 
-  ;  connector's 3D body to the location specified as the quasi-origin of the 
+  ; Create a child node with its center shift from the center of mass of the
+  ;  connector's 3D body to the location specified as the quasi-origin of the
   ;  mechanical drawing of the datasheet on page 4.
   ;  This origin is centered in the left mechanical mounting hole
   val origin = create-child(root, offset = compute-JD0-0001NL-center(), name = "origin" )
@@ -232,9 +232,9 @@ defn build-staggered-grid (
   ):
   val origin = create-child(vp, offset = loc(0.0, 8.89))
 
-  val num-cols = 5 
+  val num-cols = 5
   val th-lead = TH-Lead(
-    width = typ(0.6), 
+    width = typ(0.6),
     length = typ(3.5)
     override = pth-pad(0.9, compute-pad-diam(0.9, density-level(pkg)))
   )
