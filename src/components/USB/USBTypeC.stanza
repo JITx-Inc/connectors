@@ -180,6 +180,8 @@ public defmethod build-silkscreen (
   root:VirtualLP
   ) -> False:
   create-silkscreen-outline(root, package-body(pkg), density-level = density-level(pkg))
+  build-smd-pin-1-dot(root, dir = Up, pin-1-id = #R(A[1]))
+  add-reference-designator(root)
 
 public defmethod courtyard-excess (
   pkg:USBTypeC-Pkg
