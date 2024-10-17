@@ -3,17 +3,11 @@ defpackage connectors/components/USB/USBTypeC :
   import core
   import jitx
   import jitx/commands
+  import jitx/parts
 
-  import jsl/bundles
-  import jsl/si/helpers
-  import jsl/symbols
-  import jsl/landpatterns
-  import jsl/protocols/usb
-  import jsl/pin-assignment
-  import jsl/design/settings
+  import jsl
 
-
-public pcb-component component :
+public pcb-component conn-component :
   description = "USB Type-C SMD Connectors ROHS"
   manufacturer = "Molex"
   mpn = "2012670005"
@@ -107,7 +101,7 @@ public pcb-component component :
 public pcb-module device :
   port conn : usb-c-connector
 
-  public inst J : component
+  public inst J : conn-component
 
   net (conn.vbus.V+ J.VBUS[0] J.VBUS[1] J.VBUS[2] J.VBUS[3])
   net (J.CC1, conn.bus.cc[0])
@@ -127,6 +121,71 @@ public pcb-module device :
 
   net (J.GND[0] J.GND[1] J.GND[2] J.GND[3] conn.vbus.V-)
   net (conn.shield J.SHIELD)
+
+doc: \<DOC>
+USB-C USB 2.0 High-Speed Interface
+
+This is a basic USB2 480mbps capable USB-C interface.
+It doesn't include the SuperSpeed connections, but does
+provide the necessary features to support a simple debug
+interface, like to an FTDI.
+
+Circuit Includes:
+1.  USB-C connector
+2.  Pull-downs for CC1 and CC2
+3.  ESD protection diodes for the USB2 data bus.
+4.  Shield termination
+
+@param R-query Resistor query parameters - default is `ResistorQuery()`.
+@param C-query Capacitor query parameters - default is `CapacitorQuery()`.
+
+@member USB USB2 Differential Signaling Bus
+@member VDD-USB USB Power Rail, typically 5V.
+
+<DOC>
+public defn USBC-HighSpeed-Iface (
+  R-query:ResistorQuery = ResistorQuery(),
+  C-query:CapacitorQuery = CapacitorQuery(),
+  ):
+  pcb-module USBC-HighSpeed-Iface:
+    port USB : usb-data
+    port VDD-USB : power
+
+    public inst USBC : device
+
+    net (VDD-USB, USBC.conn.vbus)
+    net GND (VDD-USB.V-)
+
+    ; Two separate pull down resistors per the USB-C
+    ;  spec Section 4.5.1.2.1
+    ; https://www.usb.org/sites/default/files/USB%20Type-C%20Spec%20R2.0%20-%20August%202019.pdf
+    val pu-R = create-resistor(R-query, resistance = 5.1e3, precision = (1 %))
+    for i in indices(USBC.conn.bus.cc) do:
+      val n = to-string("CC%_-R" % [i])
+      insert-pulldown(USBC.conn.bus.cc[i], GND, elem-type = pu-R, inst-name? = n, make-public = true)
+
+    public inst esd-prot : diodes/ESD224DQAR/device
+    net (esd-prot.GND[1], esd-prot.GND[2], GND)
+
+    ; Construct the topology from the module port, through
+    ;  the ESD protector, and then terminating in the connector device.
+    require esd-pair:dual-pair from esd-prot
+    topo-pair(USB.data => esd-pair.A => esd-pair.B => USBC.conn.bus.data)
+    ; By setting the signal end - then the routing structure application
+    ;   can apply to the entirety of the bus.
+    set-signal-end(USB.data, USBC.conn.bus.data)
+
+    ; Shield Termination
+    inst shield-term : shield-termination(R-query, C-query)
+    net (shield-term.SHIELD, USBC.conn.shield)
+    net (shield-term.GND, GND)
+
+  USBC-HighSpeed-Iface
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; LandPattern Generator
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 val TYPE-C-WIDTH = 9.39
 val TYPE-C-LENGTH = 8.3

@@ -1,4 +1,5 @@
 name = "connectors"
 version = "0.3.0"
 [dependencies]
+diodes = { git = "JITx-Inc/diodes", version = "0.2.0" }
 
