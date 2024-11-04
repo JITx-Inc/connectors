@@ -15,7 +15,7 @@ inst usb-c : connectors/components/USB/USBTypeC/device
 ```
 conn : usb-c-connector
 ```
-## USB-C USB 2.0 High-Speed Interface
+## USB 2.0 High-Speed Interface
 This is a basic USB2 480mbps capable USB-C interface. It doesn't include the SuperSpeed connections, but does provide the necessary features to support a simple debug interface, like to an FTDI.
 Circuit Includes:
 1.  USB-C connector
