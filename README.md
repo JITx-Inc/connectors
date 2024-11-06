@@ -23,7 +23,7 @@ Circuit Includes:
 3.  ESD protection diodes for the USB2 data bus.
 4.  Shield termination
 ```
-inst usb-if : connectors/components/USB/USBTypeC/USBC-HighSpeed-Iface()
+inst usb-if : connectors/components/USB/USBTypeC/USBC-HighSpeed-Iface(res-query, cap-query)
 ```
 ### Ports
 ```
