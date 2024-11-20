@@ -34,4 +34,10 @@ VDD-USB : power
 - R-query: Resistor query parameters - default is `ResistorQuery()`.
 - C-query:  Capacitor query parameters - default is `CapacitorQuery()`.
 
-
+# Weidmuller terminal block
+This is a parametric component modeling the [Weidmuller LSF-SMT family](https://catalog.weidmueller.com/procat/Group.jsp;jsessionid=2D3E17129178EB5048158C0C39D6D6A1?groupId=(%22group21472460020482%22)&page=Group) of terminal blocks. 
+```
+inst terminal-block : connectors/components/LSF-SMT/component(num-poles = 3)
+```
+### Parameters
+- num-poles : Int - the number of poles in the terminal block
