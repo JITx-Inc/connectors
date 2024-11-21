@@ -39,5 +39,9 @@ This is a parametric component modeling the [Weidmuller LSF-SMT family](https://
 ```
 inst terminal-block : connectors/components/LSF-SMT/component(num-poles = 3)
 ```
+### Ports
+```
+p : pin[num-poles]
+```
 ### Parameters
 - num-poles : Int - the number of poles in the terminal block
