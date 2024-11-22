@@ -64,4 +64,5 @@ inst ethernet-jack : connectors/components/JD0-0001NL/connector
 Supports:
 ```
 MDI-100Base-TX
+MDI-1000Base-TX
 ```
