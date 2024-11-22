@@ -45,3 +45,23 @@ p : pin[num-poles]
 ```
 ### Parameters
 - num-poles : Int - the number of poles in the terminal block
+
+# RJ45 Ethernet jack
+## RJ45 Module
+This is a Pulse Electronics [JD0-0001NL](https://productfinder.pulseelectronics.com/api/open/part-attachments/datasheet/JD0-0001NL), wrapped in a module to map it to standard ports for MDI, and the LED, shield and tap pins. The user is expected to use a `require` statement to extract the 1000Base-T or 100Base-T interface for their application.
+```
+inst ethernet-jack : connectors/components/JD0-0001NL/connector
+```
+### Ports
+```
+  port CT       ; Device-Side Center Tap
+  port ISO-CT   ; Isolated Cable-Side Center Tap
+  port SHIELD
+  ; Status LEDs
+  port LED-G : polarized-ca
+  port LED-Y : polarized-ca
+```
+Supports:
+```
+MDI-100Base-TX
+```
