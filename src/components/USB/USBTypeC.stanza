@@ -136,16 +136,16 @@ Circuit Includes:
 3.  ESD protection diodes for the USB2 data bus.
 4.  Shield termination
 
-@param R-query Resistor query parameters - default is `ResistorQuery()`.
-@param C-query Capacitor query parameters - default is `CapacitorQuery()`.
+@param R-query Resistor query parameters for customizing resistor selection - default is `get-default-resistor-query()`.
+@param C-query Capacitor query parameters for customizing capacitor selection - default is `get-default-capacitor-query()`.
 
 @member USB USB2 Differential Signaling Bus
 @member VDD-USB USB Power Rail, typically 5V.
 
 <DOC>
 public defn USBC-HighSpeed-Iface (
-  R-query:ResistorQuery = ResistorQuery(),
-  C-query:CapacitorQuery = CapacitorQuery(),
+  R-query:ResistorQuery = get-default-resistor-query(),
+  C-query:CapacitorQuery = get-default-capacitor-query(),
   ):
   pcb-module USBC-HighSpeed-Iface:
     port USB : usb-data
