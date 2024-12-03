@@ -23,7 +23,7 @@ Circuit Includes:
 3.  ESD protection diodes for the USB2 data bus.
 4.  Shield termination
 ```
-inst usb-if : connectors/components/USB/USBTypeC/USBC-HighSpeed-Iface(res-query, cap-query)
+inst usb-if : connectors/components/USB/USBTypeC/USBC-HighSpeed-Iface()
 ```
 ### Ports
 ```
@@ -31,8 +31,8 @@ USB : usb-data
 VDD-USB : power
 ```
 ### Parameters
-- R-query: Resistor query parameters - default is `ResistorQuery()`.
-- C-query:  Capacitor query parameters - default is `CapacitorQuery()`.
+- R-query: Resistor query parameters - default is `get-default-resistor-query()`.
+- C-query:  Capacitor query parameters - default is `get-default-capacitor-query()`.
 
 # Weidmuller terminal block
 This is a parametric component modeling the [Weidmuller LSF-SMT family](https://catalog.weidmueller.com/procat/Group.jsp;jsessionid=2D3E17129178EB5048158C0C39D6D6A1?groupId=(%22group21472460020482%22)&page=Group) of terminal blocks. 
