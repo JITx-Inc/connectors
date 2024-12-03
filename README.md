@@ -2,7 +2,7 @@
 
 In slm.toml add:
 ```
-connectors = { git = "JITx-Inc/connectors", version = "0.4.0" }
+connectors = { git = "JITx-Inc/connectors", version = "0.4.1" }
 ```
 
 # USB C Connector
