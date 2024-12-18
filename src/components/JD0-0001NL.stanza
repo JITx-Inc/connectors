@@ -109,8 +109,6 @@ public pcb-component JD0-0001NL :
     [LED-Y-C | p[14] | Right | 0]
     [SHIELD[1] | p[15] | Right | 1]
     [SHIELD[2] | p[16] | Right | 1]
-    [MOUNT[1] | p[17] | Right | 1]
-    [MOUNT[2] | p[18] | Right | 1]
 
   val pkg = JD0-0001NL-Pkg()
   val lp = create-landpattern(pkg)
@@ -323,14 +321,11 @@ defn build-mounts (
   pkg:JD0-0001NL-Pkg
   vp:VirtualLP
 ):
-  ; This is a simpler method of defining the non-plated
-  ;  through-holes.
-  val pad-def = npth-pad(Circle(to-radius(3.25)))
-  append(
-    vp,
-    VirtualPad(17, pad-def, loc(0.0, 0.0), class = "mounting")
-  )
-  append(
-    vp,
-    VirtualPad(18, pad-def, loc(11.43, 0.0), class = "mounting")
-  )
+  val poses = [
+    loc(0.0, 0.0),
+    loc(11.43, 0.0)
+  ]
+  val hole-sh = Circle(to-radius(3.25))
+
+  for p in poses do:
+    add-non-plated-hole(vp, hole = hole-sh, pose = p)
