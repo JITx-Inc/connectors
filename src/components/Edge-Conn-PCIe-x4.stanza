@@ -1,5 +1,5 @@
 #use-added-syntax(jitx)
-defpackage connectors/components/Bus_PCI_Express_x4 :
+defpackage connectors/components/Edge-Conn-PCIe-x4 ;
   import core
   import jitx
   import jitx/commands
