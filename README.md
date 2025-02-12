@@ -35,7 +35,7 @@ VDD-USB : power
 - C-query:  Capacitor query parameters - default is `get-default-capacitor-query()`.
 
 # Weidmuller terminal block
-This is a parametric component modeling the [Weidmuller LSF-SMT family](https://catalog.weidmueller.com/procat/Group.jsp;jsessionid=2D3E17129178EB5048158C0C39D6D6A1?groupId=(%22group21472460020482%22)&page=Group) of terminal blocks. 
+This is a parametric component modeling the [Weidmuller LSF-SMT family](https://catalog.weidmueller.com/procat/Group.jsp;jsessionid=2D3E17129178EB5048158C0C39D6D6A1?groupId=(%22group21472460020482%22)&page=Group) of terminal blocks.
 ```
 inst terminal-block : connectors/components/LSF-SMT/component(num-poles = 3)
 ```
@@ -69,7 +69,7 @@ MDI-1000Base-TX
 
 # PCIe Edge Connector
 ## Edge-Conn-PCIe Component
-This is a parameterized edge connector for PCIe which is configurable from x1 to x16 lanes. The connector supports the PCIe protocol which is defiend in JSL (https://docs.jitx.com/reference/jsl/protocols/pcie.html?h=). The user is expected to instantiate this connector with an argument defining the PCIe lane width. Options for the lane width are:
+This is a parameterized edge connector for PCIe which is configurable from x1 to x16 lanes. The connector supports the PCIe protocol which is defined in JSL (https://docs.jitx.com/reference/jsl/protocols/pcie.html?h=). The user is expected to instantiate this connector with an argument defining the PCIe lane width. Options for the lane width are:
 ```
 PCIe-x1
 PCIe-x4
