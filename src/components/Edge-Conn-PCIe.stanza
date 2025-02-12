@@ -1,0 +1,383 @@
+#use-added-syntax(jitx)
+defpackage connectors/components/Edge-Conn-PCIe :
+  import core
+  import jitx
+  import jitx/commands
+  import jsl
+
+
+public pcb-landpattern LP-PCIe-Edge (width : Int) :
+  pad A1 : smd-pad(0.700, 3.200) at loc(0.0, 0.550) on Bottom
+  pad A2 : smd-pad(0.700, 4.300) at loc(1.000, 0.0) on Bottom
+  pad A3 : smd-pad(0.700, 4.300) at loc(2.000, 0.0) on Bottom
+  pad A4 : smd-pad(0.700, 4.300) at loc(3.000, 0.0) on Bottom
+  pad A5 : smd-pad(0.700, 4.300) at loc(4.000, 0.0) on Bottom
+  pad A6 : smd-pad(0.700, 4.300) at loc(5.000, 0.0) on Bottom
+  pad A7 : smd-pad(0.700, 4.300) at loc(6.000, 0.0) on Bottom
+  pad A8 : smd-pad(0.700, 4.300) at loc(7.000, 0.0) on Bottom
+  pad A9 : smd-pad(0.700, 4.300) at loc(8.000, 0.0) on Bottom
+  pad A10 : smd-pad(0.700, 4.300) at loc(9.000, 0.0) on Bottom
+  pad A11 : smd-pad(0.700, 4.300) at loc(10.000, 0.0) on Bottom
+  pad A12 : smd-pad(0.700, 4.300) at loc(13.000, 0.0) on Bottom
+  pad A13 : smd-pad(0.700, 4.300) at loc(14.000, 0.0) on Bottom
+  pad A14 : smd-pad(0.700, 4.300) at loc(15.000, 0.0) on Bottom
+  pad A15 : smd-pad(0.700, 4.300) at loc(16.000, 0.0) on Bottom
+  pad A16 : smd-pad(0.700, 4.300) at loc(17.000, 0.0) on Bottom
+  pad A17 : smd-pad(0.700, 4.300) at loc(18.000, 0.0) on Bottom
+  pad A18 : smd-pad(0.700, 4.300) at loc(19.000, 0.0) on Bottom
+  if width >= 4 :
+    pad A19 : smd-pad(0.700, 4.300) at loc(20.000, 0.0) on Bottom
+    pad A20 : smd-pad(0.700, 4.300) at loc(21.000, 0.0) on Bottom
+    pad A21 : smd-pad(0.700, 4.300) at loc(22.000, 0.0) on Bottom
+    pad A22 : smd-pad(0.700, 4.300) at loc(23.000, 0.0) on Bottom
+    pad A23 : smd-pad(0.700, 4.300) at loc(24.000, 0.0) on Bottom
+    pad A24 : smd-pad(0.700, 4.300) at loc(25.000, 0.0) on Bottom
+    pad A25 : smd-pad(0.700, 4.300) at loc(26.000, 0.0) on Bottom
+    pad A26 : smd-pad(0.700, 4.300) at loc(27.000, 0.0) on Bottom
+    pad A27 : smd-pad(0.700, 4.300) at loc(28.000, 0.0) on Bottom
+    pad A28 : smd-pad(0.700, 4.300) at loc(29.000, 0.0) on Bottom
+    pad A29 : smd-pad(0.700, 4.300) at loc(30.000, 0.0) on Bottom
+    pad A30 : smd-pad(0.700, 4.300) at loc(31.000, 0.0) on Bottom
+    pad A31 : smd-pad(0.700, 4.300) at loc(32.000, 0.0) on Bottom
+    pad A32 : smd-pad(0.700, 4.300) at loc(33.000, 0.0) on Bottom
+    if width >= 8 :
+      pad A33 : smd-pad(0.700, 4.300) at loc(34.000, 0.0) on Bottom
+      pad A34 : smd-pad(0.700, 4.300) at loc(35.000, 0.0) on Bottom
+      pad A35 : smd-pad(0.700, 4.300) at loc(36.000, 0.0) on Bottom
+      pad A36 : smd-pad(0.700, 4.300) at loc(37.000, 0.0) on Bottom
+      pad A37 : smd-pad(0.700, 4.300) at loc(38.000, 0.0) on Bottom
+      pad A38 : smd-pad(0.700, 4.300) at loc(39.000, 0.0) on Bottom
+      pad A39 : smd-pad(0.700, 4.300) at loc(40.000, 0.0) on Bottom
+      pad A40 : smd-pad(0.700, 4.300) at loc(41.000, 0.0) on Bottom
+      pad A41 : smd-pad(0.700, 4.300) at loc(42.000, 0.0) on Bottom
+      pad A42 : smd-pad(0.700, 4.300) at loc(43.000, 0.0) on Bottom
+      pad A43 : smd-pad(0.700, 4.300) at loc(44.000, 0.0) on Bottom
+      pad A44 : smd-pad(0.700, 4.300) at loc(45.000, 0.0) on Bottom
+      pad A45 : smd-pad(0.700, 4.300) at loc(46.000, 0.0) on Bottom
+      pad A46 : smd-pad(0.700, 4.300) at loc(47.000, 0.0) on Bottom
+      pad A47 : smd-pad(0.700, 4.300) at loc(48.000, 0.0) on Bottom
+      pad A48 : smd-pad(0.700, 4.300) at loc(49.000, 0.0) on Bottom
+      pad A49 : smd-pad(0.700, 4.300) at loc(50.000, 0.0) on Bottom
+      if width >= 16 :
+        pad A50 : smd-pad(0.700, 4.300) at loc(51.000, 0.0) on Bottom
+        pad A51 : smd-pad(0.700, 4.300) at loc(52.000, 0.0) on Bottom
+        pad A52 : smd-pad(0.700, 4.300) at loc(53.000, 0.0) on Bottom
+        pad A53 : smd-pad(0.700, 4.300) at loc(54.000, 0.0) on Bottom
+        pad A54 : smd-pad(0.700, 4.300) at loc(55.000, 0.0) on Bottom
+        pad A55 : smd-pad(0.700, 4.300) at loc(56.000, 0.0) on Bottom
+        pad A56 : smd-pad(0.700, 4.300) at loc(57.000, 0.0) on Bottom
+        pad A57 : smd-pad(0.700, 4.300) at loc(58.000, 0.0) on Bottom
+        pad A58 : smd-pad(0.700, 4.300) at loc(59.000, 0.0) on Bottom
+        pad A59 : smd-pad(0.700, 4.300) at loc(60.000, 0.0) on Bottom
+        pad A60 : smd-pad(0.700, 4.300) at loc(61.000, 0.0) on Bottom
+        pad A61 : smd-pad(0.700, 4.300) at loc(62.000, 0.0) on Bottom
+        pad A62 : smd-pad(0.700, 4.300) at loc(63.000, 0.0) on Bottom
+        pad A63 : smd-pad(0.700, 4.300) at loc(64.000, 0.0) on Bottom
+        pad A64 : smd-pad(0.700, 4.300) at loc(65.000, 0.0) on Bottom
+        pad A65 : smd-pad(0.700, 4.300) at loc(66.000, 0.0) on Bottom
+        pad A66 : smd-pad(0.700, 4.300) at loc(67.000, 0.0) on Bottom
+        pad A67 : smd-pad(0.700, 4.300) at loc(68.000, 0.0) on Bottom
+        pad A68 : smd-pad(0.700, 4.300) at loc(69.000, 0.0) on Bottom
+        pad A69 : smd-pad(0.700, 4.300) at loc(70.000, 0.0) on Bottom
+        pad A70 : smd-pad(0.700, 4.300) at loc(71.000, 0.0) on Bottom
+        pad A71 : smd-pad(0.700, 4.300) at loc(72.000, 0.0) on Bottom
+        pad A72 : smd-pad(0.700, 4.300) at loc(73.000, 0.0) on Bottom
+        pad A73 : smd-pad(0.700, 4.300) at loc(74.000, 0.0) on Bottom
+        pad A74 : smd-pad(0.700, 4.300) at loc(75.000, 0.0) on Bottom
+        pad A75 : smd-pad(0.700, 4.300) at loc(76.000, 0.0) on Bottom
+        pad A76 : smd-pad(0.700, 4.300) at loc(77.000, 0.0) on Bottom
+        pad A77 : smd-pad(0.700, 4.300) at loc(78.000, 0.0) on Bottom
+        pad A78 : smd-pad(0.700, 4.300) at loc(79.000, 0.0) on Bottom
+        pad A79 : smd-pad(0.700, 4.300) at loc(80.000, 0.0) on Bottom
+        pad A80 : smd-pad(0.700, 4.300) at loc(81.000, 0.0) on Bottom
+        pad A81 : smd-pad(0.700, 4.300) at loc(82.000, 0.0) on Bottom
+        pad A82 : smd-pad(0.700, 4.300) at loc(83.000, 0.0) on Bottom
+
+  pad B1 : smd-pad(0.700, 4.300) at loc(0.0, 0.0) on Top
+  pad B2 : smd-pad(0.700, 4.300) at loc(1.000, 0.0) on Top
+  pad B3 : smd-pad(0.700, 4.300) at loc(2.000, 0.0) on Top
+  pad B4 : smd-pad(0.700, 4.300) at loc(3.000, 0.0) on Top
+  pad B5 : smd-pad(0.700, 4.300) at loc(4.000, 0.0) on Top
+  pad B6 : smd-pad(0.700, 4.300) at loc(5.000, 0.0) on Top
+  pad B7 : smd-pad(0.700, 4.300) at loc(6.000, 0.0) on Top
+  pad B8 : smd-pad(0.700, 4.300) at loc(7.000, 0.0) on Top
+  pad B9 : smd-pad(0.700, 4.300) at loc(8.000, 0.0) on Top
+  pad B10 : smd-pad(0.700, 4.300) at loc(9.000, 0.0) on Top
+  pad B11 : smd-pad(0.700, 4.300) at loc(10.000, 0.0) on Top
+  pad B12 : smd-pad(0.700, 4.300) at loc(13.000, 0.0) on Top
+  pad B13 : smd-pad(0.700, 4.300) at loc(14.000, 0.0) on Top
+  pad B14 : smd-pad(0.700, 4.300) at loc(15.000, 0.0) on Top
+  pad B15 : smd-pad(0.700, 4.300) at loc(16.000, 0.0) on Top
+  pad B16 : smd-pad(0.700, 4.300) at loc(17.000, 0.0) on Top
+  if width == 1 :
+    pad B17 : smd-pad(0.700, 3.200) at loc(18.000, 0.550) on Top
+  else :
+    pad B17 : smd-pad(0.700, 4.300) at loc(18.000, 0.0) on Top
+  pad B18 : smd-pad(0.700, 4.300) at loc(19.000, 0.0) on Top
+  if width >= 4 :
+    pad B19 : smd-pad(0.700, 4.300) at loc(20.000, 0.0) on Top
+    pad B20 : smd-pad(0.700, 4.300) at loc(21.000, 0.0) on Top
+    pad B21 : smd-pad(0.700, 4.300) at loc(22.000, 0.0) on Top
+    pad B22 : smd-pad(0.700, 4.300) at loc(23.000, 0.0) on Top
+    pad B23 : smd-pad(0.700, 4.300) at loc(24.000, 0.0) on Top
+    pad B24 : smd-pad(0.700, 4.300) at loc(25.000, 0.0) on Top
+    pad B25 : smd-pad(0.700, 4.300) at loc(26.000, 0.0) on Top
+    pad B26 : smd-pad(0.700, 4.300) at loc(27.000, 0.0) on Top
+    pad B27 : smd-pad(0.700, 4.300) at loc(28.000, 0.0) on Top
+    pad B28 : smd-pad(0.700, 4.300) at loc(29.000, 0.0) on Top
+    pad B29 : smd-pad(0.700, 4.300) at loc(30.000, 0.0) on Top
+    pad B30 : smd-pad(0.700, 4.300) at loc(31.000, 0.0) on Top
+    if width == 4 :
+      pad B31 : smd-pad(0.700, 3.200) at loc(32.000, 0.550) on Top
+    else :
+      pad B31 : smd-pad(0.700, 4.300) at loc(32.000, 0.0) on Top
+    pad B32 : smd-pad(0.700, 4.300) at loc(33.000, 0.0) on Top
+    if width >= 8 :
+      pad B33 : smd-pad(0.700, 4.300) at loc(34.000, 0.0) on Top
+      pad B34 : smd-pad(0.700, 4.300) at loc(35.000, 0.0) on Top
+      pad B35 : smd-pad(0.700, 4.300) at loc(36.000, 0.0) on Top
+      pad B36 : smd-pad(0.700, 4.300) at loc(37.000, 0.0) on Top
+      pad B37 : smd-pad(0.700, 4.300) at loc(38.000, 0.0) on Top
+      pad B38 : smd-pad(0.700, 4.300) at loc(39.000, 0.0) on Top
+      pad B39 : smd-pad(0.700, 4.300) at loc(40.000, 0.0) on Top
+      pad B40 : smd-pad(0.700, 4.300) at loc(41.000, 0.0) on Top
+      pad B41 : smd-pad(0.700, 4.300) at loc(42.000, 0.0) on Top
+      pad B42 : smd-pad(0.700, 4.300) at loc(43.000, 0.0) on Top
+      pad B43 : smd-pad(0.700, 4.300) at loc(44.000, 0.0) on Top
+      pad B44 : smd-pad(0.700, 4.300) at loc(45.000, 0.0) on Top
+      pad B45 : smd-pad(0.700, 4.300) at loc(46.000, 0.0) on Top
+      pad B46 : smd-pad(0.700, 4.300) at loc(47.000, 0.0) on Top
+      pad B47 : smd-pad(0.700, 4.300) at loc(48.000, 0.0) on Top
+      if width == 8 :
+        pad B48 : smd-pad(0.700, 3.200) at loc(49.000, 0.550) on Top
+      else :
+        pad B48 : smd-pad(0.700, 4.300) at loc(49.000, 0.0) on Top
+      pad B49 : smd-pad(0.700, 4.300) at loc(50.000, 0.0) on Top
+      if width == 16 :
+        pad B50 : smd-pad(0.700, 4.300) at loc(51.000, 0.0) on Top
+        pad B51 : smd-pad(0.700, 4.300) at loc(52.000, 0.0) on Top
+        pad B52 : smd-pad(0.700, 4.300) at loc(53.000, 0.0) on Top
+        pad B53 : smd-pad(0.700, 4.300) at loc(54.000, 0.0) on Top
+        pad B54 : smd-pad(0.700, 4.300) at loc(55.000, 0.0) on Top
+        pad B55 : smd-pad(0.700, 4.300) at loc(56.000, 0.0) on Top
+        pad B56 : smd-pad(0.700, 4.300) at loc(57.000, 0.0) on Top
+        pad B57 : smd-pad(0.700, 4.300) at loc(58.000, 0.0) on Top
+        pad B58 : smd-pad(0.700, 4.300) at loc(59.000, 0.0) on Top
+        pad B59 : smd-pad(0.700, 4.300) at loc(60.000, 0.0) on Top
+        pad B60 : smd-pad(0.700, 4.300) at loc(61.000, 0.0) on Top
+        pad B61 : smd-pad(0.700, 4.300) at loc(62.000, 0.0) on Top
+        pad B62 : smd-pad(0.700, 4.300) at loc(63.000, 0.0) on Top
+        pad B63 : smd-pad(0.700, 4.300) at loc(64.000, 0.0) on Top
+        pad B64 : smd-pad(0.700, 4.300) at loc(65.000, 0.0) on Top
+        pad B65 : smd-pad(0.700, 4.300) at loc(66.000, 0.0) on Top
+        pad B66 : smd-pad(0.700, 4.300) at loc(67.000, 0.0) on Top
+        pad B67 : smd-pad(0.700, 4.300) at loc(68.000, 0.0) on Top
+        pad B68 : smd-pad(0.700, 4.300) at loc(69.000, 0.0) on Top
+        pad B69 : smd-pad(0.700, 4.300) at loc(70.000, 0.0) on Top
+        pad B70 : smd-pad(0.700, 4.300) at loc(71.000, 0.0) on Top
+        pad B71 : smd-pad(0.700, 4.300) at loc(72.000, 0.0) on Top
+        pad B72 : smd-pad(0.700, 4.300) at loc(73.000, 0.0) on Top
+        pad B73 : smd-pad(0.700, 4.300) at loc(74.000, 0.0) on Top
+        pad B74 : smd-pad(0.700, 4.300) at loc(75.000, 0.0) on Top
+        pad B75 : smd-pad(0.700, 4.300) at loc(76.000, 0.0) on Top
+        pad B76 : smd-pad(0.700, 4.300) at loc(77.000, 0.0) on Top
+        pad B77 : smd-pad(0.700, 4.300) at loc(78.000, 0.0) on Top
+        pad B78 : smd-pad(0.700, 4.300) at loc(79.000, 0.0) on Top
+        pad B79 : smd-pad(0.700, 4.300) at loc(80.000, 0.0) on Top
+        pad B80 : smd-pad(0.700, 4.300) at loc(81.000, 0.0) on Top
+        pad B81 : smd-pad(0.700, 3.200) at loc(82.000, 0.550) on Top
+        pad B82 : smd-pad(0.700, 4.300) at loc(83.000, 0.0) on Top
+
+  val sh = 
+    if width == 1 :
+      Polygon([
+        Point(-1.150, 5.450)
+        Point(-1.150, -3.950)
+        Point(20.150, -3.950)
+        Point(20.150, 5.450)])
+    else if width == 4 :
+      Polygon([
+        Point(-1.150, 5.450)
+        Point(-1.150, -3.950)
+        Point(34.150, -3.950)
+        Point(34.150, 5.450)])
+    else if width == 8 :
+      Polygon([
+        Point(-1.150, 5.450)
+        Point(-1.150, -3.950)
+        Point(51.150, -3.950)
+        Point(51.150, 5.450)])
+    else if width == 16 :
+      Polygon([
+        Point(-1.150, 5.450)
+        Point(-1.150, -3.950)
+        Point(84.150, -3.950)
+        Point(84.150, 5.450)])
+  layer(Courtyard(Top)) = sh as Shape
+
+  layer(CustomLayer("Comments", Top)) = Text("PCB Thickness 1.57 mm", 0.5, C, loc(5.000, -2.800, 180.000))
+  layer(CustomLayer("Fab", Top)) = Text(">REF", 1.0, C, loc(16.000, 3.500))
+  layer(CustomLayer("Fab", Top)) = Text(">VALUE", 1.0, C, loc(10.330, -8.010))
+  layer(Silkscreen("F-SilkS", Top)) = Text(">REF", 1.0, C, loc(5.000, -3.500))
+  layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(-0.650, 4.950), Point(-0.650, -2.950)])
+  layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(-0.650, -2.950), Point(-0.150, -3.450)])
+  layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(-0.150, -3.450), Point(10.050, -3.450)])
+  layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(10.550, 4.000), Point(10.550, -2.950)])
+  layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(10.550, -2.950), Point(10.050, -3.450)])
+  layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(12.450, 4.000), Point(12.450, -2.950)])
+  layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(12.450, -2.950), Point(12.950, -3.450)])
+  layer(CustomLayer("boardEdge", Top)) = Polyline(0.100, [
+    Arc(11.500, 4.000, 0.950, 180.000, -180.000)])
+
+  if width == 1 :
+    layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(12.950, -3.450), Point(19.150, -3.450)])
+    layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(19.650, 4.950), Point(19.650, -2.950)])
+    layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(19.650, -2.950), Point(19.150, -3.450)])
+
+  if width == 4 :
+    layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(12.950, -3.450), Point(33.150, -3.450)])
+    layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(33.650, 4.950), Point(33.650, -2.950)])
+    layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(33.650, -2.950), Point(33.150, -3.450)])
+
+  if width == 8 :
+    layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(12.950, -3.450), Point(53.150, -3.450)])
+    layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(53.650, 4.950), Point(53.650, -2.950)])
+    layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(53.650, -2.950), Point(53.150, -3.450)])
+
+  if width == 16 :
+    layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(12.950, -3.450), Point(83.150, -3.450)])
+    layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(83.650, 4.950), Point(83.650, -2.950)])
+    layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(83.650, -2.950), Point(83.150, -3.450)])
+
+public pcb-component component (xwidth : jsl/protocols/pcie/PCIeWidth) :
+  description = "PCI Express parameterized edge connector"
+  mpn = "Edge_PCI_Express"
+  reference-prefix = "J"
+
+  if xwidth == PCIe-x32 :
+    fatal("Unsupported width: %_", % [xwidth])
+  val width = jsl/protocols/pcie/PCIe-enum-to-int(xwidth)
+
+  port pcie : pcie(width, PCIe-PRSNT#)
+  port smbus : std-smbus()
+  port jtag : jtag
+  port reset : reset
+
+  val gnd-x1  = map(Ref, ["A4", "B4", "B7", "A12", "B13", "A15", "B16", "A18", "B18"])
+  val gnd-x4  = to-tuple $ cat-all([gnd-x1 map(Ref,["A20", "B21", "B22", "A23", "A24", "B25", "B26", "A27", "A28", "B29", "A31", "B32"  ])])
+  val gnd-x8  = to-tuple $ cat-all([gnd-x4 map(Ref,["A34", "B35", "B36", "A37", "A38", "B39", "B40", "A41", "A42", "B43", "B44", "A45", "A46", "B47", "A49", "B49"])])
+  val gnd-x16 = to-tuple $ cat-all([gnd-x8 map(Ref,["A51", "B52", "B53", "A54", "A55", "B56", "B57", "A58", "A59", "B60", "B61", "A62", "A63", "B64", "B65", "A66", "A67", "B68", "B69", "A70", "A71", "B72", "B73", "A74", "A75", "B76", "B77", "A78", "A79", "B80", "A82"])])
+
+  pin-properties :
+    [pin:Ref | pads:Ref ... | side:Dir]
+    if width == 1 :
+      [GND | (gnd-x1) ... | Down]
+      [pcie.control.PRSNT# | A1 B17 | Right]
+    else if width == 4 :
+      [GND | (gnd-x4) ... | Down]
+      [pcie.control.PRSNT# | A1 B31 | Right]
+    else if width == 8 :
+      [GND | (gnd-x8) ... | Down]
+      [pcie.control.PRSNT# | A1 B48 | Right]
+    else if width == 16 :
+      [GND | (gnd-x16) ... | Down]
+      [pcie.control.PRSNT# | A1 B81 | Right]
+
+    [p3_3Vaux | B10 | Up]
+    [p+3_3V | B8 A9 A10 | Up]
+    [p+12V | B1 B2 B3 A3 A2 | Up]
+    [smbus.smbclk | B5 | Left]
+    [smbus.smbdat | B6 | Left]
+    [jtag.tck | A5 | Left]
+    [jtag.tdi | A6 | Left]
+    [jtag.tdo | A7 | Left]
+    [jtag.tms | A8 | Left]
+    [reset.reset | B9 | Left]
+    [pcie.control.PERST# | A11 | Left]
+    [pcie.control.PEWAKE# | B11 | Left]
+    [pcie.control.CLKREQ# | B12 | Left]
+    [pcie.data.refclk.P | A13 | Left]
+    [pcie.data.refclk.N | A14 | Left]
+    [pcie.data.lane[0].TX.P | B14 | Right]
+    [pcie.data.lane[0].TX.N | B15 | Right]
+    [pcie.data.lane[0].RX.P | A16 | Left]
+    [pcie.data.lane[0].RX.N | A17 | Left]
+    if width >= 4 :
+      [RSVD[5] | A19 | Down]
+      [pcie.data.lane[1].TX.P | B19 | Right]
+      [pcie.data.lane[1].TX.N | B20 | Right]
+      [pcie.data.lane[1].RX.P | A21 | Left]
+      [pcie.data.lane[1].RX.N | A22 | Left]
+      [pcie.data.lane[2].TX.P | B23 | Right]
+      [pcie.data.lane[2].TX.N | B24 | Right]
+      [pcie.data.lane[2].RX.P | A25 | Left]
+      [pcie.data.lane[2].RX.N | A26 | Left]
+      [pcie.data.lane[3].TX.P | B27 | Right]
+      [pcie.data.lane[3].TX.N | B28 | Right]
+      [pcie.data.lane[3].RX.P | A29 | Left]
+      [pcie.data.lane[3].RX.N | A30 | Left]
+      [RSVD[4] | A32 | Down]
+      [RSVD[3] | B30 | Down]
+      if width >= 8 :
+        [RSVD[2] | A33 | Down]
+        [pcie.data.lane[4].TX.P | B33 | Right]
+        [pcie.data.lane[4].TX.N | B34 | Right]
+        [pcie.data.lane[4].RX.P | A35 | Left]
+        [pcie.data.lane[4].RX.N | A36 | Left]
+        [pcie.data.lane[5].TX.P | B37 | Right]
+        [pcie.data.lane[5].TX.N | B38 | Right]
+        [pcie.data.lane[5].RX.P | A39 | Left]
+        [pcie.data.lane[5].RX.N | A40 | Left]
+        [pcie.data.lane[6].TX.P | B41 | Right]
+        [pcie.data.lane[6].TX.N | B42 | Right]
+        [pcie.data.lane[6].RX.P | A43 | Left]
+        [pcie.data.lane[6].RX.N | A44 | Left]
+        [pcie.data.lane[7].TX.P | B45 | Right]
+        [pcie.data.lane[7].TX.N | B46 | Right]
+        [pcie.data.lane[7].RX.P | A47 | Left]
+        [pcie.data.lane[7].RX.N | A48 | Left]
+        if width >= 16 :
+          [RSVD[1] | A50 | Down]
+          [pcie.data.lane[8].TX.P | B50 | Right]
+          [pcie.data.lane[8].TX.N | B51 | Right]
+          [pcie.data.lane[8].RX.P | A52 | Left]
+          [pcie.data.lane[8].RX.N | A53 | Left]
+          [pcie.data.lane[9].TX.P | B54 | Right]
+          [pcie.data.lane[9].TX.N | B55 | Right]
+          [pcie.data.lane[9].RX.P | A56 | Left]
+          [pcie.data.lane[9].RX.N | A57 | Left]
+          [pcie.data.lane[10].TX.P | B58 | Right]
+          [pcie.data.lane[10].TX.N | B59 | Right]
+          [pcie.data.lane[10].RX.P | A60 | Left]
+          [pcie.data.lane[10].RX.N | A61 | Left]
+          [pcie.data.lane[11].TX.P | B62 | Right]
+          [pcie.data.lane[11].TX.N | B63 | Right]
+          [pcie.data.lane[11].RX.P | A64 | Left]
+          [pcie.data.lane[11].RX.N | A65 | Left]
+          [pcie.data.lane[12].TX.P | B66 | Right]
+          [pcie.data.lane[12].TX.N | B67 | Right]
+          [pcie.data.lane[12].RX.P | A68 | Left]
+          [pcie.data.lane[12].RX.N | A69 | Left]
+          [pcie.data.lane[13].TX.P | B70 | Right]
+          [pcie.data.lane[13].TX.N | B71 | Right]
+          [pcie.data.lane[13].RX.P | A72 | Left]
+          [pcie.data.lane[13].RX.N | A73 | Left]
+          [pcie.data.lane[14].TX.P | B74 | Right]
+          [pcie.data.lane[14].TX.N | B75 | Right]
+          [pcie.data.lane[14].RX.P | A76 | Left]
+          [pcie.data.lane[14].RX.N | A77 | Left]
+          [pcie.data.lane[15].TX.P | B78 | Right]
+          [pcie.data.lane[15].TX.N | B79 | Right]
+          [pcie.data.lane[15].RX.P | A80 | Left]
+          [pcie.data.lane[15].RX.N | A81 | Left]
+          [RSVD[0] | B82 | Down]
+
+  
+  assign-landpattern(LP-PCIe-Edge(width))
+  ; assign-symbol(SYM-PCIe-Edge(width))
+  val box = BoxSymbol(self)
+  assign-symbol $ create-symbol(box)
+
+  property(self.Value) = "PCIe Edge Connector"
+
+

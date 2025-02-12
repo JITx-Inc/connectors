@@ -5,25 +5,25 @@ defpackage connectors/main:
   import jitx
   import jitx/commands
 
-  import jsl/examples/landpatterns/board
-  import connectors/components/JD0-0001NL
+  import jsl
+  import helper
 
 pcb-module test-design:
-  inst j : JD0-0001NL
+  inst j : connectors/components/JD0-0001NL/connector
   inst k : connectors/components/LSF-SMT/component(num-poles = 12)
   inst USB-C : connectors/components/USB/USBTypeC/device
+  inst PCIex1 : connectors/components/Edge-Conn-PCIe/component(PCIe-x1)
+  inst PCIex4 : connectors/components/Edge-Conn-PCIe/component(PCIe-x4)
+  inst PCIex8 : connectors/components/Edge-Conn-PCIe/component(PCIe-x8)
+  inst PCIex16 : connectors/components/Edge-Conn-PCIe/component(PCIe-x16)
 val board-shape = RoundedRectangle(50.0, 50.0, 0.15)
 
 ; Set the top level module (the module to be compile into a schematic and PCB)
-set-current-design("Connectors-TEST")
+set-current-design("Connectors-test-all")
 
-set-rules(default-rules)
-set-board(default-board(board-shape))
+setup-board()
 set-main-module(test-design)
 
-; Use any helper function from helpers.stanza here. For example:
-; run-check-on-design(my-design)
-
-; View the results
+; View the schematic and board
 view-schematic()
 view-board()

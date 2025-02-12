@@ -2,7 +2,7 @@
 
 In slm.toml add:
 ```
-connectors = { git = "JITx-Inc/connectors", version = "0.4.1" }
+connectors = { git = "JITx-Inc/connectors", version = "0.4.2" }
 ```
 
 # USB C Connector
@@ -65,4 +65,32 @@ Supports:
 ```
 MDI-100Base-TX
 MDI-1000Base-TX
+```
+
+# PCIe Edge Connector
+## Edge-Conn-PCIe Component
+This is a parameterized edge connector for PCIe which is configurable from x1 to x16 lanes. The connector supports the PCIe protocol which is defiend in JSL (https://docs.jitx.com/reference/jsl/protocols/pcie.html?h=). The user is expected to instantiate this connector with an argument defining the PCIe lane width. Options for the lane width are:
+```
+PCIe-x1
+PCIe-x4
+PCIe-x8
+PCIe-x16
+```
+```
+inst pcie-edge : connectors/components/PCIe/Edge-Conn-PCIe(PCIe-x16) ; for a x16 lane connector
+```
+### Ports
+```
+  port pcie : pcie(width, PCIe-PRSNT#) ; PCIe port with the specified width and presence detect
+  port smbus : std-smbus() ; standard SMBus port
+  port jtag : jtag ; standard JTAG port (`TRST` is supported via the reset port)
+  port reset : reset ; reset port
+```
+
+### Power Pins
+```
+  p+12V
+  p+3_3V
+  p3_3Vaux
+  GND
 ```

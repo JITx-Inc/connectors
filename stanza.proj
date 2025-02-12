@@ -3,6 +3,8 @@ include? ".slm/stanza.proj"  ; Dependencies
 
 pkg-cache: ".slm/pkg-cache"
 
+package helper defined-in "helper.stanza"
+
 packages connectors/* defined-in "src/"
 
 build main:
