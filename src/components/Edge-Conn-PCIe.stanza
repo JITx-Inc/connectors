@@ -5,198 +5,188 @@ defpackage connectors/components/Edge-Conn-PCIe :
   import jitx/commands
   import jsl
 
-pcb-pad rect-connect-pad-1 :
-  type = SMD
-  shape = Rectangle(0.700, 3.200)
-  layer(SolderMask(Top)) = Rectangle(0.700, 3.200)
-
-pcb-pad rect-connect-pad-2 :
-  type = SMD
-  shape = Rectangle(0.700, 4.300)
-  layer(SolderMask(Top)) = Rectangle(0.700, 4.300)
 
 public pcb-landpattern LP-PCIe-Edge (width : Int) :
-
-  pad A1 : rect-connect-pad-1 at loc(0.0, 0.550) on Bottom
-  pad A2 : rect-connect-pad-2 at loc(1.000, 0.0) on Bottom
-  pad A3 : rect-connect-pad-2 at loc(2.000, 0.0) on Bottom
-  pad A4 : rect-connect-pad-2 at loc(3.000, 0.0) on Bottom
-  pad A5 : rect-connect-pad-2 at loc(4.000, 0.0) on Bottom
-  pad A6 : rect-connect-pad-2 at loc(5.000, 0.0) on Bottom
-  pad A7 : rect-connect-pad-2 at loc(6.000, 0.0) on Bottom
-  pad A8 : rect-connect-pad-2 at loc(7.000, 0.0) on Bottom
-  pad A9 : rect-connect-pad-2 at loc(8.000, 0.0) on Bottom
-  pad A10 : rect-connect-pad-2 at loc(9.000, 0.0) on Bottom
-  pad A11 : rect-connect-pad-2 at loc(10.000, 0.0) on Bottom
-  pad A12 : rect-connect-pad-2 at loc(13.000, 0.0) on Bottom
-  pad A13 : rect-connect-pad-2 at loc(14.000, 0.0) on Bottom
-  pad A14 : rect-connect-pad-2 at loc(15.000, 0.0) on Bottom
-  pad A15 : rect-connect-pad-2 at loc(16.000, 0.0) on Bottom
-  pad A16 : rect-connect-pad-2 at loc(17.000, 0.0) on Bottom
-  pad A17 : rect-connect-pad-2 at loc(18.000, 0.0) on Bottom
-  pad A18 : rect-connect-pad-2 at loc(19.000, 0.0) on Bottom
+  pad A1 : smd-pad(0.700, 3.200) at loc(0.0, 0.550) on Bottom
+  pad A2 : smd-pad(0.700, 4.300) at loc(1.000, 0.0) on Bottom
+  pad A3 : smd-pad(0.700, 4.300) at loc(2.000, 0.0) on Bottom
+  pad A4 : smd-pad(0.700, 4.300) at loc(3.000, 0.0) on Bottom
+  pad A5 : smd-pad(0.700, 4.300) at loc(4.000, 0.0) on Bottom
+  pad A6 : smd-pad(0.700, 4.300) at loc(5.000, 0.0) on Bottom
+  pad A7 : smd-pad(0.700, 4.300) at loc(6.000, 0.0) on Bottom
+  pad A8 : smd-pad(0.700, 4.300) at loc(7.000, 0.0) on Bottom
+  pad A9 : smd-pad(0.700, 4.300) at loc(8.000, 0.0) on Bottom
+  pad A10 : smd-pad(0.700, 4.300) at loc(9.000, 0.0) on Bottom
+  pad A11 : smd-pad(0.700, 4.300) at loc(10.000, 0.0) on Bottom
+  pad A12 : smd-pad(0.700, 4.300) at loc(13.000, 0.0) on Bottom
+  pad A13 : smd-pad(0.700, 4.300) at loc(14.000, 0.0) on Bottom
+  pad A14 : smd-pad(0.700, 4.300) at loc(15.000, 0.0) on Bottom
+  pad A15 : smd-pad(0.700, 4.300) at loc(16.000, 0.0) on Bottom
+  pad A16 : smd-pad(0.700, 4.300) at loc(17.000, 0.0) on Bottom
+  pad A17 : smd-pad(0.700, 4.300) at loc(18.000, 0.0) on Bottom
+  pad A18 : smd-pad(0.700, 4.300) at loc(19.000, 0.0) on Bottom
   if width >= 4 :
-    pad A19 : rect-connect-pad-2 at loc(20.000, 0.0) on Bottom
-    pad A20 : rect-connect-pad-2 at loc(21.000, 0.0) on Bottom
-    pad A21 : rect-connect-pad-2 at loc(22.000, 0.0) on Bottom
-    pad A22 : rect-connect-pad-2 at loc(23.000, 0.0) on Bottom
-    pad A23 : rect-connect-pad-2 at loc(24.000, 0.0) on Bottom
-    pad A24 : rect-connect-pad-2 at loc(25.000, 0.0) on Bottom
-    pad A25 : rect-connect-pad-2 at loc(26.000, 0.0) on Bottom
-    pad A26 : rect-connect-pad-2 at loc(27.000, 0.0) on Bottom
-    pad A27 : rect-connect-pad-2 at loc(28.000, 0.0) on Bottom
-    pad A28 : rect-connect-pad-2 at loc(29.000, 0.0) on Bottom
-    pad A29 : rect-connect-pad-2 at loc(30.000, 0.0) on Bottom
-    pad A30 : rect-connect-pad-2 at loc(31.000, 0.0) on Bottom
-    pad A31 : rect-connect-pad-2 at loc(32.000, 0.0) on Bottom
-    pad A32 : rect-connect-pad-2 at loc(33.000, 0.0) on Bottom
+    pad A19 : smd-pad(0.700, 4.300) at loc(20.000, 0.0) on Bottom
+    pad A20 : smd-pad(0.700, 4.300) at loc(21.000, 0.0) on Bottom
+    pad A21 : smd-pad(0.700, 4.300) at loc(22.000, 0.0) on Bottom
+    pad A22 : smd-pad(0.700, 4.300) at loc(23.000, 0.0) on Bottom
+    pad A23 : smd-pad(0.700, 4.300) at loc(24.000, 0.0) on Bottom
+    pad A24 : smd-pad(0.700, 4.300) at loc(25.000, 0.0) on Bottom
+    pad A25 : smd-pad(0.700, 4.300) at loc(26.000, 0.0) on Bottom
+    pad A26 : smd-pad(0.700, 4.300) at loc(27.000, 0.0) on Bottom
+    pad A27 : smd-pad(0.700, 4.300) at loc(28.000, 0.0) on Bottom
+    pad A28 : smd-pad(0.700, 4.300) at loc(29.000, 0.0) on Bottom
+    pad A29 : smd-pad(0.700, 4.300) at loc(30.000, 0.0) on Bottom
+    pad A30 : smd-pad(0.700, 4.300) at loc(31.000, 0.0) on Bottom
+    pad A31 : smd-pad(0.700, 4.300) at loc(32.000, 0.0) on Bottom
+    pad A32 : smd-pad(0.700, 4.300) at loc(33.000, 0.0) on Bottom
     if width >= 8 :
-      pad A33 : rect-connect-pad-2 at loc(34.000, 0.0) on Bottom
-      pad A34 : rect-connect-pad-2 at loc(35.000, 0.0) on Bottom
-      pad A35 : rect-connect-pad-2 at loc(36.000, 0.0) on Bottom
-      pad A36 : rect-connect-pad-2 at loc(37.000, 0.0) on Bottom
-      pad A37 : rect-connect-pad-2 at loc(38.000, 0.0) on Bottom
-      pad A38 : rect-connect-pad-2 at loc(39.000, 0.0) on Bottom
-      pad A39 : rect-connect-pad-2 at loc(40.000, 0.0) on Bottom
-      pad A40 : rect-connect-pad-2 at loc(41.000, 0.0) on Bottom
-      pad A41 : rect-connect-pad-2 at loc(42.000, 0.0) on Bottom
-      pad A42 : rect-connect-pad-2 at loc(43.000, 0.0) on Bottom
-      pad A43 : rect-connect-pad-2 at loc(44.000, 0.0) on Bottom
-      pad A44 : rect-connect-pad-2 at loc(45.000, 0.0) on Bottom
-      pad A45 : rect-connect-pad-2 at loc(46.000, 0.0) on Bottom
-      pad A46 : rect-connect-pad-2 at loc(47.000, 0.0) on Bottom
-      pad A47 : rect-connect-pad-2 at loc(48.000, 0.0) on Bottom
-      pad A48 : rect-connect-pad-2 at loc(49.000, 0.0) on Bottom
-      pad A49 : rect-connect-pad-2 at loc(50.000, 0.0) on Bottom
+      pad A33 : smd-pad(0.700, 4.300) at loc(34.000, 0.0) on Bottom
+      pad A34 : smd-pad(0.700, 4.300) at loc(35.000, 0.0) on Bottom
+      pad A35 : smd-pad(0.700, 4.300) at loc(36.000, 0.0) on Bottom
+      pad A36 : smd-pad(0.700, 4.300) at loc(37.000, 0.0) on Bottom
+      pad A37 : smd-pad(0.700, 4.300) at loc(38.000, 0.0) on Bottom
+      pad A38 : smd-pad(0.700, 4.300) at loc(39.000, 0.0) on Bottom
+      pad A39 : smd-pad(0.700, 4.300) at loc(40.000, 0.0) on Bottom
+      pad A40 : smd-pad(0.700, 4.300) at loc(41.000, 0.0) on Bottom
+      pad A41 : smd-pad(0.700, 4.300) at loc(42.000, 0.0) on Bottom
+      pad A42 : smd-pad(0.700, 4.300) at loc(43.000, 0.0) on Bottom
+      pad A43 : smd-pad(0.700, 4.300) at loc(44.000, 0.0) on Bottom
+      pad A44 : smd-pad(0.700, 4.300) at loc(45.000, 0.0) on Bottom
+      pad A45 : smd-pad(0.700, 4.300) at loc(46.000, 0.0) on Bottom
+      pad A46 : smd-pad(0.700, 4.300) at loc(47.000, 0.0) on Bottom
+      pad A47 : smd-pad(0.700, 4.300) at loc(48.000, 0.0) on Bottom
+      pad A48 : smd-pad(0.700, 4.300) at loc(49.000, 0.0) on Bottom
+      pad A49 : smd-pad(0.700, 4.300) at loc(50.000, 0.0) on Bottom
       if width >= 16 :
-        pad A50 : rect-connect-pad-2 at loc(51.000, 0.0) on Bottom
-        pad A51 : rect-connect-pad-2 at loc(52.000, 0.0) on Bottom
-        pad A52 : rect-connect-pad-2 at loc(53.000, 0.0) on Bottom
-        pad A53 : rect-connect-pad-2 at loc(54.000, 0.0) on Bottom
-        pad A54 : rect-connect-pad-2 at loc(55.000, 0.0) on Bottom
-        pad A55 : rect-connect-pad-2 at loc(56.000, 0.0) on Bottom
-        pad A56 : rect-connect-pad-2 at loc(57.000, 0.0) on Bottom
-        pad A57 : rect-connect-pad-2 at loc(58.000, 0.0) on Bottom
-        pad A58 : rect-connect-pad-2 at loc(59.000, 0.0) on Bottom
-        pad A59 : rect-connect-pad-2 at loc(60.000, 0.0) on Bottom
-        pad A60 : rect-connect-pad-2 at loc(61.000, 0.0) on Bottom
-        pad A61 : rect-connect-pad-2 at loc(62.000, 0.0) on Bottom
-        pad A62 : rect-connect-pad-2 at loc(63.000, 0.0) on Bottom
-        pad A63 : rect-connect-pad-2 at loc(64.000, 0.0) on Bottom
-        pad A64 : rect-connect-pad-2 at loc(65.000, 0.0) on Bottom
-        pad A65 : rect-connect-pad-2 at loc(66.000, 0.0) on Bottom
-        pad A66 : rect-connect-pad-2 at loc(67.000, 0.0) on Bottom
-        pad A67 : rect-connect-pad-2 at loc(68.000, 0.0) on Bottom
-        pad A68 : rect-connect-pad-2 at loc(69.000, 0.0) on Bottom
-        pad A69 : rect-connect-pad-2 at loc(70.000, 0.0) on Bottom
-        pad A70 : rect-connect-pad-2 at loc(71.000, 0.0) on Bottom
-        pad A71 : rect-connect-pad-2 at loc(72.000, 0.0) on Bottom
-        pad A72 : rect-connect-pad-2 at loc(73.000, 0.0) on Bottom
-        pad A73 : rect-connect-pad-2 at loc(74.000, 0.0) on Bottom
-        pad A74 : rect-connect-pad-2 at loc(75.000, 0.0) on Bottom
-        pad A75 : rect-connect-pad-2 at loc(76.000, 0.0) on Bottom
-        pad A76 : rect-connect-pad-2 at loc(77.000, 0.0) on Bottom
-        pad A77 : rect-connect-pad-2 at loc(78.000, 0.0) on Bottom
-        pad A78 : rect-connect-pad-2 at loc(79.000, 0.0) on Bottom
-        pad A79 : rect-connect-pad-2 at loc(80.000, 0.0) on Bottom
-        pad A80 : rect-connect-pad-2 at loc(81.000, 0.0) on Bottom
-        pad A81 : rect-connect-pad-2 at loc(82.000, 0.0) on Bottom
-        pad A82 : rect-connect-pad-2 at loc(83.000, 0.0) on Bottom
+        pad A50 : smd-pad(0.700, 4.300) at loc(51.000, 0.0) on Bottom
+        pad A51 : smd-pad(0.700, 4.300) at loc(52.000, 0.0) on Bottom
+        pad A52 : smd-pad(0.700, 4.300) at loc(53.000, 0.0) on Bottom
+        pad A53 : smd-pad(0.700, 4.300) at loc(54.000, 0.0) on Bottom
+        pad A54 : smd-pad(0.700, 4.300) at loc(55.000, 0.0) on Bottom
+        pad A55 : smd-pad(0.700, 4.300) at loc(56.000, 0.0) on Bottom
+        pad A56 : smd-pad(0.700, 4.300) at loc(57.000, 0.0) on Bottom
+        pad A57 : smd-pad(0.700, 4.300) at loc(58.000, 0.0) on Bottom
+        pad A58 : smd-pad(0.700, 4.300) at loc(59.000, 0.0) on Bottom
+        pad A59 : smd-pad(0.700, 4.300) at loc(60.000, 0.0) on Bottom
+        pad A60 : smd-pad(0.700, 4.300) at loc(61.000, 0.0) on Bottom
+        pad A61 : smd-pad(0.700, 4.300) at loc(62.000, 0.0) on Bottom
+        pad A62 : smd-pad(0.700, 4.300) at loc(63.000, 0.0) on Bottom
+        pad A63 : smd-pad(0.700, 4.300) at loc(64.000, 0.0) on Bottom
+        pad A64 : smd-pad(0.700, 4.300) at loc(65.000, 0.0) on Bottom
+        pad A65 : smd-pad(0.700, 4.300) at loc(66.000, 0.0) on Bottom
+        pad A66 : smd-pad(0.700, 4.300) at loc(67.000, 0.0) on Bottom
+        pad A67 : smd-pad(0.700, 4.300) at loc(68.000, 0.0) on Bottom
+        pad A68 : smd-pad(0.700, 4.300) at loc(69.000, 0.0) on Bottom
+        pad A69 : smd-pad(0.700, 4.300) at loc(70.000, 0.0) on Bottom
+        pad A70 : smd-pad(0.700, 4.300) at loc(71.000, 0.0) on Bottom
+        pad A71 : smd-pad(0.700, 4.300) at loc(72.000, 0.0) on Bottom
+        pad A72 : smd-pad(0.700, 4.300) at loc(73.000, 0.0) on Bottom
+        pad A73 : smd-pad(0.700, 4.300) at loc(74.000, 0.0) on Bottom
+        pad A74 : smd-pad(0.700, 4.300) at loc(75.000, 0.0) on Bottom
+        pad A75 : smd-pad(0.700, 4.300) at loc(76.000, 0.0) on Bottom
+        pad A76 : smd-pad(0.700, 4.300) at loc(77.000, 0.0) on Bottom
+        pad A77 : smd-pad(0.700, 4.300) at loc(78.000, 0.0) on Bottom
+        pad A78 : smd-pad(0.700, 4.300) at loc(79.000, 0.0) on Bottom
+        pad A79 : smd-pad(0.700, 4.300) at loc(80.000, 0.0) on Bottom
+        pad A80 : smd-pad(0.700, 4.300) at loc(81.000, 0.0) on Bottom
+        pad A81 : smd-pad(0.700, 4.300) at loc(82.000, 0.0) on Bottom
+        pad A82 : smd-pad(0.700, 4.300) at loc(83.000, 0.0) on Bottom
 
-  pad B1 : rect-connect-pad-2 at loc(0.0, 0.0) on Top
-  pad B2 : rect-connect-pad-2 at loc(1.000, 0.0) on Top
-  pad B3 : rect-connect-pad-2 at loc(2.000, 0.0) on Top
-  pad B4 : rect-connect-pad-2 at loc(3.000, 0.0) on Top
-  pad B5 : rect-connect-pad-2 at loc(4.000, 0.0) on Top
-  pad B6 : rect-connect-pad-2 at loc(5.000, 0.0) on Top
-  pad B7 : rect-connect-pad-2 at loc(6.000, 0.0) on Top
-  pad B8 : rect-connect-pad-2 at loc(7.000, 0.0) on Top
-  pad B9 : rect-connect-pad-2 at loc(8.000, 0.0) on Top
-  pad B10 : rect-connect-pad-2 at loc(9.000, 0.0) on Top
-  pad B11 : rect-connect-pad-2 at loc(10.000, 0.0) on Top
-  pad B12 : rect-connect-pad-2 at loc(13.000, 0.0) on Top
-  pad B13 : rect-connect-pad-2 at loc(14.000, 0.0) on Top
-  pad B14 : rect-connect-pad-2 at loc(15.000, 0.0) on Top
-  pad B15 : rect-connect-pad-2 at loc(16.000, 0.0) on Top
-  pad B16 : rect-connect-pad-2 at loc(17.000, 0.0) on Top
+  pad B1 : smd-pad(0.700, 4.300) at loc(0.0, 0.0) on Top
+  pad B2 : smd-pad(0.700, 4.300) at loc(1.000, 0.0) on Top
+  pad B3 : smd-pad(0.700, 4.300) at loc(2.000, 0.0) on Top
+  pad B4 : smd-pad(0.700, 4.300) at loc(3.000, 0.0) on Top
+  pad B5 : smd-pad(0.700, 4.300) at loc(4.000, 0.0) on Top
+  pad B6 : smd-pad(0.700, 4.300) at loc(5.000, 0.0) on Top
+  pad B7 : smd-pad(0.700, 4.300) at loc(6.000, 0.0) on Top
+  pad B8 : smd-pad(0.700, 4.300) at loc(7.000, 0.0) on Top
+  pad B9 : smd-pad(0.700, 4.300) at loc(8.000, 0.0) on Top
+  pad B10 : smd-pad(0.700, 4.300) at loc(9.000, 0.0) on Top
+  pad B11 : smd-pad(0.700, 4.300) at loc(10.000, 0.0) on Top
+  pad B12 : smd-pad(0.700, 4.300) at loc(13.000, 0.0) on Top
+  pad B13 : smd-pad(0.700, 4.300) at loc(14.000, 0.0) on Top
+  pad B14 : smd-pad(0.700, 4.300) at loc(15.000, 0.0) on Top
+  pad B15 : smd-pad(0.700, 4.300) at loc(16.000, 0.0) on Top
+  pad B16 : smd-pad(0.700, 4.300) at loc(17.000, 0.0) on Top
   if width == 1 :
-    pad B17 : rect-connect-pad-1 at loc(18.000, 0.550) on Top
+    pad B17 : smd-pad(0.700, 3.200) at loc(18.000, 0.550) on Top
   else :
-    pad B17 : rect-connect-pad-2 at loc(18.000, 0.0) on Top
-  pad B18 : rect-connect-pad-2 at loc(19.000, 0.0) on Top
+    pad B17 : smd-pad(0.700, 4.300) at loc(18.000, 0.0) on Top
+  pad B18 : smd-pad(0.700, 4.300) at loc(19.000, 0.0) on Top
   if width >= 4 :
-    pad B19 : rect-connect-pad-2 at loc(20.000, 0.0) on Top
-    pad B20 : rect-connect-pad-2 at loc(21.000, 0.0) on Top
-    pad B21 : rect-connect-pad-2 at loc(22.000, 0.0) on Top
-    pad B22 : rect-connect-pad-2 at loc(23.000, 0.0) on Top
-    pad B23 : rect-connect-pad-2 at loc(24.000, 0.0) on Top
-    pad B24 : rect-connect-pad-2 at loc(25.000, 0.0) on Top
-    pad B25 : rect-connect-pad-2 at loc(26.000, 0.0) on Top
-    pad B26 : rect-connect-pad-2 at loc(27.000, 0.0) on Top
-    pad B27 : rect-connect-pad-2 at loc(28.000, 0.0) on Top
-    pad B28 : rect-connect-pad-2 at loc(29.000, 0.0) on Top
-    pad B29 : rect-connect-pad-2 at loc(30.000, 0.0) on Top
-    pad B30 : rect-connect-pad-2 at loc(31.000, 0.0) on Top
+    pad B19 : smd-pad(0.700, 4.300) at loc(20.000, 0.0) on Top
+    pad B20 : smd-pad(0.700, 4.300) at loc(21.000, 0.0) on Top
+    pad B21 : smd-pad(0.700, 4.300) at loc(22.000, 0.0) on Top
+    pad B22 : smd-pad(0.700, 4.300) at loc(23.000, 0.0) on Top
+    pad B23 : smd-pad(0.700, 4.300) at loc(24.000, 0.0) on Top
+    pad B24 : smd-pad(0.700, 4.300) at loc(25.000, 0.0) on Top
+    pad B25 : smd-pad(0.700, 4.300) at loc(26.000, 0.0) on Top
+    pad B26 : smd-pad(0.700, 4.300) at loc(27.000, 0.0) on Top
+    pad B27 : smd-pad(0.700, 4.300) at loc(28.000, 0.0) on Top
+    pad B28 : smd-pad(0.700, 4.300) at loc(29.000, 0.0) on Top
+    pad B29 : smd-pad(0.700, 4.300) at loc(30.000, 0.0) on Top
+    pad B30 : smd-pad(0.700, 4.300) at loc(31.000, 0.0) on Top
     if width == 4 :
-      pad B31 : rect-connect-pad-1 at loc(32.000, 0.550) on Top
+      pad B31 : smd-pad(0.700, 3.200) at loc(32.000, 0.550) on Top
     else :
-      pad B31 : rect-connect-pad-2 at loc(32.000, 0.0) on Top
-    pad B32 : rect-connect-pad-2 at loc(33.000, 0.0) on Top
+      pad B31 : smd-pad(0.700, 4.300) at loc(32.000, 0.0) on Top
+    pad B32 : smd-pad(0.700, 4.300) at loc(33.000, 0.0) on Top
     if width >= 8 :
-      pad B33 : rect-connect-pad-2 at loc(34.000, 0.0) on Top
-      pad B34 : rect-connect-pad-2 at loc(35.000, 0.0) on Top
-      pad B35 : rect-connect-pad-2 at loc(36.000, 0.0) on Top
-      pad B36 : rect-connect-pad-2 at loc(37.000, 0.0) on Top
-      pad B37 : rect-connect-pad-2 at loc(38.000, 0.0) on Top
-      pad B38 : rect-connect-pad-2 at loc(39.000, 0.0) on Top
-      pad B39 : rect-connect-pad-2 at loc(40.000, 0.0) on Top
-      pad B40 : rect-connect-pad-2 at loc(41.000, 0.0) on Top
-      pad B41 : rect-connect-pad-2 at loc(42.000, 0.0) on Top
-      pad B42 : rect-connect-pad-2 at loc(43.000, 0.0) on Top
-      pad B43 : rect-connect-pad-2 at loc(44.000, 0.0) on Top
-      pad B44 : rect-connect-pad-2 at loc(45.000, 0.0) on Top
-      pad B45 : rect-connect-pad-2 at loc(46.000, 0.0) on Top
-      pad B46 : rect-connect-pad-2 at loc(47.000, 0.0) on Top
-      pad B47 : rect-connect-pad-2 at loc(48.000, 0.0) on Top
+      pad B33 : smd-pad(0.700, 4.300) at loc(34.000, 0.0) on Top
+      pad B34 : smd-pad(0.700, 4.300) at loc(35.000, 0.0) on Top
+      pad B35 : smd-pad(0.700, 4.300) at loc(36.000, 0.0) on Top
+      pad B36 : smd-pad(0.700, 4.300) at loc(37.000, 0.0) on Top
+      pad B37 : smd-pad(0.700, 4.300) at loc(38.000, 0.0) on Top
+      pad B38 : smd-pad(0.700, 4.300) at loc(39.000, 0.0) on Top
+      pad B39 : smd-pad(0.700, 4.300) at loc(40.000, 0.0) on Top
+      pad B40 : smd-pad(0.700, 4.300) at loc(41.000, 0.0) on Top
+      pad B41 : smd-pad(0.700, 4.300) at loc(42.000, 0.0) on Top
+      pad B42 : smd-pad(0.700, 4.300) at loc(43.000, 0.0) on Top
+      pad B43 : smd-pad(0.700, 4.300) at loc(44.000, 0.0) on Top
+      pad B44 : smd-pad(0.700, 4.300) at loc(45.000, 0.0) on Top
+      pad B45 : smd-pad(0.700, 4.300) at loc(46.000, 0.0) on Top
+      pad B46 : smd-pad(0.700, 4.300) at loc(47.000, 0.0) on Top
+      pad B47 : smd-pad(0.700, 4.300) at loc(48.000, 0.0) on Top
       if width == 8 :
-        pad B48 : rect-connect-pad-1 at loc(49.000, 0.550) on Top
+        pad B48 : smd-pad(0.700, 3.200) at loc(49.000, 0.550) on Top
       else :
-        pad B48 : rect-connect-pad-2 at loc(49.000, 0.0) on Top
-      pad B49 : rect-connect-pad-2 at loc(50.000, 0.0) on Top
+        pad B48 : smd-pad(0.700, 4.300) at loc(49.000, 0.0) on Top
+      pad B49 : smd-pad(0.700, 4.300) at loc(50.000, 0.0) on Top
       if width == 16 :
-        pad B50 : rect-connect-pad-2 at loc(51.000, 0.0) on Top
-        pad B51 : rect-connect-pad-2 at loc(52.000, 0.0) on Top
-        pad B52 : rect-connect-pad-2 at loc(53.000, 0.0) on Top
-        pad B53 : rect-connect-pad-2 at loc(54.000, 0.0) on Top
-        pad B54 : rect-connect-pad-2 at loc(55.000, 0.0) on Top
-        pad B55 : rect-connect-pad-2 at loc(56.000, 0.0) on Top
-        pad B56 : rect-connect-pad-2 at loc(57.000, 0.0) on Top
-        pad B57 : rect-connect-pad-2 at loc(58.000, 0.0) on Top
-        pad B58 : rect-connect-pad-2 at loc(59.000, 0.0) on Top
-        pad B59 : rect-connect-pad-2 at loc(60.000, 0.0) on Top
-        pad B60 : rect-connect-pad-2 at loc(61.000, 0.0) on Top
-        pad B61 : rect-connect-pad-2 at loc(62.000, 0.0) on Top
-        pad B62 : rect-connect-pad-2 at loc(63.000, 0.0) on Top
-        pad B63 : rect-connect-pad-2 at loc(64.000, 0.0) on Top
-        pad B64 : rect-connect-pad-2 at loc(65.000, 0.0) on Top
-        pad B65 : rect-connect-pad-2 at loc(66.000, 0.0) on Top
-        pad B66 : rect-connect-pad-2 at loc(67.000, 0.0) on Top
-        pad B67 : rect-connect-pad-2 at loc(68.000, 0.0) on Top
-        pad B68 : rect-connect-pad-2 at loc(69.000, 0.0) on Top
-        pad B69 : rect-connect-pad-2 at loc(70.000, 0.0) on Top
-        pad B70 : rect-connect-pad-2 at loc(71.000, 0.0) on Top
-        pad B71 : rect-connect-pad-2 at loc(72.000, 0.0) on Top
-        pad B72 : rect-connect-pad-2 at loc(73.000, 0.0) on Top
-        pad B73 : rect-connect-pad-2 at loc(74.000, 0.0) on Top
-        pad B74 : rect-connect-pad-2 at loc(75.000, 0.0) on Top
-        pad B75 : rect-connect-pad-2 at loc(76.000, 0.0) on Top
-        pad B76 : rect-connect-pad-2 at loc(77.000, 0.0) on Top
-        pad B77 : rect-connect-pad-2 at loc(78.000, 0.0) on Top
-        pad B78 : rect-connect-pad-2 at loc(79.000, 0.0) on Top
-        pad B79 : rect-connect-pad-2 at loc(80.000, 0.0) on Top
-        pad B80 : rect-connect-pad-2 at loc(81.000, 0.0) on Top
-        pad B81 : rect-connect-pad-1 at loc(82.000, 0.550) on Top
-        pad B82 : rect-connect-pad-2 at loc(83.000, 0.0) on Top
+        pad B50 : smd-pad(0.700, 4.300) at loc(51.000, 0.0) on Top
+        pad B51 : smd-pad(0.700, 4.300) at loc(52.000, 0.0) on Top
+        pad B52 : smd-pad(0.700, 4.300) at loc(53.000, 0.0) on Top
+        pad B53 : smd-pad(0.700, 4.300) at loc(54.000, 0.0) on Top
+        pad B54 : smd-pad(0.700, 4.300) at loc(55.000, 0.0) on Top
+        pad B55 : smd-pad(0.700, 4.300) at loc(56.000, 0.0) on Top
+        pad B56 : smd-pad(0.700, 4.300) at loc(57.000, 0.0) on Top
+        pad B57 : smd-pad(0.700, 4.300) at loc(58.000, 0.0) on Top
+        pad B58 : smd-pad(0.700, 4.300) at loc(59.000, 0.0) on Top
+        pad B59 : smd-pad(0.700, 4.300) at loc(60.000, 0.0) on Top
+        pad B60 : smd-pad(0.700, 4.300) at loc(61.000, 0.0) on Top
+        pad B61 : smd-pad(0.700, 4.300) at loc(62.000, 0.0) on Top
+        pad B62 : smd-pad(0.700, 4.300) at loc(63.000, 0.0) on Top
+        pad B63 : smd-pad(0.700, 4.300) at loc(64.000, 0.0) on Top
+        pad B64 : smd-pad(0.700, 4.300) at loc(65.000, 0.0) on Top
+        pad B65 : smd-pad(0.700, 4.300) at loc(66.000, 0.0) on Top
+        pad B66 : smd-pad(0.700, 4.300) at loc(67.000, 0.0) on Top
+        pad B67 : smd-pad(0.700, 4.300) at loc(68.000, 0.0) on Top
+        pad B68 : smd-pad(0.700, 4.300) at loc(69.000, 0.0) on Top
+        pad B69 : smd-pad(0.700, 4.300) at loc(70.000, 0.0) on Top
+        pad B70 : smd-pad(0.700, 4.300) at loc(71.000, 0.0) on Top
+        pad B71 : smd-pad(0.700, 4.300) at loc(72.000, 0.0) on Top
+        pad B72 : smd-pad(0.700, 4.300) at loc(73.000, 0.0) on Top
+        pad B73 : smd-pad(0.700, 4.300) at loc(74.000, 0.0) on Top
+        pad B74 : smd-pad(0.700, 4.300) at loc(75.000, 0.0) on Top
+        pad B75 : smd-pad(0.700, 4.300) at loc(76.000, 0.0) on Top
+        pad B76 : smd-pad(0.700, 4.300) at loc(77.000, 0.0) on Top
+        pad B77 : smd-pad(0.700, 4.300) at loc(78.000, 0.0) on Top
+        pad B78 : smd-pad(0.700, 4.300) at loc(79.000, 0.0) on Top
+        pad B79 : smd-pad(0.700, 4.300) at loc(80.000, 0.0) on Top
+        pad B80 : smd-pad(0.700, 4.300) at loc(81.000, 0.0) on Top
+        pad B81 : smd-pad(0.700, 3.200) at loc(82.000, 0.550) on Top
+        pad B82 : smd-pad(0.700, 4.300) at loc(83.000, 0.0) on Top
 
   val sh = 
     if width == 1 :
@@ -259,478 +249,15 @@ public pcb-landpattern LP-PCIe-Edge (width : Int) :
     layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(83.650, 4.950), Point(83.650, -2.950)])
     layer(CustomLayer("boardEdge", Top)) = Line(0.100, [Point(83.650, -2.950), Point(83.150, -3.450)])
 
-
-
-
-
-public pcb-symbol SYM-PCIe-Edge (width : Int) :
-  ; First section - following pin-properties order
-  pin GND at Point(0.0, -64.770) with :
-    direction = Down
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-  pin p+3_3V at Point(2.540, 64.770) with :
-    direction = Up
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-  pin p+12V at Point(-2.540, 64.770) with :
-    direction = Up
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-  pin p3_3Vaux at Point(0.0, 64.770) with :
-    direction = Up
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-  pin smbus.smbclk at Point(-18.000, 48.260) with :
-    direction = Left
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-  pin smbus.smbdat at Point(-18.000, 45.720) with :
-    direction = Left
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-  pin pcie.control.PEWAKE# at Point(18.000, 40.640) with :
-    direction = Right
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-  pin pcie.control.CLKREQ# at Point(18.000, 45.720) with :
-    direction = Right
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-  pin pcie.control.PRSNT# at Point(-18.000, 33.020) with :
-    direction = Left
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-  pin pcie.control.PERST# at Point(18.000, 38.100) with :
-    direction = Right
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-
-  pin jtag.tck at Point(18.000, 30.480) with :
-    direction = Right
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-  pin jtag.tdi at Point(18.000, 27.940) with :
-    direction = Right
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-  pin jtag.tdo at Point(18.000, 25.400) with :
-    direction = Right
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-  pin jtag.tms at Point(18.000, 22.860) with :
-    direction = Right
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-  pin reset.reset at Point(18.000, 33.020) with :
-    direction = Right
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-
-
-  pin pcie.data.refclk.P at Point(-18.000, 40.640) with :
-    direction = Left
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-  pin pcie.data.refclk.N at Point(-18.000, 38.100) with :
-    direction = Left
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-  pin pcie.data.lane[0].RX.P at Point(18.000, 17.780) with :
-    direction = Right
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-  pin pcie.data.lane[0].RX.N at Point(18.000, 15.240) with :
-    direction = Right
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-  pin pcie.data.lane[0].TX.P at Point(-18.000, 17.780) with :
-    direction = Left
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-  pin pcie.data.lane[0].TX.N at Point(-18.000, 15.240) with :
-    direction = Left
-    length = 3.810
-    number-size = 1.270
-    name-size = 1.270
-
-  if width >= 4 :
-    pin RSVD[5] at Point(18.000, 48.260) with :
-      direction = Right
-      length = 3.810
-      number-size = 1.270
-      name-size = 1.270
-    pin RSVD[4] at Point(18.000, 50.800) with :
-      direction = Right
-      length = 3.810
-      number-size = 1.270
-      name-size = 1.270
-    pin RSVD[3] at Point(18.000, 53.340) with :
-      direction = Right
-      length = 3.810
-      number-size = 1.270
-      name-size = 1.270
-    pin pcie.data.lane[1].RX.P at Point(18.000, 12.700) with :
-      direction = Right
-      length = 3.810
-      number-size = 1.270
-      name-size = 1.270
-    pin pcie.data.lane[1].RX.N at Point(18.000, 10.160) with :
-      direction = Right
-      length = 3.810
-      number-size = 1.270
-      name-size = 1.270
-    pin pcie.data.lane[2].RX.P at Point(18.000, 7.620) with :
-      direction = Right
-      length = 3.810
-      number-size = 1.270
-      name-size = 1.270
-    pin pcie.data.lane[2].RX.N at Point(18.000, 5.080) with :
-      direction = Right
-      length = 3.810
-      number-size = 1.270
-      name-size = 1.270
-    pin pcie.data.lane[3].RX.P at Point(18.000, 2.540) with :
-      direction = Right
-      length = 3.810
-      number-size = 1.270
-      name-size = 1.270
-    pin pcie.data.lane[3].RX.N at Point(18.000, 0.0) with :
-      direction = Right
-      length = 3.810
-      number-size = 1.270
-      name-size = 1.270
-    pin pcie.data.lane[1].TX.P at Point(-18.000, 12.700) with :
-      direction = Left
-      length = 3.810
-      number-size = 1.270
-      name-size = 1.270
-    pin pcie.data.lane[1].TX.N at Point(-18.000, 10.160) with :
-      direction = Left
-      length = 3.810
-      number-size = 1.270
-      name-size = 1.270
-    pin pcie.data.lane[2].TX.P at Point(-18.000, 7.620) with :
-      direction = Left
-      length = 3.810
-      number-size = 1.270
-      name-size = 1.270
-    pin pcie.data.lane[2].TX.N at Point(-18.000, 5.080) with :
-      direction = Left
-      length = 3.810
-      number-size = 1.270
-      name-size = 1.270
-    pin pcie.data.lane[3].TX.P at Point(-18.000, 2.540) with :
-      direction = Left
-      length = 3.810
-      number-size = 1.270
-      name-size = 1.270
-    pin pcie.data.lane[3].TX.N at Point(-18.000, 0.0) with :
-      direction = Left
-      length = 3.810
-      number-size = 1.270
-      name-size = 1.270
-
-    if width >= 8 :
-      pin RSVD[2] at Point(18.000, 55.880) with :
-        direction = Right
-        length = 3.810
-        number-size = 1.270
-        name-size = 1.270
-      pin pcie.data.lane[4].RX.P at Point(18.000, -2.540) with :
-        direction = Right
-        length = 3.810
-        number-size = 1.270
-        name-size = 1.270
-      pin pcie.data.lane[4].RX.N at Point(18.000, -5.080) with :
-        direction = Right
-        length = 3.810
-        number-size = 1.270
-        name-size = 1.270
-      pin pcie.data.lane[5].RX.P at Point(18.000, -7.620) with :
-        direction = Right
-        length = 3.810
-        number-size = 1.270
-        name-size = 1.270
-      pin pcie.data.lane[5].RX.N at Point(18.000, -10.160) with :
-        direction = Right
-        length = 3.810
-        number-size = 1.270
-        name-size = 1.270
-      pin pcie.data.lane[6].RX.P at Point(18.000, -12.700) with :
-        direction = Right
-        length = 3.810
-        number-size = 1.270
-        name-size = 1.270
-      pin pcie.data.lane[6].RX.N at Point(18.000, -15.240) with :
-        direction = Right
-        length = 3.810
-        number-size = 1.270
-        name-size = 1.270
-      pin pcie.data.lane[7].RX.P at Point(18.000, -17.780) with :
-        direction = Right
-        length = 3.810
-        number-size = 1.270
-        name-size = 1.270
-      pin pcie.data.lane[7].RX.N at Point(18.000, -20.320) with :
-        direction = Right
-        length = 3.810
-        number-size = 1.270
-        name-size = 1.270
-      pin pcie.data.lane[4].TX.P at Point(-18.000, -2.540) with :
-        direction = Left
-        length = 3.810
-        number-size = 1.270
-        name-size = 1.270
-      pin pcie.data.lane[4].TX.N at Point(-18.000, -5.080) with :
-        direction = Left
-        length = 3.810
-        number-size = 1.270
-        name-size = 1.270
-      pin pcie.data.lane[5].TX.P at Point(-18.000, -7.620) with :
-        direction = Left
-        length = 3.810
-        number-size = 1.270
-        name-size = 1.270
-      pin pcie.data.lane[5].TX.N at Point(-18.000, -10.160) with :
-        direction = Left
-        length = 3.810
-        number-size = 1.270
-        name-size = 1.270
-      pin pcie.data.lane[6].TX.P at Point(-18.000, -12.700) with :
-        direction = Left
-        length = 3.810
-        number-size = 1.270
-        name-size = 1.270
-      pin pcie.data.lane[6].TX.N at Point(-18.000, -15.240) with :
-        direction = Left
-        length = 3.810
-        number-size = 1.270
-        name-size = 1.270
-      pin pcie.data.lane[7].TX.P at Point(-18.000, -17.780) with :
-        direction = Left
-        length = 3.810
-        number-size = 1.270
-        name-size = 1.270
-      pin pcie.data.lane[7].TX.N at Point(-18.000, -20.320) with :
-        direction = Left
-        length = 3.810
-        number-size = 1.270
-        name-size = 1.270
-
-      if width == 16 :
-        pin RSVD[0] at Point(18.000, 60.960) with :
-          direction = Right
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin RSVD[1] at Point(18.000, 58.420) with :
-          direction = Right
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[8].RX.P at Point(18.000, -22.860) with :
-          direction = Right
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[8].RX.N at Point(18.000, -25.400) with :
-          direction = Right
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[9].RX.P at Point(18.000, -27.940) with :
-          direction = Right
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[9].RX.N at Point(18.000, -30.480) with :
-          direction = Right
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[10].RX.P at Point(18.000, -33.020) with :
-          direction = Right
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[10].RX.N at Point(18.000, -35.560) with :
-          direction = Right
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[11].RX.P at Point(18.000, -38.100) with :
-          direction = Right
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[11].RX.N at Point(18.000, -40.640) with :
-          direction = Right
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[12].RX.P at Point(18.000, -43.180) with :
-          direction = Right
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[12].RX.N at Point(18.000, -45.720) with :
-          direction = Right
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[13].RX.P at Point(18.000, -48.260) with :
-          direction = Right
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[13].RX.N at Point(18.000, -50.800) with :
-          direction = Right
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[14].RX.P at Point(18.000, -53.340) with :
-          direction = Right
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[14].RX.N at Point(18.000, -55.880) with :
-          direction = Right
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[15].RX.P at Point(18.000, -58.420) with :
-          direction = Right
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[15].RX.N at Point(18.000, -60.960) with :
-          direction = Right
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[8].TX.P at Point(-18.000, -22.860) with :
-          direction = Left
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[8].TX.N at Point(-18.000, -25.400) with :
-          direction = Left
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[9].TX.P at Point(-18.000, -27.940) with :
-          direction = Left
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[9].TX.N at Point(-18.000, -30.480) with :
-          direction = Left
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[10].TX.P at Point(-18.000, -33.020) with :
-          direction = Left
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[10].TX.N at Point(-18.000, -35.560) with :
-          direction = Left
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[11].TX.P at Point(-18.000, -38.100) with :
-          direction = Left
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[11].TX.N at Point(-18.000, -40.640) with :
-          direction = Left
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[12].TX.P at Point(-18.000, -43.180) with :
-          direction = Left
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[12].TX.N at Point(-18.000, -45.720) with :
-          direction = Left
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[13].TX.P at Point(-18.000, -48.260) with :
-          direction = Left
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[13].TX.N at Point(-18.000, -50.800) with :
-          direction = Left
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[14].TX.P at Point(-18.000, -53.340) with :
-          direction = Left
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[14].TX.N at Point(-18.000, -55.880) with :
-          direction = Left
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[15].TX.P at Point(-18.000, -58.420) with :
-          direction = Left
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-        pin pcie.data.lane[15].TX.N at Point(-18.000, -60.960) with :
-          direction = Left
-          length = 3.810
-          number-size = 1.270
-          name-size = 1.270
-
-
-
-
-  draw("foreground") = Text("ki_keywords: pcie", 1.27, C, loc(0.0, 0.0), "", TrueTypeFont, true, false)
-  draw("foreground") = Text("ki_fp_filters: *PCIexpress*", 1.27, C, loc(0.0, 0.0), "", TrueTypeFont, true, false)
-  draw("foreground") = Text(">REF", 1.27, W, loc(2.194, -67.310))
-  draw("foreground") = Text(">VALUE", 1.27, W, loc(2.194, -69.850))
-  draw("foreground") = Text("Footprint: Connector_PCBEdge:BUS_PCIexpress", 1.27, C, loc(0.0, 22.860), "", TrueTypeFont, true, false)
-  draw("foreground") = Text("Datasheet: http://www.ritrontek.com/uploadfile/2016/1026/20161026105231124.pdf#page=63", 1.27, C, loc(-1.270, -6.350), "", TrueTypeFont, true, false)
-  draw("foreground") = Text("Description: PCI Express bus connector", 1.27, C, loc(0.0, 0.0), "", TrueTypeFont, true, false)
-  draw("background") = Rectangle(36.000, 129.540)
-
 public pcb-component component (xwidth : jsl/protocols/pcie/PCIeWidth) :
   description = "PCI Express parameterized edge connector"
   mpn = "Edge_PCI_Express"
-  datasheet = "http://www.ritrontek.com/uploadfile/2016/1026/20161026105231124.pdf#page=63"
   reference-prefix = "J"
 
   if xwidth == PCIe-x32 :
     fatal("Unsupported width: %_", % [xwidth])
   val width = jsl/protocols/pcie/PCIe-enum-to-int(xwidth)
+
   port pcie : pcie(width, PCIe-PRSNT#)
   port smbus : std-smbus()
   port jtag : jtag
@@ -742,201 +269,114 @@ public pcb-component component (xwidth : jsl/protocols/pcie/PCIeWidth) :
   val gnd-x16 = to-tuple $ cat-all([gnd-x8 map(Ref,["A51", "B52", "B53", "A54", "A55", "B56", "B57", "A58", "A59", "B60", "B61", "A62", "A63", "B64", "B65", "A66", "A67", "B68", "B69", "A70", "A71", "B72", "B73", "A74", "A75", "B76", "B77", "A78", "A79", "B80", "A82"])])
 
   pin-properties :
-    [pin:Ref | pads:Ref ... | side:Dir | electrical-type:String]
+    [pin:Ref | pads:Ref ... | side:Dir]
     if width == 1 :
-      [GND | (gnd-x1) ... | Down | "PowerIn"]
-      [pcie.control.PRSNT# | A1 B17 | Left | "Passive"]
+      [GND | (gnd-x1) ... | Down]
+      [pcie.control.PRSNT# | A1 B17 | Right]
     else if width == 4 :
-      [GND | (gnd-x4) ... | Down | "PowerIn"]
-      [pcie.control.PRSNT# | A1 B31 | Left | "Passive"]
+      [GND | (gnd-x4) ... | Down]
+      [pcie.control.PRSNT# | A1 B31 | Right]
     else if width == 8 :
-      [GND | (gnd-x8) ... | Down | "PowerIn"]
-      [pcie.control.PRSNT# | A1 B48 | Left | "Passive"]
+      [GND | (gnd-x8) ... | Down]
+      [pcie.control.PRSNT# | A1 B48 | Right]
     else if width == 16 :
-      [GND | (gnd-x16) ... | Down | "PowerIn"]
-      [pcie.control.PRSNT# | A1 B81 | Left | "Passive"]
+      [GND | (gnd-x16) ... | Down]
+      [pcie.control.PRSNT# | A1 B81 | Right]
 
-    [p+12V | B1 B2 B3 A3 A2 | Up | "PowerIn"]
-    [jtag.tck | A5 | Right | "Input"]
-    [smbus.smbclk | B5 | Left | "Input"]
-    [jtag.tdi | A6 | Right | "Input"]
-    [smbus.smbdat | B6 | Left | "Bidirectional"]
-    [jtag.tdo | A7 | Right | "Output"]
-    [jtag.tms | A8 | Right | "Input"]
-    [p+3_3V | B8 A9 A10 | Up | "PowerIn"]
-    [reset.reset | B9 | Right | "Input"]
-    [p3_3Vaux | B10 | Up | "PowerIn"]
-    [pcie.control.PERST# | A11 | Right | "Input"]
-    [pcie.control.PEWAKE# | B11 | Right | "OpenCollector"]
-    [pcie.control.CLKREQ# | B12 | Right | "Passive"]
-    [pcie.data.refclk.P | A13 | Left | "Input"]
-    [pcie.data.refclk.N | A14 | Left | "Input"]
-    [pcie.data.lane[0].TX.P | B14 | Left | "Input"]
-    [pcie.data.lane[0].TX.N | B15 | Left | "Input"]
-    [pcie.data.lane[0].RX.P | A16 | Right | "Output"]
-    [pcie.data.lane[0].RX.N | A17 | Right | "Output"]
+    [p3_3Vaux | B10 | Up]
+    [p+3_3V | B8 A9 A10 | Up]
+    [p+12V | B1 B2 B3 A3 A2 | Up]
+    [smbus.smbclk | B5 | Left]
+    [smbus.smbdat | B6 | Left]
+    [jtag.tck | A5 | Left]
+    [jtag.tdi | A6 | Left]
+    [jtag.tdo | A7 | Left]
+    [jtag.tms | A8 | Left]
+    [reset.reset | B9 | Left]
+    [pcie.control.PERST# | A11 | Left]
+    [pcie.control.PEWAKE# | B11 | Left]
+    [pcie.control.CLKREQ# | B12 | Left]
+    [pcie.data.refclk.P | A13 | Left]
+    [pcie.data.refclk.N | A14 | Left]
+    [pcie.data.lane[0].TX.P | B14 | Right]
+    [pcie.data.lane[0].TX.N | B15 | Right]
+    [pcie.data.lane[0].RX.P | A16 | Left]
+    [pcie.data.lane[0].RX.N | A17 | Left]
     if width >= 4 :
-      [RSVD[5] | A19 | Right | "Passive"]
-      [pcie.data.lane[1].TX.P | B19 | Left | "Input"]
-      [pcie.data.lane[1].TX.N | B20 | Left | "Input"]
-      [pcie.data.lane[1].RX.P | A21 | Right | "Output"]
-      [pcie.data.lane[1].RX.N | A22 | Right | "Output"]
-      [pcie.data.lane[2].TX.P | B23 | Left | "Input"]
-      [pcie.data.lane[2].TX.N | B24 | Left | "Input"]
-      [pcie.data.lane[2].RX.P | A25 | Right | "Output"]
-      [pcie.data.lane[2].RX.N | A26 | Right | "Output"]
-      [pcie.data.lane[3].TX.P | B27 | Left | "Input"]
-      [pcie.data.lane[3].TX.N | B28 | Left | "Input"]
-      [pcie.data.lane[3].RX.P | A29 | Right | "Output"]
-      [pcie.data.lane[3].RX.N | A30 | Right | "Output"]
-      [RSVD[4] | A32 | Right | "Passive"]
-      [RSVD[3] | B30 | Right | "Passive"]
+      [RSVD[5] | A19 | Down]
+      [pcie.data.lane[1].TX.P | B19 | Right]
+      [pcie.data.lane[1].TX.N | B20 | Right]
+      [pcie.data.lane[1].RX.P | A21 | Left]
+      [pcie.data.lane[1].RX.N | A22 | Left]
+      [pcie.data.lane[2].TX.P | B23 | Right]
+      [pcie.data.lane[2].TX.N | B24 | Right]
+      [pcie.data.lane[2].RX.P | A25 | Left]
+      [pcie.data.lane[2].RX.N | A26 | Left]
+      [pcie.data.lane[3].TX.P | B27 | Right]
+      [pcie.data.lane[3].TX.N | B28 | Right]
+      [pcie.data.lane[3].RX.P | A29 | Left]
+      [pcie.data.lane[3].RX.N | A30 | Left]
+      [RSVD[4] | A32 | Down]
+      [RSVD[3] | B30 | Down]
       if width >= 8 :
-        [RSVD[2] | A33 | Right | "Passive"]
-        [pcie.data.lane[4].TX.P | B33 | Left | "Input"]
-        [pcie.data.lane[4].TX.N | B34 | Left | "Input"]
-        [pcie.data.lane[4].RX.P | A35 | Right | "Output"]
-        [pcie.data.lane[4].RX.N | A36 | Right | "Output"]
-        [pcie.data.lane[5].TX.P | B37 | Left | "Input"]
-        [pcie.data.lane[5].TX.N | B38 | Left | "Input"]
-        [pcie.data.lane[5].RX.P | A39 | Right | "Output"]
-        [pcie.data.lane[5].RX.N | A40 | Right | "Output"]
-        [pcie.data.lane[6].TX.P | B41 | Left | "Input"]
-        [pcie.data.lane[6].TX.N | B42 | Left | "Input"]
-        [pcie.data.lane[6].RX.P | A43 | Right | "Output"]
-        [pcie.data.lane[6].RX.N | A44 | Right | "Output"]
-        [pcie.data.lane[7].TX.P | B45 | Left | "Input"]
-        [pcie.data.lane[7].TX.N | B46 | Left | "Input"]
-        [pcie.data.lane[7].RX.P | A47 | Right | "Output"]
-        [pcie.data.lane[7].RX.N | A48 | Right | "Output"]
+        [RSVD[2] | A33 | Down]
+        [pcie.data.lane[4].TX.P | B33 | Right]
+        [pcie.data.lane[4].TX.N | B34 | Right]
+        [pcie.data.lane[4].RX.P | A35 | Left]
+        [pcie.data.lane[4].RX.N | A36 | Left]
+        [pcie.data.lane[5].TX.P | B37 | Right]
+        [pcie.data.lane[5].TX.N | B38 | Right]
+        [pcie.data.lane[5].RX.P | A39 | Left]
+        [pcie.data.lane[5].RX.N | A40 | Left]
+        [pcie.data.lane[6].TX.P | B41 | Right]
+        [pcie.data.lane[6].TX.N | B42 | Right]
+        [pcie.data.lane[6].RX.P | A43 | Left]
+        [pcie.data.lane[6].RX.N | A44 | Left]
+        [pcie.data.lane[7].TX.P | B45 | Right]
+        [pcie.data.lane[7].TX.N | B46 | Right]
+        [pcie.data.lane[7].RX.P | A47 | Left]
+        [pcie.data.lane[7].RX.N | A48 | Left]
         if width >= 16 :
-          [RSVD[1] | A50 | Right | "Passive"]
-          [pcie.data.lane[8].TX.P | B50 | Left | "Input"]
-          [pcie.data.lane[8].TX.N | B51 | Left | "Input"]
-          [pcie.data.lane[8].RX.P | A52 | Right | "Output"]
-          [pcie.data.lane[8].RX.N | A53 | Right | "Output"]
-          [pcie.data.lane[9].TX.P | B54 | Left | "Input"]
-          [pcie.data.lane[9].TX.N | B55 | Left | "Input"]
-          [pcie.data.lane[9].RX.P | A56 | Right | "Output"]
-          [pcie.data.lane[9].RX.N | A57 | Right | "Output"]
-          [pcie.data.lane[10].TX.P | B58 | Left | "Input"]
-          [pcie.data.lane[10].TX.N | B59 | Left | "Input"]
-          [pcie.data.lane[10].RX.P | A60 | Right | "Output"]
-          [pcie.data.lane[10].RX.N | A61 | Right | "Output"]
-          [pcie.data.lane[11].TX.P | B62 | Left | "Input"]
-          [pcie.data.lane[11].TX.N | B63 | Left | "Input"]
-          [pcie.data.lane[11].RX.P | A64 | Right | "Output"]
-          [pcie.data.lane[11].RX.N | A65 | Right | "Output"]
-          [pcie.data.lane[12].TX.P | B66 | Left | "Input"]
-          [pcie.data.lane[12].TX.N | B67 | Left | "Input"]
-          [pcie.data.lane[12].RX.P | A68 | Right | "Output"]
-          [pcie.data.lane[12].RX.N | A69 | Right | "Output"]
-          [pcie.data.lane[13].TX.P | B70 | Left | "Input"]
-          [pcie.data.lane[13].TX.N | B71 | Left | "Input"]
-          [pcie.data.lane[13].RX.P | A72 | Right | "Output"]
-          [pcie.data.lane[13].RX.N | A73 | Right | "Output"]
-          [pcie.data.lane[14].TX.P | B74 | Left | "Input"]
-          [pcie.data.lane[14].TX.N | B75 | Left | "Input"]
-          [pcie.data.lane[14].RX.P | A76 | Right | "Output"]
-          [pcie.data.lane[14].RX.N | A77 | Right | "Output"]
-          [pcie.data.lane[15].TX.P | B78 | Left | "Input"]
-          [pcie.data.lane[15].TX.N | B79 | Left | "Input"]
-          [pcie.data.lane[15].RX.P | A80 | Right | "Output"]
-          [pcie.data.lane[15].RX.N | A81 | Right | "Output"]
-          [RSVD[0] | B82 | Right | "Passive"]
+          [RSVD[1] | A50 | Down]
+          [pcie.data.lane[8].TX.P | B50 | Right]
+          [pcie.data.lane[8].TX.N | B51 | Right]
+          [pcie.data.lane[8].RX.P | A52 | Left]
+          [pcie.data.lane[8].RX.N | A53 | Left]
+          [pcie.data.lane[9].TX.P | B54 | Right]
+          [pcie.data.lane[9].TX.N | B55 | Right]
+          [pcie.data.lane[9].RX.P | A56 | Left]
+          [pcie.data.lane[9].RX.N | A57 | Left]
+          [pcie.data.lane[10].TX.P | B58 | Right]
+          [pcie.data.lane[10].TX.N | B59 | Right]
+          [pcie.data.lane[10].RX.P | A60 | Left]
+          [pcie.data.lane[10].RX.N | A61 | Left]
+          [pcie.data.lane[11].TX.P | B62 | Right]
+          [pcie.data.lane[11].TX.N | B63 | Right]
+          [pcie.data.lane[11].RX.P | A64 | Left]
+          [pcie.data.lane[11].RX.N | A65 | Left]
+          [pcie.data.lane[12].TX.P | B66 | Right]
+          [pcie.data.lane[12].TX.N | B67 | Right]
+          [pcie.data.lane[12].RX.P | A68 | Left]
+          [pcie.data.lane[12].RX.N | A69 | Left]
+          [pcie.data.lane[13].TX.P | B70 | Right]
+          [pcie.data.lane[13].TX.N | B71 | Right]
+          [pcie.data.lane[13].RX.P | A72 | Left]
+          [pcie.data.lane[13].RX.N | A73 | Left]
+          [pcie.data.lane[14].TX.P | B74 | Right]
+          [pcie.data.lane[14].TX.N | B75 | Right]
+          [pcie.data.lane[14].RX.P | A76 | Left]
+          [pcie.data.lane[14].RX.N | A77 | Left]
+          [pcie.data.lane[15].TX.P | B78 | Right]
+          [pcie.data.lane[15].TX.N | B79 | Right]
+          [pcie.data.lane[15].RX.P | A80 | Left]
+          [pcie.data.lane[15].RX.N | A81 | Left]
+          [RSVD[0] | B82 | Down]
 
-  ; pin-properties :
-  ;   [pin:Ref | pads:Ref ... | side:Dir | electrical-type:String]
-  ;   [pcie.control.PRSNT# | A1 B81 | Left | "Passive"]
-  ;   [pcie.control.PERST# | A11 | Right | "Input"]
-  ;   [pcie.data.refclk.P | A13 | Left | "Input"]
-  ;   [pcie.data.refclk.N | A14 | Left | "Input"]
-  ;   [pcie.data.lane[0].RX.P | A16 | Right | "Output"]
-  ;   [pcie.data.lane[0].RX.N | A17 | Right | "Output"]
-  ;   [RSVD[5] | A19 | Right | "Passive"]
-  ;   [pcie.data.lane[1].RX.P | A21 | Right | "Output"]
-  ;   [pcie.data.lane[1].RX.N | A22 | Right | "Output"]
-  ;   [pcie.data.lane[2].RX.P | A25 | Right | "Output"]
-  ;   [pcie.data.lane[2].RX.N | A26 | Right | "Output"]
-  ;   [pcie.data.lane[3].RX.P | A29 | Right | "Output"]
-  ;   [pcie.data.lane[3].RX.N | A30 | Right | "Output"]
-  ;   [RSVD[4] | A32 | Right | "Passive"]
-  ;   [RSVD[2] | A33 | Right | "Passive"]
-  ;   [pcie.data.lane[4].RX.P | A35 | Right | "Output"]
-  ;   [pcie.data.lane[4].RX.N | A36 | Right | "Output"]
-  ;   [pcie.data.lane[5].RX.P | A39 | Right | "Output"]
-  ;   [pcie.data.lane[5].RX.N | A40 | Right | "Output"]
-  ;   [pcie.data.lane[6].RX.P | A43 | Right | "Output"]
-  ;   [pcie.data.lane[6].RX.N | A44 | Right | "Output"]
-  ;   [pcie.data.lane[7].RX.P | A47 | Right | "Output"]
-  ;   [pcie.data.lane[7].RX.N | A48 | Right | "Output"]
-  ;   [jtag.tck | A5 | Right | "Input"]
-  ;   [jtag.tdi | A6 | Right | "Input"]
-  ;   [jtag.tdo | A7 | Right | "Output"]
-  ;   [jtag.tms | A8 | Right | "Input"]
-  ;   [RSVD[1] | A50 | Right | "Passive"]
-  ;   [pcie.data.lane[8].RX.P | A52 | Right | "Output"]
-  ;   [pcie.data.lane[8].RX.N | A53 | Right | "Output"]
-  ;   [pcie.data.lane[9].RX.P | A56 | Right | "Output"]
-  ;   [pcie.data.lane[9].RX.N | A57 | Right | "Output"]
-  ;   [pcie.data.lane[10].RX.P | A60 | Right | "Output"]
-  ;   [pcie.data.lane[10].RX.N | A61 | Right | "Output"]
-  ;   [pcie.data.lane[11].RX.P | A64 | Right | "Output"]
-  ;   [pcie.data.lane[11].RX.N | A65 | Right | "Output"]
-  ;   [pcie.data.lane[12].RX.P | A68 | Right | "Output"]
-  ;   [pcie.data.lane[12].RX.N | A69 | Right | "Output"]
-  ;   [pcie.data.lane[13].RX.P | A72 | Right | "Output"]
-  ;   [pcie.data.lane[13].RX.N | A73 | Right | "Output"]
-  ;   [pcie.data.lane[14].RX.P | A76 | Right | "Output"]
-  ;   [pcie.data.lane[14].RX.N | A77 | Right | "Output"]
-  ;   [pcie.data.lane[15].RX.P | A80 | Right | "Output"]
-  ;   [pcie.data.lane[15].RX.N | A81 | Right | "Output"]
-  ;   [p+12V | B1 B2 B3 A3 A2 | Up | "PowerIn"]
-  ;   [p3_3Vaux | B10 | Up | "PowerIn"]
-  ;   [pcie.control.PEWAKE# | B11 | Right | "OpenCollector"]
-  ;   [pcie.control.CLKREQ# | B12 | Right | "Passive"]
-  ;   [pcie.data.lane[0].TX.P | B14 | Left | "Input"]
-  ;   [pcie.data.lane[0].TX.N | B15 | Left | "Input"]
-  ;   [pcie.data.lane[1].TX.P | B19 | Left | "Input"]
-  ;   [pcie.data.lane[1].TX.N | B20 | Left | "Input"]
-  ;   [pcie.data.lane[2].TX.P | B23 | Left | "Input"]
-  ;   [pcie.data.lane[2].TX.N | B24 | Left | "Input"]
-  ;   [pcie.data.lane[3].TX.P | B27 | Left | "Input"]
-  ;   [pcie.data.lane[3].TX.N | B28 | Left | "Input"]
-  ;   [RSVD[3] | B30 | Right | "Passive"]
-  ;   [pcie.data.lane[4].TX.P | B33 | Left | "Input"]
-  ;   [pcie.data.lane[4].TX.N | B34 | Left | "Input"]
-  ;   [pcie.data.lane[5].TX.P | B37 | Left | "Input"]
-  ;   [pcie.data.lane[5].TX.N | B38 | Left | "Input"]
-  ;   [GND | B4 B77 B76 B73 B72 B7 B69 B68 B65 B64 B61 B60 B57 B56 B53 B52 B49 B47 B44 B43 B40 B80 B39 B36 B35 B32 B29 B26 B25 B22 B21 B18 B16 B13 A82 A79 A78 A75 A74 A71 A70 A67 A66 A63 A62 A59 A58 A55 A54 A51 A49 A46 A45 A42 A41 A4 A38 A37 A34 A31 A28 A27 A24 A23 A20 A18 A15 A12 | Down | "PowerIn"]
-  ;   [pcie.data.lane[6].TX.P | B41 | Left | "Input"]
-  ;   [pcie.data.lane[6].TX.N | B42 | Left | "Input"]
-  ;   [pcie.data.lane[7].TX.P | B45 | Left | "Input"]
-  ;   [pcie.data.lane[7].TX.N | B46 | Left | "Input"]
-  ;   [smbus.smbclk | B5 | Left | "Input"]
-  ;   [smbus.smbdat | B6 | Left | "Bidirectional"]
-  ;   [pcie.data.lane[8].TX.P | B50 | Left | "Input"]
-  ;   [pcie.data.lane[8].TX.N | B51 | Left | "Input"]
-  ;   [pcie.data.lane[9].TX.P | B54 | Left | "Input"]
-  ;   [pcie.data.lane[9].TX.N | B55 | Left | "Input"]
-  ;   [pcie.data.lane[10].TX.P | B58 | Left | "Input"]
-  ;   [pcie.data.lane[10].TX.N | B59 | Left | "Input"]
-  ;   [pcie.data.lane[11].TX.P | B62 | Left | "Input"]
-  ;   [pcie.data.lane[11].TX.N | B63 | Left | "Input"]
-  ;   [pcie.data.lane[12].TX.P | B66 | Left | "Input"]
-  ;   [pcie.data.lane[12].TX.N | B67 | Left | "Input"]
-  ;   [pcie.data.lane[13].TX.P | B70 | Left | "Input"]
-  ;   [pcie.data.lane[13].TX.N | B71 | Left | "Input"]
-  ;   [pcie.data.lane[14].TX.P | B74 | Left | "Input"]
-  ;   [pcie.data.lane[14].TX.N | B75 | Left | "Input"]
-  ;   [pcie.data.lane[15].TX.P | B78 | Left | "Input"]
-  ;   [pcie.data.lane[15].TX.N | B79 | Left | "Input"]
-  ;   [p+3_3V | B8 A9 A10 | Up | "PowerIn"]
-  ;   [RSVD[0] | B82 | Right | "Passive"]
-  ;   [reset.reset | B9 | Right | "Input"]
-
+  
   assign-landpattern(LP-PCIe-Edge(width))
-  assign-symbol(SYM-PCIe-Edge(width))
+  ; assign-symbol(SYM-PCIe-Edge(width))
+  val box = BoxSymbol(self)
+  assign-symbol $ create-symbol(box)
 
   property(self.Value) = "PCIe Edge Connector"
 

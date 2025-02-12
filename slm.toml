@@ -2,4 +2,4 @@ name = "connectors"
 version = "0.4.2"
 [dependencies]
 diodes = { git = "JITx-Inc/diodes", version = "0.2.0" }
-jsl = { git = "JITx-Inc/jsl", version = "0.10.0" }
+jsl = { git = "JITx-Inc/jsl", version = "0.10.1" }
