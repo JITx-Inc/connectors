@@ -16,6 +16,12 @@ pcb-module test-design:
   inst PCIex4 : connectors/components/Edge-Conn-PCIe/component(PCIe-x4)
   inst PCIex8 : connectors/components/Edge-Conn-PCIe/component(PCIe-x8)
   inst PCIex16 : connectors/components/Edge-Conn-PCIe/component(PCIe-x16)
+  inst M2-2280-B : connectors/components/M2-2280-ADAPTER/module([connectors/components/M2-2280-ADAPTER/M2-B-TYPE])
+  inst M2-2280-M : connectors/components/M2-2280-ADAPTER/module([connectors/components/M2-2280-ADAPTER/M2-M-TYPE])
+
+  require pcie2 : pcie(2) from M2-2280-B
+  require pcie4 : pcie(4) from M2-2280-M
+
 val board-shape = RoundedRectangle(50.0, 50.0, 0.15)
 
 ; Set the top level module (the module to be compile into a schematic and PCB)
