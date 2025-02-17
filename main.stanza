@@ -8,11 +8,11 @@ defpackage connectors/main:
   import jsl
   import helper
 
-  import M2-2280-ADAPTER
+  import connectors/components/M2-2280-ADAPTER
 
 pcb-module connectors-test:
-  inst j : connectors/components/JD0-0001NL/connector
-  inst k : connectors/components/LSF-SMT/component(num-poles = 12)
+  inst eth : connectors/components/JD0-0001NL/connector
+  inst term : connectors/components/LSF-SMT/component(num-poles = 12)
   inst USB-C : connectors/components/USB/USBTypeC/device
   inst PCIex1 : connectors/components/Edge-Conn-PCIe/component(PCIe-x1)
   inst PCIex4 : connectors/components/Edge-Conn-PCIe/component(PCIe-x4)

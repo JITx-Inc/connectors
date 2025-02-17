@@ -206,13 +206,13 @@ public pcb-landpattern M2-2280-ADAPTER (key-type : Tuple<M2-KeyType|False>) :
 
    layer(CustomLayer("boardOutline", Top)) =
       if isIn?(M2-B-TYPE, key-type) and not isIn?(M2-M-TYPE, key-type) :
-        board-shape-B
+        M2-board-shape-B
       else if isIn?( M2-M-TYPE, key-type) and not isIn?(M2-B-TYPE, key-type) :
-        board-shape-M
+        M2-board-shape-M
       else if isIn?(M2-B-TYPE, key-type) and isIn?(M2-M-TYPE, key-type) :
-        board-shape-B-M
+        M2-board-shape-B-M
       else :
-        default-board-shape
+        M2-default-board-shape
 
 
 public pcb-component component (key-type : Tuple<M2-KeyType|False>) :
@@ -274,7 +274,7 @@ public pcb-module module (key-type : Tuple<M2-KeyType|False>) :
         SATA.lane.RX.N => edge-conn.p[41]
         SATA.lane.TX.P => edge-conn.p[49]
         SATA.lane.TX.N => edge-conn.p[47]
-  else if isIn?( M2-M-TYPE, key-type) :
+  else if isIn?(M2-M-TYPE, key-type) and not isIn?(M2-B-TYPE, key-type) :
     ; PCIe x4 / SATA
     supports pcie(4) :
       pcie(4).control.PEWAKE#   => edge-conn.p[54]
@@ -298,6 +298,33 @@ public pcb-module module (key-type : Tuple<M2-KeyType|False>) :
       pcie(4).data.lane[3].RX.N => edge-conn.p[11]
       pcie(4).data.lane[3].TX.P => edge-conn.p[7]
       pcie(4).data.lane[3].TX.N => edge-conn.p[5]
+    supports SATA :
+      option :
+        SATA.lane.RX.P => edge-conn.p[49]
+        SATA.lane.RX.N => edge-conn.p[47]
+        SATA.lane.TX.P => edge-conn.p[43]
+        SATA.lane.TX.N => edge-conn.p[41]
+      option :
+        SATA.lane.RX.P => edge-conn.p[43]
+        SATA.lane.RX.N => edge-conn.p[41]
+        SATA.lane.TX.P => edge-conn.p[49]
+        SATA.lane.TX.N => edge-conn.p[47]
+  else : ; B and M
+    ; only support SATA and pcie(2) then?
+    supports pcie(2) :
+      pcie(2).control.PEWAKE#   => edge-conn.p[54]
+      pcie(2).control.CLKREQ#   => edge-conn.p[52]
+      pcie(2).control.PERST#    => edge-conn.p[50]
+      pcie(2).data.refclk.P     => edge-conn.p[55]
+      pcie(2).data.refclk.N     => edge-conn.p[53]
+      pcie(2).data.lane[0].RX.P => edge-conn.p[49]
+      pcie(2).data.lane[0].RX.N => edge-conn.p[47]
+      pcie(2).data.lane[0].TX.P => edge-conn.p[43]
+      pcie(2).data.lane[0].TX.N => edge-conn.p[41]
+      pcie(2).data.lane[1].RX.P => edge-conn.p[37]
+      pcie(2).data.lane[1].RX.N => edge-conn.p[35]
+      pcie(2).data.lane[1].TX.P => edge-conn.p[31]
+      pcie(2).data.lane[1].TX.N => edge-conn.p[29]
     supports SATA :
       option :
         SATA.lane.RX.P => edge-conn.p[49]
