@@ -97,7 +97,7 @@ inst pcie-edge : connectors/components/PCIe/Edge-Conn-PCIe(PCIe-x16) ; for a x16
 
 # M.2 Edge Connector
 ## M2-2280-ADAPTER Module
-This is a parameterized edge connector for a 2280 M.2 edge connector which is configurable with support for B or M type connectors. The connector supports the PCIe (https://docs.jitx.com/reference/jsl/protocols/pcie.html) or SATA (https://docs.jitx.com/reference/jsl/protocols/sata.html) protocol. The user is expected to instantiate this connector with an argument defining the connector type. Options for the type are:
+This is a parameterized edge connector for a 2280 M.2 edge connector which is configurable with support for B and/or M type connectors (at present). The connector supports the PCIe (https://docs.jitx.com/reference/jsl/protocols/pcie.html) or SATA (https://docs.jitx.com/reference/jsl/protocols/sata.html) protocol. The user is expected to instantiate this connector with an argument defining the connector type. Options for the type are (including the no key option first):
 ```
 []
 [M2-B-TYPE]
@@ -111,26 +111,30 @@ inst m2-2280-adapter : connectors/components/M2-2280-ADAPTER/module([M2-B-TYPE])
 ```
   port vdd3v3 : power
 ```
-## Supported Protocols 
-To enable the use of a specific protocol, the user must instantiate the connector with the appropriate type. Note that the SATA protocol and pcie(x) protocols are mutually exclusive. The following protocols are supported:
+This port definition enables connectivity to 3.3V power as defined by the interface standard.
+## Supported Protocols
+Once instantiated, the connector will be available with the appropriate protocol enabled for the user to access.
+To enable the use of a specific protocol, the user must instantiate the connector with the appropriate type (for instance, instantiating a B-type connector allows either `SATA` or `pcie(2)`) to be used. Note that the SATA protocol and pcie(x) protocols are mutually exclusive. The following protocols are supported:
 ### Supports
 ```
   pcie(2)
   pcie(4)
   SATA
 ```
-In order to use one of these protocols, the user should utilize a `require` statement like one of the following (mutually exclusive):
+In order to use one of these protocols, the user should utilize a `require` statement like one of the following (all are mutually exclusive):
 ```
   require sata : SATA from m2-2280-adapter
   require pcie : pcie(2) from m2-2280-adapter
   require pcie : pcie(4) from m2-2280-adapter
 ```
 ## Board Outline
-The M.2 form factor supported in this library is the 2280 size. The geometric outline of the connector is available in the following variables:
+The M.2 form factor supported in this library is the 2280 form factor (22.0 mm x 80.0 mm). The geometric outline of the connector with key positions is defined in the following variables:
 ```
 board-shape-B
 board-shape-M
 board-shape-B-M
 ```
-The user can use these variables to create a custom board outline for their application. Note that there is a grounded mounting hole at the center end of the board as well. Use the PTH mounting hole from the mechanical repo (https://github.com/JITx-Inc/mechanical) to create this mounting hole at the location `loc(0.0, 80.000)`.
+The user can use these variables to create a custom board outline for their application. Note that there is a grounded mounting hole at the center top of the board as well. Use the PTH mounting hole from the mechanical repo (https://github.com/JITx-Inc/mechanical) to create this mounting hole at the location `loc(0.0, 80.000)`.
+
+
 
