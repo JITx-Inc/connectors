@@ -130,11 +130,18 @@ In order to use one of these protocols, the user should utilize a `require` stat
 ## Board Outline
 The M.2 form factor supported in this library is the 2280 form factor (22.0 mm x 80.0 mm). The geometric outline of the connector with key positions is defined in the following variables:
 ```
-board-shape-B
-board-shape-M
-board-shape-B-M
+M2-default-board-shape
+M2-board-shape-B
+M2-board-shape-M
+M2-board-shape-B-M
 ```
-The user can use these variables to create a custom board outline for their application. Note that there is a grounded mounting hole at the center top of the board as well. Use the PTH mounting hole from the mechanical repo (https://github.com/JITx-Inc/mechanical) to create this mounting hole at the location `loc(0.0, 80.000)`.
+The user can use these variables to create a custom board outline for their application.
+```
+; define the board with both a B and M key
+val board-shape = M2-board-shape-B-M
+set-board(an-example-board(board-shape))
+```
+Note that there is a grounded mounting hole at the center top of the board as well. Use the PTH mounting hole from the mechanical repo (https://github.com/JITx-Inc/mechanical) to create this mounting hole at the location `loc(0.0, 80.000)`.
 
 
 

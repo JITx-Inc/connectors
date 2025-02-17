@@ -6,7 +6,7 @@ defpackage connectors/components/M2-2280-ADAPTER :
   import jsl
 
 
-val default-board-shape = PolygonWithArcs([
+public val M2-default-board-shape = PolygonWithArcs([
   Point(-9.750, 0.0)
   Arc(-9.750, 0.200, 0.200, 270.000, -90.000)
   Point(-9.950, 0.200)
@@ -38,7 +38,7 @@ val default-board-shape = PolygonWithArcs([
 ; for instance, the type-B connector has a different outline than the type-M connector
 ; so we will list the two most common board shapes here
 ; that geometry looks like the following:
-val board-shape-B = PolygonWithArcs([
+public val M2-board-shape-B = PolygonWithArcs([
   Point(-9.750, 0.0)
   Arc(-9.750, 0.200, 0.200, 270.000, -90.000)
   Point(-9.950, 0.200)
@@ -71,7 +71,7 @@ val board-shape-B = PolygonWithArcs([
   Point(-9.750, 0.0)
 ])
 
-val board-shape-M = PolygonWithArcs([
+public val M2-board-shape-M = PolygonWithArcs([
   Point(-9.750, 0.0)
   Arc(-9.750, 0.200, 0.200, 270.000, -90.000)
   Point(-9.950, 0.200)
@@ -104,7 +104,7 @@ val board-shape-M = PolygonWithArcs([
   Point(-9.750, 0.0)
 ])
 
-val board-shape-B-M = PolygonWithArcs([
+public val M2-board-shape-B-M = PolygonWithArcs([
   Point(-9.750, 0.0)
   Arc(-9.750, 0.200, 0.200, 270.000, -90.000)
   Point(-9.950, 0.200)
