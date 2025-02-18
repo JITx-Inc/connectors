@@ -141,7 +141,16 @@ The user can use these variables to create a custom board outline for their appl
 val board-shape = M2-board-shape-B-M
 set-board(an-example-board(board-shape))
 ```
-Note that there is a grounded mounting hole at the center top of the board as well. Use the PTH mounting hole from the mechanical repo (https://github.com/JITx-Inc/mechanical) to create this mounting hole at the location `loc(0.0, 80.000)`.
+Note that there is a grounded mounting hole at the center top of the board as well. Use the PTH mounting hole from the mechanical repo (https://github.com/JITx-Inc/mechanical) to create this mounting hole.
 
-
+```
+  inst G1 : pth-mounting-hole(
+    PlatedHole(
+      hole = Circle(1.750),
+      copper = Circle(2.750)
+      mask = 0.2,
+    ))
+  place(G1) at loc(0.0, 80.0) on Top
+  net (G1.p[1] GND)
+```
 

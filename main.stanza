@@ -7,10 +7,11 @@ defpackage connectors/main:
 
   import jsl
   import helper
-
+  import mechanical
   import connectors/components/M2-2280-ADAPTER
 
 pcb-module connectors-test:
+  net GND ()
   inst eth : connectors/components/JD0-0001NL/connector
   inst term : connectors/components/LSF-SMT/component(num-poles = 12)
   inst USB-C : connectors/components/USB/USBTypeC/device
@@ -26,6 +27,14 @@ pcb-module connectors-test:
   require pcie4 : pcie(4) from M2-2280-M
   require SATA : SATA from M2-2280-BM
 
+  inst G1 : pth-mounting-hole(
+      PlatedHole(
+        hole = Circle(1.750),
+        copper = Circle(2.750)
+        mask = 0.2,
+      ))
+  place(G1) at loc(0.0, 80.0) on Top
+  net (G1.p[1] GND)
 doc: \<DOC>
 @brief Simple board shape
 This variable defines a shape for a board.
