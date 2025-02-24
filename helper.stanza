@@ -87,12 +87,6 @@ public pcb-via gen-via (via-start:LayerIndex via-stop:LayerIndex via-name:String
   hole-diameter = 0.150
   type = MechanicalDrill
 
-doc: \<DOC>
-@brief Simple board shape
-This variable defines a shape for a board.
-<DOC>
-; Define the shape/size of the board
-public val board-shape = RoundedRectangle(50.0, 30.0, 0.25)
 public val default-TH = gen-via(LayerIndex(0,Top), LayerIndex(0,Bottom) "th") ; Signal
 doc: \<DOC>
 @brief Simple board definition function
@@ -111,6 +105,6 @@ This function call sets up a board for a design by creating a board with a shape
 <DOC>
 
 ; Setup the board
-public defn setup-board () :
+public defn setup-board (board-shape:Shape) :
   set-board(an-example-board(board-shape))
   set-rules(example-board-rules)

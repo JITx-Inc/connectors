@@ -7,22 +7,46 @@ defpackage connectors/main:
 
   import jsl
   import helper
+  import mechanical
+  import connectors/components/M2-2280-ADAPTER
 
-pcb-module test-design:
-  inst j : connectors/components/JD0-0001NL/connector
-  inst k : connectors/components/LSF-SMT/component(num-poles = 12)
+pcb-module connectors-test:
+  net GND ()
+  inst eth : connectors/components/JD0-0001NL/connector
+  inst term : connectors/components/LSF-SMT/component(num-poles = 12)
   inst USB-C : connectors/components/USB/USBTypeC/device
   inst PCIex1 : connectors/components/Edge-Conn-PCIe/component(PCIe-x1)
   inst PCIex4 : connectors/components/Edge-Conn-PCIe/component(PCIe-x4)
   inst PCIex8 : connectors/components/Edge-Conn-PCIe/component(PCIe-x8)
   inst PCIex16 : connectors/components/Edge-Conn-PCIe/component(PCIe-x16)
-val board-shape = RoundedRectangle(50.0, 50.0, 0.15)
+  inst M2-2280-B : connectors/components/M2-2280-ADAPTER/module([M2-B-TYPE])
+  inst M2-2280-M : connectors/components/M2-2280-ADAPTER/module([M2-M-TYPE])
+  inst M2-2280-BM : connectors/components/M2-2280-ADAPTER/module([M2-B-TYPE M2-M-TYPE])
+
+  require pcie2 : pcie(2) from M2-2280-B
+  require pcie4 : pcie(4) from M2-2280-M
+  require SATA : SATA from M2-2280-BM
+
+  inst G1 : pth-mounting-hole(
+      PlatedHole(
+        hole = Circle(1.750),
+        copper = Circle(2.750)
+        mask = 0.2,
+      ))
+  place(G1) at loc(0.0, 80.0) on Top
+  net (G1.p[1] GND)
+doc: \<DOC>
+@brief Simple board shape
+This variable defines a shape for a board.
+<DOC>
+; Define the shape/size of the board
+val board-shape = M2-board-shape-B-M ;; RoundedRectangle(50.0, 50.0, 0.15)
 
 ; Set the top level module (the module to be compile into a schematic and PCB)
 set-current-design("Connectors-test-all")
 
-setup-board()
-set-main-module(test-design)
+setup-board(board-shape)
+set-main-module(connectors-test)
 
 ; View the schematic and board
 view-schematic()
