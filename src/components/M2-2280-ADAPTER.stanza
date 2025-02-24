@@ -149,14 +149,6 @@ public pcb-enum connectors/components/M2-2280-ADAPTER/M2-KeyType :
   M2-E-TYPE
   M2-M-TYPE
 
-pcb-pad circle-th-pad :
-  type = TH
-  shape = Circle(2.750)
-  ; jsl/landpatterns/pads/make-soldermask(0.1016)
-  layer(SolderMask(Top)) = Circle(2.750)
-  layer(SolderMask(Bottom)) = Circle(2.750)
-  layer(Cutout()) = Circle(1.750)
-
 ; pins to skip when creating the land pattern for the M.2 edge connector
 ; these missing pins are determined by the M.2 connector type
 val skip-A = ( 8 through 15)
@@ -188,7 +180,6 @@ defn isIn? (item : M2-KeyType, key-type : Tuple<M2-KeyType|False>) :
   isin
 
 public pcb-landpattern M2-2280-ADAPTER (key-type : Tuple<M2-KeyType|False>) :
-;   pad MOUNTING-HOLE : circle-th-pad at loc(0.0, 80.000) on Top
   val start-x-top = 9.250
   val pitch-x = 0.250
   val y-val = 1.250
